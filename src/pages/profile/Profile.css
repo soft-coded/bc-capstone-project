@@ -1,0 +1,10 @@
+/* .MuiTypography-h5 {
+	align: center;
+} */
+.profilePaper {
+	background-color: rgb(238, 228, 247);
+}
+.submit-btn {
+	max-width: 25rem;
+	/* justifycontent: "center"; */
+}
