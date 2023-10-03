@@ -12,15 +12,17 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { useTheme } from "@mui/material";
 
-const pages = ["Products", "Pricing", "Blog"];
+import logo from "../../assets/navbar/logo.svg";
+
+const pages = ["Home", "Converter", "About Us", "Contact Us"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function ResponsiveAppBar() {
-	const [anchorElNav, setAnchorElNav] =
-		(React.useState < null) | (HTMLElement > null);
-	const [anchorElUser, setAnchorElUser] =
-		(React.useState < null) | (HTMLElement > null);
+	const theme = useTheme();
+	const [anchorElNav, setAnchorElNav] = React.useState(null);
+	const [anchorElUser, setAnchorElUser] = React.useState(null);
 
 	const handleOpenNavMenu = (event) => {
 		setAnchorElNav(event.currentTarget);
@@ -38,28 +40,26 @@ function ResponsiveAppBar() {
 	};
 
 	return (
-		<AppBar position="static">
-			<Container maxWidth="xl">
+		<AppBar
+			position="fixed"
+			sx={{
+				background: "rgba(0,0,0,0)",
+				color: theme.palette.text.primary,
+				boxShadow: "none",
+				top: 10,
+			}}
+		>
+			<Container
+				maxWidth="lg"
+				sx={{
+					backdropFilter: "blur(5px)",
+					borderRadius: theme.shape.borderRadius,
+				}}
+			>
 				<Toolbar disableGutters>
-					<AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-					<Typography
-						variant="h6"
-						noWrap
-						component="a"
-						href="#app-bar-with-responsive-menu"
-						sx={{
-							mr: 2,
-							display: { xs: "none", md: "flex" },
-							fontFamily: "monospace",
-							fontWeight: 700,
-							letterSpacing: ".3rem",
-							color: "inherit",
-							textDecoration: "none",
-						}}
-					>
-						LOGO
-					</Typography>
-
+					<Box sx={{ height: 55 }}>
+						<img src={logo} alt="logo" />
+					</Box>
 					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
 						<IconButton
 							size="large"
