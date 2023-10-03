@@ -22,7 +22,6 @@ export default function WithNavAndFooter({
 			) : (
 				children
 			)}
-
 			<Footer />
 		</Box>
 	);
