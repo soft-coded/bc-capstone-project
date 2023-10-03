@@ -1,13 +1,12 @@
-import { Typography, Button } from "@mui/material";
+import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
 function App() {
 	return (
-		<>
-			<Typography variant="h2">Hello world</Typography>
-			<Button variant="contained">Click me</Button>
-		</>
+		<Routes>
+			<Route path="/" element={<></>} />
+		</Routes>
 	);
 }
 
