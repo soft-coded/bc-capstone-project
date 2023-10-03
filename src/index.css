@@ -26,4 +26,5 @@ video {
 	object-fit: cover;
 	object-position: center;
 	height: 100%;
+	overflow: hidden;
 }

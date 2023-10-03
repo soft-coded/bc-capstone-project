@@ -25,7 +25,7 @@ const theme = createTheme({
 		},
 	},
 	shape: {
-		borderRadius: 9999, // very large border radius to give the rounded look we want
+		borderRadius: 60,
 	},
 	typography: {
 		fontFamily: '"Jost", sans-serif',
