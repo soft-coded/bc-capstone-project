@@ -5,10 +5,10 @@ import DashboardSidebar from "./DashboardSidebar";
 
 export default function Dashboard() {
 	return (
-		<WithNavAndFooter>
-			<Box>
+		<WithNavAndFooter useContainer={false}>
+			<Box display="flex">
 				<DashboardSidebar />
-				Dashboard
+				<Box>Dashboard</Box>
 			</Box>
 		</WithNavAndFooter>
 	);

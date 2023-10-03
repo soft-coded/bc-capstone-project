@@ -3,7 +3,11 @@ import { Container, Box } from "@mui/material";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
 
-export default function WithNavAndFooter({ children, wrapperClass }) {
+export default function WithNavAndFooter({
+	children,
+	wrapperClass,
+	useContainer = true,
+}) {
 	return (
 		<Box
 			className={wrapperClass ?? ""}
@@ -11,9 +15,14 @@ export default function WithNavAndFooter({ children, wrapperClass }) {
 		>
 			<Navbar />
 			<Box className="nav-spacer" height={80} />
-			<Container maxWidth="lg" sx={{ flexGrow: 1 }}>
-				{children}
-			</Container>
+			{useContainer ? (
+				<Container maxWidth="lg" sx={{ flexGrow: 1 }}>
+					{children}
+				</Container>
+			) : (
+				children
+			)}
+
 			<Footer />
 		</Box>
 	);

@@ -74,17 +74,19 @@ export default function DashboardSidebar() {
 				sx={{
 					display: "flex",
 					alignItems: "center",
-					position: "fixed",
-					top: 80,
-					left: 0,
+					// position: "fixed",
+					// top: 80,
+					// left: 0,
 					background: `url(${sidebarBg})`,
 					backgroundRepeat: "no-repeat",
 					backgroundPosition: "center",
 					backgroundSize: "cover",
 					borderRadius: "0 60px 60px 0",
 					zIndex: 1,
+					marginBottom: 3,
 					...SIDEBAR_DIMENSIONS,
 				}}
+				className="dashboard-sidebar"
 			>
 				<Box
 					sx={{
@@ -116,10 +118,15 @@ export default function DashboardSidebar() {
 					</Grid>
 				</Box>
 			</Box>
-			<Box
+			{/* <Box
 				className="sidebar-spacer"
-				sx={{ ...SIDEBAR_DIMENSIONS, marginBottom: 3 }}
-			></Box>
+				sx={{
+					...SIDEBAR_DIMENSIONS,
+					marginBottom: 3,
+					position: "relative",
+					left: -20,
+				}}
+			></Box> */}
 		</>
 	);
 }
