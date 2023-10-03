@@ -37,6 +37,15 @@ const theme = createTheme({
 			textTransform: "none",
 		},
 	},
+	components: {
+		MuiPaper: {
+			styleOverrides: {
+				root: {
+					borderRadius: 20,
+				},
+			},
+		},
+	},
 });
 
 export default responsiveFontSizes(theme);

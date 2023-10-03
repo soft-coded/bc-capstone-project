@@ -19,3 +19,11 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 		monospace;
 }
+
+img,
+svg,
+video {
+	object-fit: cover;
+	object-position: center;
+	height: 100%;
+}
