@@ -1,6 +1,6 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
-export default createTheme({
+const theme = createTheme({
 	palette: {
 		primary: {
 			main: "#401664",
@@ -26,4 +26,16 @@ export default createTheme({
 	shape: {
 		borderRadius: 9999, // very large border radius to give the rounded look we want
 	},
+	typography: {
+		fontFamily: '"Jost", sans-serif',
+		fontWeightLight: 300,
+		fontWeightRegular: 400,
+		fontWeightMedium: 500,
+		fontWeightBold: 700,
+		button: {
+			textTransform: "none",
+		},
+	},
 });
+
+export default responsiveFontSizes(theme);
