@@ -16,13 +16,13 @@ const theme = createTheme({
 			200: "#ED737D",
 			800: "#710F17",
 		},
-		background: {
-			default: "#FFFFFF",
-		},
-		text: {
-			primary: "#000000",
-			secondary: "#FFFFFF",
-		},
+		// background: {
+		// 	default: "#FFFFFF",
+		// },
+		// text: {
+		// 	primary: "#000000",
+		// 	secondary: "#FFFFFF",
+		// },
 	},
 	shape: {
 		borderRadius: 60,
