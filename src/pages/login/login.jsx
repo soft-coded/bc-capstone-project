@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Money from '../../assets/register/Money.png';
+import wallet from '../../assets/login/wallet.png';
 import {
   Container,
   Grid,
@@ -84,7 +84,7 @@ const LoginPage = () => {
         {/* Left Column */}
         <Grid item xs={12} md={6}>
           <Paper elevation={3} style={{ ...styles.fullHeight, padding: '2rem', background: '#A05CDB4D', color: '#fff' }}>
-            <img src={Money} alt="Money" style={{ maxWidth: '90%', height: 'auto', width: 'auto', marginTop: '1rem' }} />
+            <img src={wallet} alt="Money" style={{ maxWidth: '50%', height: 'auto', width: 'auto', marginTop: '3rem', marginLeft:'6rem'}} />
           </Paper>
         </Grid>
 
