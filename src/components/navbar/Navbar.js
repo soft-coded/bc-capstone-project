@@ -31,7 +31,7 @@ function ResponsiveAppBar() {
 		<AppBar
 			position="fixed"
 			sx={{
-				background: "rgba(0,0,0,0)",
+				background: "rgba(255,255,255,0.5)",
 				color: theme.palette.text.primary,
 				boxShadow: "none",
 				top: 10,

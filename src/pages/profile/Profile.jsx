@@ -2,17 +2,8 @@
 import React, { useState } from "react";
 import "./Profile.css";
 // import ResponsiveAppBar from "../../components/navbar/Navbar";
-import {
-	Avatar,
-	Button,
-	Container,
-	CssBaseline,
-	TextField,
-	Typography,
-	Grid,
-	Paper,
-} from "@mui/material";
-import { color } from "@mui/system";
+import { Avatar, Button, TextField, Typography, Grid } from "@mui/material";
+import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 
 const EditProfile = () => {
 	// State to store user profile data
@@ -45,7 +36,7 @@ const EditProfile = () => {
 	};
 
 	return (
-		<Container component="main" className="profileMain">
+		<WithNavAndFooter>
 			{/* <CssBaseline /> */}
 			<div
 				style={{ padding: "20px", marginTop: "20px" }}
@@ -120,22 +111,22 @@ const EditProfile = () => {
 							/>
 						</Grid>
 					</Grid>
-                    <Grid item xs={12} textAlign='center'>
-					<Button
-						type="submit"
-						variant="contained"
-						color="primary"
-						fullWidth
-						// size="medium"
-						style={{ marginTop: "20px" }}
-						className="submit-btn"
-					>
-						Save Changes
-					</Button>
-                    </Grid>
+					<Grid item xs={12} textAlign="center">
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							fullWidth
+							// size="medium"
+							style={{ marginTop: "20px" }}
+							className="submit-btn"
+						>
+							Save Changes
+						</Button>
+					</Grid>
 				</form>
 			</div>
-		</Container>
+		</WithNavAndFooter>
 	);
 };
 
