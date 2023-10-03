@@ -31,7 +31,7 @@ function ResponsiveAppBar() {
 		<AppBar
 			position="fixed"
 			sx={{
-				background: "rgba(255,255,255,0.5)",
+				background: "rgba(0,0,0,0)",
 				color: theme.palette.text.primary,
 				boxShadow: "none",
 				top: 10,
@@ -42,6 +42,7 @@ function ResponsiveAppBar() {
 				sx={{
 					backdropFilter: "blur(5px)",
 					borderRadius: theme.shape.borderRadius,
+					background: "rgba(255,255,255,0.5)",
 				}}
 			>
 				<Toolbar disableGutters>
