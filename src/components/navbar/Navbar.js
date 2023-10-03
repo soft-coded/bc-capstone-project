@@ -45,7 +45,7 @@ function ResponsiveAppBar() {
 				}}
 			>
 				<Toolbar disableGutters>
-					<Box sx={{ height: 55, display: { xs: "none", md: "flex" } }}>
+					<Box sx={{ height: 50, display: { xs: "none", md: "flex" } }}>
 						<img src={logo} alt="logo" />
 					</Box>
 					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
