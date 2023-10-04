@@ -39,3 +39,8 @@
 .accounts-page img {
 	height: 26px;
 }
+
+.deposit-page input {
+	background-color: #fff;
+	border-radius: 30px;
+}

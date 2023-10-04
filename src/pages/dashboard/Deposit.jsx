@@ -40,7 +40,12 @@ function DepositForm() {
 								<FormLabel htmlFor="account" sx={{ marginLeft: 2 }}>
 									Account
 								</FormLabel>
-								<Select fullWidth id="account" name="account">
+								<Select
+									fullWidth
+									id="account"
+									name="account"
+									sx={{ backgroundColor: "#fff" }}
+								>
 									<MenuItem>1234</MenuItem>
 									<MenuItem>5678</MenuItem>
 									<MenuItem>9012</MenuItem>
@@ -69,7 +74,12 @@ function DepositForm() {
 								<FormLabel htmlFor="currency" sx={{ marginLeft: 2 }}>
 									Currency
 								</FormLabel>
-								<Select fullWidth id="currency" name="currency">
+								<Select
+									fullWidth
+									id="currency"
+									name="currency"
+									sx={{ backgroundColor: "#fff" }}
+								>
 									<MenuItem>INR</MenuItem>
 									<MenuItem>EUR</MenuItem>
 									<MenuItem>USD</MenuItem>
