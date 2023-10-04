@@ -35,6 +35,30 @@ const dummyData = [
 		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
 		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
 	},
+	{
+		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
+		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
+	},
+	{
+		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
+		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
+	},
+	{
+		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
+		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
+	},
+	{
+		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
+		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
+	},
+	{
+		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
+		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
+	},
+	{
+		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
+		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
+	},
 ];
 
 function TransactionsTable() {

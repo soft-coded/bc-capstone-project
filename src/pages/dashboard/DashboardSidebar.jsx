@@ -75,9 +75,8 @@ export default function DashboardSidebar() {
 				sx={{
 					display: "flex",
 					alignItems: "center",
-					// position: "fixed",
-					// top: 80,
-					// left: 0,
+					position: "sticky",
+					top: "80px",
 					background: `url(${sidebarBg})`,
 					backgroundRepeat: "no-repeat",
 					backgroundPosition: "center",
