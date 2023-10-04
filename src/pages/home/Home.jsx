@@ -1,7 +1,7 @@
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 import { Typography, Grid, Box } from "@mui/material";
 import "./Home.css";
-import money from "../../assets/home/money.svg";
+import CashnCoins from "../../assets/home/CashnCoins.svg";
 
 const BOX_DIMENSIONS = {
 	width: "100%",
@@ -61,16 +61,18 @@ export default function Home() {
 						item
 						sx={{
 							align: "right",
-							marginRight: 10,
-							marginTop: 10,
+							marginRight: 5,
+							marginTop: 20,
+							// marginBottom: 0,
 						}}
 					>
 						<img
-							src={money}
+							src={CashnCoins}
 							alt="money"
 							align="right"
-							width={220}
-							height={220}
+							width={300}
+							height={300}
+
 						/>
 					</Grid>
 				</Grid>
