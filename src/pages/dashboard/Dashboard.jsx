@@ -13,8 +13,8 @@ export default function Dashboard() {
 			<Grid display="flex">
 				<DashboardSidebar />
 				{/* <Transactions /> */}
-				<Accounts />
-				{/* <Deposit /> */}
+				{/* <Accounts /> */}
+				<Deposit />
 			</Grid>
 		</WithNavAndFooter>
 	);
