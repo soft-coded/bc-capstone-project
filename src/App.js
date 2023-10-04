@@ -7,6 +7,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import RegistrationPage from "./pages/register/register";
 import LoginPage from "./pages/login/login";
 import Aboutus from "./pages/aboutus/aboutus";
+import Transfer from "./pages/transfer/transfer";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 			<Route path="/login" element={<LoginPage />} />
 			<Route path="/addaccount" element={<AddAccount />} />
 			<Route path="/aboutus" element={<Aboutus />} />
+			<Route path="/transfer" element={<Transfer />} />
 		</Routes>
 		
 	);
