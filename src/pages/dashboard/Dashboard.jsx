@@ -1,15 +1,17 @@
-import { Box } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 import DashboardSidebar from "./DashboardSidebar";
+import Transactions from "./Transactions";
+import "./dashboard.css";
 
 export default function Dashboard() {
 	return (
 		<WithNavAndFooter useContainer={false}>
-			<Box display="flex">
+			<Grid display="flex">
 				<DashboardSidebar />
-				<Box>Dashboard</Box>
-			</Box>
+				<Transactions />
+			</Grid>
 		</WithNavAndFooter>
 	);
 }

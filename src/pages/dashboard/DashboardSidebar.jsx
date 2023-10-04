@@ -7,8 +7,9 @@ import accountsIcon from "../../assets/dashboard/accounts.svg";
 import depositIcon from "../../assets/dashboard/deposit.svg";
 import contactIcon from "../../assets/dashboard/contact.svg";
 
-const SIDEBAR_DIMENSIONS = {
-	width: "400px",
+export const SIDEBAR_DIMENSIONS = {
+	minWidth: "350px",
+	width: "350px",
 	height: "83vh",
 };
 
