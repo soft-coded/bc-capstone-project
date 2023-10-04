@@ -44,63 +44,83 @@ function TransactionsTable() {
 				<TableHead>
 					<TableRow className="table-row">
 						<TableCell className="table-cell purple-bottom-border" rowSpan={2}>
-							#
+							<Typography variant="h6">#</Typography>
 						</TableCell>
 						<TableCell
 							className="table-cell purple-left-border purple-bottom-border sender"
 							colSpan={3}
 						>
-							Sender
+							<Typography variant="h6">Sender</Typography>
 						</TableCell>
 						<TableCell
 							className="table-cell red-left-border red-bottom-border receiver"
 							colSpan={3}
 						>
-							Receiver
+							<Typography variant="h6">Receiver</Typography>
 						</TableCell>
 					</TableRow>
 					<TableRow className="table-row">
 						<TableCell className="table-cell purple-left-border purple-bottom-border sender">
-							Amount
+							<Typography variant="body1" fontWeight={500}>
+								Amount
+							</Typography>
 						</TableCell>
 						<TableCell className="table-cell purple-bottom-border sender">
-							Currency
+							<Typography variant="body1" fontWeight={500}>
+								Currency
+							</Typography>
 						</TableCell>
 						<TableCell className="table-cell purple-bottom-border sender">
-							Account number
+							<Typography variant="body1" fontWeight={500}>
+								Account number
+							</Typography>
 						</TableCell>
 						<TableCell className="table-cell red-left-border red-bottom-border receiver">
-							Amount
+							<Typography variant="body1" fontWeight={500}>
+								Amount
+							</Typography>
 						</TableCell>
 						<TableCell className="table-cell red-bottom-border receiver">
-							Currency
+							<Typography variant="body1" fontWeight={500}>
+								Currency
+							</Typography>
 						</TableCell>
 						<TableCell className="table-cell red-bottom-border receiver">
-							Account number
+							<Typography variant="body1" fontWeight={500}>
+								Account number
+							</Typography>
 						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
 					{dummyData.map((data, i) => (
 						<TableRow key={i} className="table-row table-body-row">
-							<TableCell className="table-cell">{i + 1}</TableCell>
-							<TableCell className="table-cell sender">
-								{data.sender.amount}
+							<TableCell className="table-cell">
+								<Typography variant="body1">{i + 1}</Typography>
 							</TableCell>
 							<TableCell className="table-cell sender">
-								{data.sender.currency}
+								<Typography variant="body1">{data.sender.amount}</Typography>
 							</TableCell>
 							<TableCell className="table-cell sender">
-								{data.sender.accountNumber}
+								<Typography variant="body1">{data.sender.currency}</Typography>
+							</TableCell>
+							<TableCell className="table-cell sender">
+								<Typography variant="body1">
+									{data.sender.accountNumber}
+								</Typography>
 							</TableCell>
 							<TableCell className="table-cell receiver">
-								{data.receiver.amount}
+								<Typography variant="body1">{data.receiver.amount}</Typography>
 							</TableCell>
 							<TableCell className="table-cell receiver">
-								{data.receiver.currency}
+								<Typography variant="body1">
+									{data.receiver.currency}
+								</Typography>
 							</TableCell>
 							<TableCell className="table-cell receiver">
-								{data.receiver.accountNumber}
+								<Typography variant="body1">
+									{data.receiver.accountNumber}
+								</Typography>
 							</TableCell>
 						</TableRow>
 					))}
