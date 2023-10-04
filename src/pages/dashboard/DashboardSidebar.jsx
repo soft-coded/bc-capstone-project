@@ -60,7 +60,7 @@ function SidebarLink({ label, icon, to, height }) {
 			<Box width={34} height={height} marginRight={1}>
 				<img src={icon} alt={label} />
 			</Box>
-			<Typography variant="h6" color="text.secondary">
+			<Typography variant="h6" color="#fff">
 				{label}
 			</Typography>
 		</Box>
@@ -105,7 +105,7 @@ export default function DashboardSidebar() {
 								fontWeight={600}
 								marginLeft={1.5}
 								marginBottom={0.5}
-								color="text.secondary"
+								color="#fff"
 							>
 								Dashboard
 							</Typography>
