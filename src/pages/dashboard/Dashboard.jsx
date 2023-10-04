@@ -12,8 +12,8 @@ export default function Dashboard() {
 		<WithNavAndFooter useContainer={false}>
 			<Grid display="flex">
 				<DashboardSidebar />
-				<Transactions />
-				{/* <Accounts /> */}
+				{/* <Transactions /> */}
+				<Accounts />
 				{/* <Deposit /> */}
 			</Grid>
 		</WithNavAndFooter>

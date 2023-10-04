@@ -1,4 +1,4 @@
-import { Grid, Typography, Box } from "@mui/material";
+import { Grid, Typography, Box, Button } from "@mui/material";
 
 import editIcon from "../../assets/dashboard/edit.svg";
 import deleteIcon from "../../assets/dashboard/delete.svg";
@@ -74,15 +74,26 @@ export default function Accounts() {
 			marginBottom={3}
 			className="accounts-page"
 		>
-			<Grid item>
-				<Typography variant="h3" fontWeight={600}>
-					Accounts
-				</Typography>
-				<Typography variant="h6" fontWeight={400}>
-					All accounts that you have added appear here.
-				</Typography>
+			<Grid
+				item
+				container
+				display="flex"
+				alignItems="center"
+				justifyContent="space-between"
+			>
+				<Grid item>
+					<Typography variant="h3" fontWeight={600}>
+						Accounts
+					</Typography>
+					<Typography variant="h6" fontWeight={400}>
+						All accounts that you have added appear here.
+					</Typography>
+				</Grid>
+				<Grid item>
+					<Button variant="contained">+ New account</Button>
+				</Grid>
 			</Grid>
-			<Grid item container display="flex" flexWrap="wrap" gap={4}>
+			<Grid item container display="flex" flexWrap="wrap" gap={4} width="100%">
 				<AccountsCard />
 				<AccountsCard />
 				<AccountsCard />
