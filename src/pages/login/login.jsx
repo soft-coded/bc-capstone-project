@@ -20,7 +20,7 @@ const styles = {
     fontSize: '1.5rem',
   },
   subheading: {
-    padding: '0.5rem 0',
+    
     fontSize: '1rem',
   },
 };
@@ -79,23 +79,23 @@ const LoginPage = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" >
       <Grid container spacing={0}>
         {/* Left Column */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} style={{ ...styles.fullHeight, padding: '2rem', background: '#A05CDB4D', color: '#fff' }}>
-            <img src={wallet} alt="Money" style={{ maxWidth: '50%', height: 'auto', width: 'auto', marginTop: '3rem', marginLeft:'6rem'}} />
+          <Paper elevation={3} style={{ ...styles.fullHeight, padding: '2rem', background: '#A05CDB4D', color: '#fff',borderRadius:'0px' }}>
+            <img src={wallet} alt="Money" style={{ maxWidth: '60%', height: 'auto', width: 'auto', marginTop: '7rem', marginLeft:'6rem'}} />
           </Paper>
         </Grid>
 
         {/* Right Column - Login Form */}
-        <Grid item xs={12} md={6}>
-          <Paper elevation={3} style={{ ...styles.fullHeight, padding: '2rem' }}>
-            <form onSubmit={handleSubmit}>
-              <Typography variant="h6" gutterBottom style={styles.heading}>
+        <Grid item xs={12} md={6} >
+          <Paper elevation={3} style={{ ...styles.fullHeight, padding: '2rem',borderRadius:'0px' }}>
+            <form onSubmit={handleSubmit} style={{height: 'auto', width: 'auto', marginTop: '7rem'}}>
+              <Typography variant="h6" gutterBottom style={{...styles.heading, marginTop: '1rem', textAlign: 'center' }}>
                 Sign in to &lt;website name&gt;
               </Typography>
-              <Typography variant="body2" color="textSecondary" gutterBottom style={styles.subheading}>
+              <Typography variant="body2" color="textSecondary" gutterBottom style={{...styles.subheading,textAlign: 'center' }}>
                 Log in to &lt;website name&gt; to access all features.
               </Typography>
               <Grid container spacing={2.5}>
@@ -129,7 +129,7 @@ const LoginPage = () => {
 
                 <Grid item xs={12}>
                   <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '1rem' }}>
-                    Sign In
+                    Login
                   </Button>
                 </Grid>
               </Grid>
@@ -140,6 +140,7 @@ const LoginPage = () => {
                 <ArrowBackIcon /> Go back.
               </Typography>
             </form>
+            <br/><br/><br/><br/><br/><br/>
           </Paper>
         </Grid>
       </Grid>

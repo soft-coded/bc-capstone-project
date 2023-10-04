@@ -15,8 +15,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const styles = {
   fullHeight: {
     height: '100%',
+    width:'100%',
+    marginLeft:'0px'
   },
   heading: {
+    
     padding: '0.5rem 0',
     fontSize: '1.5rem',
   },
@@ -113,19 +116,19 @@ const RegistrationPage = () => {
       <Grid container spacing={0}>
         {/* Left Column */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} style={{ ...styles.fullHeight, padding: '2rem', background: '#A05CDB4D', color: '#fff' }}>
+          <Paper elevation={3} style={{ ...styles.fullHeight, padding: '2rem', background: '#A05CDB4D', color: '#fff',borderRadius:'0px' }}>
             <img src={Money} alt="Money" style={{ maxWidth: '90%', height: 'auto',width: 'auto', marginTop: '1rem' }} />
           </Paper>
         </Grid>
 
         {/* Right Column - Registration Form */}
         <Grid item xs={12} md={6}>
-          <Paper elevation={3} style={{ ...styles.fullHeight, padding: '2rem' }}>
+          <Paper elevation={3} style={{ ...styles.fullHeight, padding: '2rem',borderRadius:'0px' }}>
             <form onSubmit={handleSubmit}>
-            <Typography variant="h6" gutterBottom style={styles.heading}>
+            <Typography variant="h6" gutterBottom style={{...styles.heading, marginTop: '1rem', textAlign: 'center' }}>
                 Create a &lt;website name&gt; account
               </Typography>
-              <Typography variant="body2" color="textSecondary" gutterBottom style={styles.subheading}>
+              <Typography variant="body2" color="textSecondary" gutterBottom style={{...styles.subheading, textAlign: 'center' }}>
                 An account lets you access all of &lt;website name&gt;.
               </Typography>
               <Grid container spacing={2.5}>
@@ -138,7 +141,7 @@ const RegistrationPage = () => {
                     value={formData.firstName}
                     onChange={handleChange}
                     required
-                  />
+                    style={{ borderRadius: '60px' }}/>
                   <div style={{ color: 'red' }}>{formErrors.firstName}</div>
                 </Grid>
 
@@ -210,6 +213,7 @@ const RegistrationPage = () => {
                 <ArrowBackIcon /> Go back.
               </Typography>
             </form>
+            <br/><br/>
           </Paper>
         </Grid>
       </Grid>
