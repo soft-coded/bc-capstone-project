@@ -35,3 +35,7 @@
 .table-body-row:nth-child(2n) {
 	background: linear-gradient(to right, #d1aeea, #f0adba);
 }
+
+.accounts-page img {
+	height: 26px;
+}
