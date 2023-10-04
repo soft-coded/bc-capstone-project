@@ -136,7 +136,9 @@ export default function Transactions() {
 					</Typography>
 				</Grid>
 				<Grid item>
-					<Button variant="contained">+ New transaction</Button>
+					<Button variant="contained" size="large">
+						+ New transaction
+					</Button>
 				</Grid>
 			</Grid>
 			<Grid item width="100%">

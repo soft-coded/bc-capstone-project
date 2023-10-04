@@ -90,7 +90,9 @@ export default function Accounts() {
 					</Typography>
 				</Grid>
 				<Grid item>
-					<Button variant="contained">+ New account</Button>
+					<Button variant="contained" size="large">
+						+ New account
+					</Button>
 				</Grid>
 			</Grid>
 			<Grid item container display="flex" flexWrap="wrap" gap={4} width="100%">
