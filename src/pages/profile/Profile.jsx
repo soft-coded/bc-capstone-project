@@ -1,7 +1,5 @@
-// src/components/EditProfile.js
 import React, { useState } from "react";
 import "./Profile.css";
-// import ResponsiveAppBar from "../../components/navbar/Navbar";
 import { Avatar, Button, TextField, Typography, Grid } from "@mui/material";
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 
@@ -34,17 +32,14 @@ const EditProfile = () => {
 		// You can perform API requests here to save the changes
 		console.log("Profile data submitted:", profileData);
 	};
+	// document.body.style = "background: rgb(238, 228, 247);";
 
 	return (
 		<WithNavAndFooter>
-			{/* <CssBaseline /> */}
 			<div
-				style={{ padding: "20px", marginTop: "20px" }}
 				className="profilePaper"
+				style={{ padding: "20px", marginTop: "20px" }}
 			>
-				{/* <Typography variant="h4" align="center">
-					Edit Profile
-				</Typography> */}
 				<form onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
 						<Grid item xs={12} align="center">
