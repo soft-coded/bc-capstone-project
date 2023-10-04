@@ -6,7 +6,7 @@ import Home from "./pages/home/Home";
 import Dashboard from "./pages/dashboard/Dashboard";
 import RegistrationPage from "./pages/register/register";
 import LoginPage from "./pages/login/login";
-
+import Aboutus from "./pages/aboutus/aboutus";
 function App() {
 	return (
 		<Routes>
