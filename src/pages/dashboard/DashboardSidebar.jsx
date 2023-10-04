@@ -17,8 +17,8 @@ const links = [
 	{
 		label: "Transactions",
 		icon: transactionsIcon,
-		// to: "/dashboard/transactions",
-		to: "/dashboard",
+		to: "/dashboard/transactions",
+		// to: "/dashboard",
 		height: "27px",
 	},
 	{
