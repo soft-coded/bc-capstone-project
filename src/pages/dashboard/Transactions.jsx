@@ -37,44 +37,64 @@ function TransactionsTable() {
 		<TableContainer className="table-container">
 			<Table>
 				<TableHead>
-					<TableRow>
-						<TableCell className="table-cell" rowSpan={2}>
+					<TableRow className="table-row">
+						<TableCell className="table-cell purple-bottom-border" rowSpan={2}>
 							#
 						</TableCell>
-						<TableCell className="table-cell" colSpan={3}>
+						<TableCell
+							className="table-cell purple-left-border purple-bottom-border sender"
+							colSpan={3}
+						>
 							Sender
 						</TableCell>
-						<TableCell className="table-cell" colSpan={3}>
+						<TableCell
+							className="table-cell red-left-border red-bottom-border receiver"
+							colSpan={3}
+						>
 							Receiver
 						</TableCell>
 					</TableRow>
-					<TableRow>
-						<TableCell className="table-cell">Amount</TableCell>
-						<TableCell className="table-cell">Currency</TableCell>
-						<TableCell className="table-cell">Account number</TableCell>
-						<TableCell className="table-cell">Amount</TableCell>
-						<TableCell className="table-cell">Currency</TableCell>
-						<TableCell className="table-cell">Account number</TableCell>
+					<TableRow className="table-row">
+						<TableCell className="table-cell purple-left-border purple-bottom-border sender">
+							Amount
+						</TableCell>
+						<TableCell className="table-cell purple-bottom-border sender">
+							Currency
+						</TableCell>
+						<TableCell className="table-cell purple-bottom-border sender">
+							Account number
+						</TableCell>
+						<TableCell className="table-cell red-left-border red-bottom-border receiver">
+							Amount
+						</TableCell>
+						<TableCell className="table-cell red-bottom-border receiver">
+							Currency
+						</TableCell>
+						<TableCell className="table-cell red-bottom-border receiver">
+							Account number
+						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
 					{dummyData.map((data, i) => (
-						<TableRow key={i}>
+						<TableRow key={i} className="table-row table-body-row">
 							<TableCell className="table-cell">{i + 1}</TableCell>
-							<TableCell className="table-cell">{data.sender.amount}</TableCell>
-							<TableCell className="table-cell">
+							<TableCell className="table-cell sender">
+								{data.sender.amount}
+							</TableCell>
+							<TableCell className="table-cell sender">
 								{data.sender.currency}
 							</TableCell>
-							<TableCell className="table-cell">
+							<TableCell className="table-cell sender">
 								{data.sender.accountNumber}
 							</TableCell>
-							<TableCell className="table-cell">
+							<TableCell className="table-cell receiver">
 								{data.receiver.amount}
 							</TableCell>
-							<TableCell className="table-cell">
+							<TableCell className="table-cell receiver">
 								{data.receiver.currency}
 							</TableCell>
-							<TableCell className="table-cell">
+							<TableCell className="table-cell receiver">
 								{data.receiver.accountNumber}
 							</TableCell>
 						</TableRow>
