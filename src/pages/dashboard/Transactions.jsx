@@ -107,7 +107,7 @@ function TransactionsTable() {
 
 export default function Transactions() {
 	return (
-		<Grid container paddingLeft="24px" paddingRight={14} width="100%">
+		<Grid container paddingLeft={6} paddingRight={14} width="100%">
 			<Grid item>
 				<Typography variant="h3" fontWeight={600}>
 					Transactions
