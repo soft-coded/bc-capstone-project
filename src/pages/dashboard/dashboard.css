@@ -40,7 +40,13 @@
 	height: 26px;
 }
 
-.deposit-page input {
+.deposit-page input,
+.contact-page textarea {
 	background-color: #fff;
 	border-radius: 30px;
+}
+
+.contact-page .MuiInputBase-root {
+	border-radius: 30px;
+	background-color: #fff;
 }

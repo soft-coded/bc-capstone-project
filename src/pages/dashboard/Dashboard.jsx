@@ -6,6 +6,7 @@ import DashboardSidebar from "./DashboardSidebar";
 import Transactions from "./Transactions";
 import Accounts from "./Accounts";
 import Deposit from "./Deposit";
+import Contact from "./Contact";
 import "./dashboard.css";
 
 const PATHNAME_PREFIX = "/dashboard/";
@@ -23,6 +24,9 @@ export default function Dashboard() {
 			break;
 		case PATHNAME_PREFIX + "deposit":
 			Subpage = Deposit;
+			break;
+		case PATHNAME_PREFIX + "contact":
+			Subpage = Contact;
 			break;
 		default:
 			Subpage = Transactions;
