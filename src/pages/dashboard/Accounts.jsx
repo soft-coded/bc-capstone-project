@@ -100,6 +100,12 @@ export default function Accounts() {
 				<AccountsCard />
 				<AccountsCard />
 				<AccountsCard />
+				<AccountsCard />
+				<AccountsCard />
+				<AccountsCard />
+				<AccountsCard />
+				<AccountsCard />
+				<AccountsCard />
 			</Grid>
 		</Grid>
 	);
