@@ -7,6 +7,7 @@ import {
 	TableRow,
 	TableCell,
 	TableBody,
+	Button,
 } from "@mui/material";
 
 const dummyData = [
@@ -119,13 +120,24 @@ export default function Transactions() {
 			width="100%"
 			marginBottom={3}
 		>
-			<Grid item>
-				<Typography variant="h3" fontWeight={600}>
-					Transactions
-				</Typography>
-				<Typography variant="h6" fontWeight={400}>
-					All transactions that you have made appear here.
-				</Typography>
+			<Grid
+				item
+				container
+				display="flex"
+				alignItems="center"
+				justifyContent="space-between"
+			>
+				<Grid item>
+					<Typography variant="h3" fontWeight={600}>
+						Transactions
+					</Typography>
+					<Typography variant="h6" fontWeight={400}>
+						All transactions that you have made appear here.
+					</Typography>
+				</Grid>
+				<Grid item>
+					<Button variant="contained">+ New transaction</Button>
+				</Grid>
 			</Grid>
 			<Grid item width="100%">
 				<TransactionsTable />

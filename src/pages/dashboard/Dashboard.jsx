@@ -4,6 +4,7 @@ import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFoo
 import DashboardSidebar from "./DashboardSidebar";
 import Transactions from "./Transactions";
 import Accounts from "./Accounts";
+import Deposit from "./Deposit";
 import "./dashboard.css";
 
 export default function Dashboard() {
@@ -11,8 +12,9 @@ export default function Dashboard() {
 		<WithNavAndFooter useContainer={false}>
 			<Grid display="flex">
 				<DashboardSidebar />
-				{/* <Transactions /> */}
-				<Accounts />
+				<Transactions />
+				{/* <Accounts /> */}
+				{/* <Deposit /> */}
 			</Grid>
 		</WithNavAndFooter>
 	);
