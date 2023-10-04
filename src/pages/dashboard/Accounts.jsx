@@ -51,8 +51,12 @@ function AccountsCard() {
 					</Box>
 				</Grid>
 				<Grid item>
-					<Typography variant="body1">999 INR</Typography>
-					<Typography variant="body2">SAVINGS</Typography>
+					<Typography variant="h6" align="right">
+						999 INR
+					</Typography>
+					<Typography variant="body2" align="right">
+						SAVINGS
+					</Typography>
 				</Grid>
 			</Grid>
 		</Grid>
