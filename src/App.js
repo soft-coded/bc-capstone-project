@@ -8,6 +8,7 @@ import RegistrationPage from "./pages/register/register";
 import LoginPage from "./pages/login/login";
 import Aboutus from "./pages/aboutus/aboutus";
 import Transfer from "./pages/transfer/transfer";
+import TransferForm from "./pages/transferForm/transferForm";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 			<Route path="/addaccount" element={<AddAccount />} />
 			<Route path="/aboutus" element={<Aboutus />} />
 			<Route path="/transfer" element={<Transfer />} />
+			<Route path="/transferform" element={<TransferForm />} />
 		</Routes>
 		
 	);
