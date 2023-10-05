@@ -1,12 +1,12 @@
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 import { Typography, Grid, Box, Button } from "@mui/material";
 import "./Home.css";
-import CashnCoins from "../../assets/home/CashnCoins.svg";
+import CashnCoins from "../../assets/home/CashnCoins.png";
 import TollOutlinedIcon from "@mui/icons-material/TollOutlined";
 
 const BOX_DIMENSIONS = {
 	width: "100%",
-	height: "75vh",
+	height: "calc(100vh - 100px)",
 };
 
 export default function Home() {
@@ -16,80 +16,62 @@ export default function Home() {
 				className="rectangle"
 				sx={{
 					display: "flex",
-					alignItems: "center",
+					padding: 6,
 					borderRadius: "35px 35px 200px 35px",
 					boxShadow: "1px 4px 4px rgba(0, 0, 0, 0.25)",
-					backgroundPosition: "center",
-					top: 80,
-					marginLeft: 0,
-					marginRight: 0,
 					background: "linear-gradient(135deg, #401664 0%, #BC78EC 100%)",
-					backgroundRepeat: "no-repeat",
 					backgroundSize: "cover",
-					zIndex: 1,
 					...BOX_DIMENSIONS,
 				}}
 			>
-				<Grid container direction="column">
+				<Grid
+					container
+					flexWrap="nowrap"
+					gap={3}
+					sx={{
+						flexDirection: { sm: "row", xs: "column" },
+						alignItems: { xs: "center", sm: "initial" },
+					}}
+				>
 					<Grid
 						item
-						marginLeft={5}
-						marginRight={30}
-						marginBottom={0}
-						marginTop={0}
+						alignSelf="center"
+						sx={{
+							display: { xs: "flex", md: "initial" },
+							flexDirection: { xs: "column", md: "initial" },
+							gap: { xs: 2, md: "initial" },
+						}}
 					>
 						<Typography
-							variant="h1"
-							fontWeight={500}
-							lineHeight={1.1}
+							sx={{
+								typography: { lg: "h1", md: "h2", xs: "h1" },
+								fontWeight: { lg: 600, md: 600, xs: 600 },
+								textAlign: { lg: "initial", md: "initial", xs: "center" },
+							}}
 							color="white"
 						>
-							Your one stop Solution to all your forex troubles
-						</Typography>
-					</Grid>
-					<Grid
-						item
-						marginLeft={5}
-						marginRight={40}
-						marginBottom={0}
-						marginTop={1}
-					>
-						<Typography variant="h5" fontWeight={500} color="primary.dark">
-							Where your financial world comes together!
+							One stop shop for all your forex troubles
 						</Typography>
 						<Button
-							type="submit"
+							size="large"
 							variant="contained"
-							color="secondary"
-							sx={{
-								padding: "10px 50px",
-								mt: "1.5rem",
-								marginTop: 10,
-								alignItems: "center", // Center the text and icon vertically
-							}}
+							startIcon={<TollOutlinedIcon />}
+							sx={{ marginTop: 3, marginBottom: { xs: 10 } }}
 						>
-							<TollOutlinedIcon /> {/* icon */}
-							<Typography variant="p" marginLeft={1}>
-								Let's Go!
+							<Typography variant="h5" fontWeight={500}>
+								Let's start
 							</Typography>
 						</Button>
 					</Grid>
 					<Grid
 						item
+						alignSelf={{ xs: "flex-start", md: "flex-end" }}
 						sx={{
-							align: "right",
-							marginRight: 0,
-							marginTop: -10,
-							marginBottom: 0,
+							height: { xs: "200px", md: "250px" },
+							// alignSelf: ,
 						}}
 					>
-						<img
-							src={CashnCoins}
-							alt="money"
-							align="right"
-							width={300}
-							height="auto"
-						/>
+						<img src={CashnCoins} alt="Cash and coins" />
 					</Grid>
 				</Grid>
 			</Box>

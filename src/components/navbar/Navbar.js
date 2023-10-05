@@ -112,9 +112,8 @@ function ResponsiveAppBar() {
 						}}
 					>
 						{pages.map((page) => (
-							<Link to={page.to}>
+							<Link to={page.to} key={page.label}>
 								<Button
-									key={page.label}
 									onClick={handleCloseNavMenu}
 									sx={{ my: 2, display: "block" }}
 								>
