@@ -70,63 +70,52 @@ function SidebarLink({ label, icon, to, height }) {
 
 export default function DashboardSidebar() {
 	return (
-		<>
+		<Box
+			sx={{
+				display: "flex",
+				alignItems: "center",
+				position: "sticky",
+				top: "80px",
+				background: `url(${sidebarBg})`,
+				backgroundRepeat: "no-repeat",
+				backgroundPosition: "center",
+				backgroundSize: "cover",
+				borderRadius: "0 60px 60px 0",
+				zIndex: 1,
+				marginBottom: 3,
+				...SIDEBAR_DIMENSIONS,
+			}}
+			className="dashboard-sidebar"
+		>
 			<Box
 				sx={{
-					display: "flex",
-					alignItems: "center",
-					position: "sticky",
-					top: "80px",
-					background: `url(${sidebarBg})`,
-					backgroundRepeat: "no-repeat",
-					backgroundPosition: "center",
-					backgroundSize: "cover",
-					borderRadius: "0 60px 60px 0",
-					zIndex: 1,
-					marginBottom: 3,
-					...SIDEBAR_DIMENSIONS,
+					background: "rgba(165, 97, 214, 0.8)",
+					width: "100%",
+					paddingY: 3,
+					paddingX: 4,
+					borderRadius: "0 45px 45px 0",
+					backdropFilter: "blur(4px)",
 				}}
-				className="dashboard-sidebar"
 			>
-				<Box
-					sx={{
-						background: "rgba(165, 97, 214, 0.8)",
-						width: "100%",
-						paddingY: 3,
-						paddingX: 4,
-						borderRadius: "0 45px 45px 0",
-						backdropFilter: "blur(4px)",
-					}}
-				>
-					<Grid container direction="column" gap={0.75}>
-						<Grid item>
-							<Typography
-								variant="h4"
-								fontWeight={600}
-								marginLeft={1.5}
-								marginBottom={0.5}
-								color="#fff"
-							>
-								Dashboard
-							</Typography>
-						</Grid>
-						{links.map((link, i) => (
-							<Grid item key={i}>
-								<SidebarLink {...link} />
-							</Grid>
-						))}
+				<Grid container direction="column" gap={0.75}>
+					<Grid item>
+						<Typography
+							variant="h4"
+							fontWeight={600}
+							marginLeft={1.5}
+							marginBottom={0.5}
+							color="#fff"
+						>
+							Dashboard
+						</Typography>
 					</Grid>
-				</Box>
+					{links.map((link, i) => (
+						<Grid item key={i}>
+							<SidebarLink {...link} />
+						</Grid>
+					))}
+				</Grid>
 			</Box>
-			{/* <Box
-				className="sidebar-spacer"
-				sx={{
-					...SIDEBAR_DIMENSIONS,
-					marginBottom: 3,
-					position: "relative",
-					left: -20,
-				}}
-			></Box> */}
-		</>
+		</Box>
 	);
 }

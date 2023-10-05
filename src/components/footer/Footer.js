@@ -17,7 +17,7 @@ function FooterBlock({ title, links }) {
 
 export default function Footer() {
 	return (
-		<Box className="footer">
+		<Box className="footer" marginTop={3}>
 			<Container
 				maxWidth="lg"
 				sx={{ borderTop: "1px solid #d5d5d5", paddingY: 4 }}
