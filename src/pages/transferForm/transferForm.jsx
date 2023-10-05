@@ -5,87 +5,49 @@ import {
 	Typography,
 	Grid,
 	Box,
-	Button,
 	Paper,
 	TextField,
+	Button,
+	MenuItem,
 	FormControl,
 	InputLabel,
 	Select,
-	MenuItem,
-	FormHelperText,
 } from "@mui/material";
-import send from "../../assets/transferForm/send.png";
 
 const TransferForm = () => {
 	const [senderFormData, setSenderFormData] = useState({
-		senderAmount: "",
-		senderAccountType: "",
+		amount: "",
+		senderAccount: "",
 		senderCurrency: "",
 	});
 
 	const [receiverFormData, setReceiverFormData] = useState({
-		receiverAmount: "",
-		receiverAccountType: "",
+		convertedAmount: "",
+		receiverAccount: "",
 		receiverCurrency: "",
 	});
 
-	const [senderErrors, setSenderErrors] = useState({
-		senderAmount: "",
-		senderAccountType: "",
-		senderCurrency: "",
-	});
-
-	const [receiverErrors, setReceiverErrors] = useState({
-		receiverAmount: "",
-		receiverAccountType: "",
-		receiverCurrency: "",
-	});
-
-	const handleSenderSubmit = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		let newSenderErrors = {};
-		if (!senderFormData.senderAmount) {
-			newSenderErrors.senderAmount = "Amount is required";
-		}
-		if (!senderFormData.senderAccountType) {
-			newSenderErrors.senderAccountType = "Account type is required";
-		}
-		if (!senderFormData.senderCurrency) {
-			newSenderErrors.senderCurrency = "Currency is required";
-		}
-		if (Object.keys(newSenderErrors).length > 0) {
-			setSenderErrors(newSenderErrors);
-		} else {
-			setSenderErrors({});
-		}
+		// Implement your form submission logic here
+		console.log("Sender Form Data:", senderFormData);
+		console.log("Receiver Form Data:", receiverFormData);
 	};
 
-	const handleReceiverSubmit = (e) => {
-		e.preventDefault();
-		let newReceiverErrors = {};
-		if (!receiverFormData.receiverAmount) {
-			newReceiverErrors.receiverAmount = "Amount is required";
-		}
-		if (!receiverFormData.receiverAccountType) {
-			newReceiverErrors.receiverAccountType = "Account type is required";
-		}
-		if (!receiverFormData.receiverCurrency) {
-			newReceiverErrors.receiverCurrency = "Currency is required";
-		}
-		if (Object.keys(newReceiverErrors).length > 0) {
-			setReceiverErrors(newReceiverErrors);
-		} else {
-			setReceiverErrors({});
-		}
-	};
-
-	const handleChange = (e, formType) => {
+	const handleSenderFormChange = (e) => {
 		const { name, value } = e.target;
-		if (formType === "sender") {
-			setSenderFormData({ ...senderFormData, [name]: value });
-		} else if (formType === "receiver") {
-			setReceiverFormData({ ...receiverFormData, [name]: value });
-		}
+		setSenderFormData({
+			...senderFormData,
+			[name]: value,
+		});
+	};
+
+	const handleReceiverFormChange = (e) => {
+		const { name, value } = e.target;
+		setReceiverFormData({
+			...receiverFormData,
+			[name]: value,
+		});
 	};
 
 	return (
@@ -94,7 +56,7 @@ const TransferForm = () => {
 			<Box>
 				<div className="box1">
 					<div className="rectangle1">
-						<Grid container>
+						<Grid container spacing={2}>
 							<Grid
 								item
 								xs={12}
@@ -109,7 +71,7 @@ const TransferForm = () => {
 								<Paper
 									elevation={3}
 									style={{
-										padding: "3rem",
+										padding: "2.5rem",
 										background: "#C59EE6",
 										color: "#333", // Text color
 										borderRadius: "60px",
@@ -121,64 +83,82 @@ const TransferForm = () => {
 									>
 										Sender
 									</Typography>
-									<form onSubmit={handleSenderSubmit}>
+									<form onSubmit={handleSubmit}>
 										<TextField
-											fullWidth
+											name="amount"
 											label="Amount"
-											name="senderAmount"
-											value={senderFormData.senderAmount}
-											onChange={(e) => handleChange(e, "sender")}
-											error={!!senderErrors.senderAmount}
-											helperText={senderErrors.senderAmount}
-											sx={{ mb: 2, background: "white", borderRadius: "60px" }}
+											variant="outlined"
+											fullWidth
+											type="number"
+											InputProps={{ inputProps: { min: 0 } }}
+											required
+											onChange={handleSenderFormChange}
+											value={senderFormData.amount}
+											sx={{
+												background: "white",
+												borderRadius: "60px",
+												mb: 2,
+											}}
 										/>
-
 										<FormControl
+											variant="outlined"
 											fullWidth
-											error={!!senderErrors.senderAccountType}
-											sx={{ mb: 2, background: "white", borderRadius: "60px" }}
+											required
+											sx={{
+												background: "white",
+												borderRadius: "60px",
+												mb: 2,
+											}}
 										>
-											<InputLabel>Account Type</InputLabel>
+											<InputLabel>Account (Select type)</InputLabel>
 											<Select
-												name="senderAccountType"
-												value={senderFormData.senderAccountType}
-												onChange={(e) => handleChange(e, "sender")}
+												name="senderAccount"
+												label="Account (Select type)"
+												onChange={handleSenderFormChange}
+												value={senderFormData.senderAccount}
 											>
-												<MenuItem value="savings">Savings</MenuItem>
-												<MenuItem value="checking">Checking</MenuItem>
+												<MenuItem value="option1">Option 1</MenuItem>
+												<MenuItem value="option2">Option 2</MenuItem>
 											</Select>
-											{senderErrors.senderAccountType && (
-												<FormHelperText>
-													{senderErrors.senderAccountType}
-												</FormHelperText>
-											)}
 										</FormControl>
-
 										<FormControl
+											variant="outlined"
 											fullWidth
-											error={!!senderErrors.senderCurrency}
-											sx={{ mb: 2, background: "white", borderRadius: "60px" }}
+											required
+											sx={{
+												background: "white",
+												borderRadius: "60px",
+												mb: 2,
+											}}
 										>
-											<InputLabel>Currency</InputLabel>
+											<InputLabel>
+												Currency (Base currency select type)
+											</InputLabel>
 											<Select
 												name="senderCurrency"
+												label="Currency (Base currency select type)"
+												onChange={handleSenderFormChange}
 												value={senderFormData.senderCurrency}
-												onChange={(e) => handleChange(e, "sender")}
 											>
-												<MenuItem value="usd">USD</MenuItem>
-												<MenuItem value="eur">EUR</MenuItem>
+												<MenuItem value="currency1">Currency 1</MenuItem>
+												<MenuItem value="currency2">Currency 2</MenuItem>
 											</Select>
-											{senderErrors.senderCurrency && (
-												<FormHelperText>
-													{senderErrors.senderCurrency}
-												</FormHelperText>
-											)}
 										</FormControl>
+										<div style={{ textAlign: "center" }}>
+											<Button
+												type="submit"
+												variant="contained"
+												color="primary"
+												sx={{
+													padding: "5px 15px",
+												}}
+											>
+												Pay Now
+											</Button>
+										</div>
 									</form>
 								</Paper>
-								{/* <img src={send} alt="send" width="10%" height="20%" /> */}
 							</Grid>
-
 							<Grid
 								item
 								xs={12}
@@ -193,9 +173,9 @@ const TransferForm = () => {
 								<Paper
 									elevation={3}
 									style={{
-										padding: "3rem",
-										background: "#ED737D", // Set background color to white
-										color: "#333", // Text color
+										padding: "2.5rem",
+										background: "#ED737D",
+										color: "#333",
 										borderRadius: "60px",
 									}}
 								>
@@ -205,59 +185,77 @@ const TransferForm = () => {
 									>
 										Receiver
 									</Typography>
-									<form onSubmit={handleReceiverSubmit}>
+									<form onSubmit={handleSubmit}>
 										<TextField
+											name="convertedAmount"
+											label="Converted Amount"
+											variant="outlined"
 											fullWidth
-											label="Amount"
-											name="receiverAmount"
-											value={receiverFormData.receiverAmount}
-											onChange={(e) => handleChange(e, "receiver")}
-											error={!!receiverErrors.receiverAmount}
-											helperText={receiverErrors.receiverAmount}
-											sx={{ mb: 2, background: "white", borderRadius: "60px" }}
+											type="number"
+											InputProps={{ inputProps: { min: 0 } }}
+											required
+											onChange={handleReceiverFormChange}
+											value={receiverFormData.convertedAmount}
+											sx={{
+												background: "white",
+												borderRadius: "60px",
+												mb: 2,
+											}}
 										/>
-
 										<FormControl
+											variant="outlined"
 											fullWidth
-											error={!!receiverErrors.receiverAccountType}
-											sx={{ mb: 2, background: "white", borderRadius: "60px" }}
+											required
+											sx={{
+												background: "white",
+												borderRadius: "60px",
+												mb: 2,
+											}}
 										>
-											<InputLabel>Account Type</InputLabel>
+											<InputLabel>Account (Select type)</InputLabel>
 											<Select
-												name="receiverAccountType"
-												value={receiverFormData.receiverAccountType}
-												onChange={(e) => handleChange(e, "receiver")}
+												name="receiverAccount"
+												label="Account (Select type)"
+												onChange={handleReceiverFormChange}
+												value={receiverFormData.receiverAccount}
 											>
-												<MenuItem value="savings">Savings</MenuItem>
-												<MenuItem value="checking">Checking</MenuItem>
+												<MenuItem value="option1">Option 1</MenuItem>
+												<MenuItem value="option2">Option 2</MenuItem>
 											</Select>
-											{receiverErrors.receiverAccountType && (
-												<FormHelperText>
-													{receiverErrors.receiverAccountType}
-												</FormHelperText>
-											)}
 										</FormControl>
-
 										<FormControl
+											variant="outlined"
 											fullWidth
-											error={!!receiverErrors.receiverCurrency}
-											sx={{ mb: 2, background: "white", borderRadius: "60px" }}
+											required
+											sx={{
+												background: "white",
+												borderRadius: "60px",
+												mb: 2,
+											}}
 										>
-											<InputLabel>Currency</InputLabel>
+											<InputLabel>Currency (Currency select type)</InputLabel>
 											<Select
 												name="receiverCurrency"
+												label="Currency (Base currency select type)"
+												onChange={handleReceiverFormChange}
 												value={receiverFormData.receiverCurrency}
-												onChange={(e) => handleChange(e, "receiver")}
 											>
-												<MenuItem value="usd">USD</MenuItem>
-												<MenuItem value="eur">EUR</MenuItem>
+												<MenuItem value="currency1">Currency 1</MenuItem>
+												<MenuItem value="currency2">Currency 2</MenuItem>
 											</Select>
-											{receiverErrors.receiverCurrency && (
-												<FormHelperText>
-													{receiverErrors.receiverCurrency}
-												</FormHelperText>
-											)}
 										</FormControl>
+										<div style={{ textAlign: "center" }}>
+											<Button
+												type="submit"
+												variant="contained"
+												color="primary"
+												sx={{
+													padding: "5px 15px",
+												}}
+											>
+												Reset
+											</Button>
+										</div>
 									</form>
 								</Paper>
 							</Grid>
