@@ -37,5 +37,25 @@ const authSlice = createSlice({
 			// delete from localStorage
 			localStorage.removeItem(LOCAL_STORAGE_KEY);
 		},
+
+		// run this only in App.js and NOWHERE else
+		loginOnLoad(state) {
+			// check if the data is present in localStorage
+			const authData = localStorage.getItem(LOCAL_STORAGE_KEY);
+			// return if the data is not present
+			if (authData == null) {
+				state.authState = "idle";
+				return;
+			}
+			// else, set all the data properly
+			const parsedData = JSON.parse(authData);
+			state.email = parsedData.email;
+			state.token = parsedData.token;
+			state.isLoggedIn = true;
+			state.authState = "idle";
+		},
 	},
 });
+
+export default authSlice.reducer;
+export const authActions = authSlice.actions;
