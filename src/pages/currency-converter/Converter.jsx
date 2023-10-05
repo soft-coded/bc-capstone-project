@@ -13,7 +13,7 @@ import {
 	MenuItem,
 	FormHelperText,
 } from "@mui/material";
-import "./Convertor.css";
+import "./Converter.css";
 import { styled } from "@mui/material/styles";
 
 const BOX_DIMENSIONS = {
@@ -210,7 +210,13 @@ const Convertor = () => {
 							</form>
 							{result !== null && (
 								<Typography
-									sx={{ fontWeight: 500, mb: 2, textAlign: "center", marginTop: 1, marginBottom:0}}
+									sx={{
+										fontWeight: 500,
+										mb: 2,
+										textAlign: "center",
+										marginTop: 1,
+										marginBottom: 0,
+									}}
 								>
 									Converted Amount : {result}
 								</Typography>
