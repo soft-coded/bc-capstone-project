@@ -15,7 +15,7 @@ import Transfer from "./pages/transfer/transfer";
 import TransferForm from "./pages/transferForm/transferForm";
 import Spinner from "./components/loading-spinner/Spinner";
 import { authActions } from "./store/slices/auth-slice";
-
+import Converter from "./pages/currency-converter/Converter";
 function App() {
 	const dispatch = useDispatch();
 	const authState = useSelector((state) => state.auth.authState);
@@ -56,6 +56,8 @@ function App() {
 			<Route path="/aboutus" element={<Aboutus />} />
 			<Route path="/transfer" element={<Transfer />} />
 			<Route path="/transferform" element={<TransferForm />} />
+			<Route path="/converter" element={<Converter />} />
+
 		</Routes>
 	);
 }

@@ -17,7 +17,7 @@ import logo from "../../assets/navbar/logo.svg";
 const pages = [
 	{ label: "Home", to: "/" },
 	{ label: "Dashboard", to: "/dashboard/transactions" },
-	{ label: "Converter", to: "/" },
+	{ label: "Converter", to: "/converter" },
 	{ label: "About Us", to: "/aboutus" },
 	{ label: "Contact Us", to: "/aboutus" },
 ];
