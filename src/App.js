@@ -10,10 +10,8 @@ import Aboutus from "./pages/aboutus/aboutus";
 import Transfer from "./pages/transfer/transfer";
 import TransferForm from "./pages/transferForm/transferForm";
 
-
 function App() {
 	return (
-		
 		<Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/profile" element={<Profile />} />
@@ -29,7 +27,6 @@ function App() {
 			<Route path="/transfer" element={<Transfer />} />
 			<Route path="/transferform" element={<TransferForm />} />
 		</Routes>
-		
 	);
 }
 
