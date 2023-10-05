@@ -4,13 +4,70 @@ import harmonyImg from "../../assets/home/harmony.png";
 import explorerImg from "../../assets/home/explorer.png";
 import streamlinedImg from "../../assets/home/streamlined.png";
 
-function WCUCard() {}
+function WCUCard({ image, heading, bodyPointsList }) {
+	return (
+		<Grid
+			item
+			container
+			sx={{
+				background: "rgba(99, 34, 155, 0.8)",
+				borderRadius: "20px",
+				transition: "transform 0.2s ease-out",
+				"&:hover": { transform: "scale(1.05)" },
+			}}
+			padding={2}
+			gap={3}
+		>
+			<Grid
+				className="card-header"
+				item
+				container
+				alignItems="center"
+				justifyContent="space-between"
+			>
+				<Grid
+					className="card-image-container"
+					item
+					sx={{ background: "#fff", borderRadius: "50%", padding: 1 }}
+				>
+					<img src={image} alt="Img" width="55px" />
+				</Grid>
+				<Grid className="card-heading">
+					<Typography
+						variant="h6"
+						fontWeight={600}
+						color="white"
+						align="center"
+					>
+						{heading}
+					</Typography>
+				</Grid>
+			</Grid>
+			<Grid
+				className="card-body"
+				item
+				sx={{ background: "#fff", borderRadius: "20px" }}
+				padding={2}
+				display="flex"
+				flexDirection="column"
+				width="100%"
+				gap={2}
+			>
+				{bodyPointsList.map((point, i) => (
+					<Typography variant="body1" key={i}>
+						• {point}
+					</Typography>
+				))}
+			</Grid>
+		</Grid>
+	);
+}
 
 export default function WhyChooseUs() {
 	return (
 		<Box className="why-choose-us" marginTop={8}>
 			<Container maxWidth="lg">
-				<Grid className="section-container" container>
+				<Grid className="section-container" container gap={7}>
 					<Grid className="header-container" item container gap={2}>
 						<Grid item width="100%">
 							<Typography
@@ -28,6 +85,42 @@ export default function WhyChooseUs() {
 								transfers.
 							</Typography>
 						</Grid>
+					</Grid>
+					<Grid
+						className="cards-container"
+						item
+						container
+						flexDirection="row"
+						flexWrap={{ md: "nowrap", xs: "wrap" }}
+						gap={4}
+					>
+						<WCUCard
+							image={harmonyImg}
+							heading="Multi-Currency Harmony"
+							bodyPointsList={[
+								"Seamlessly transfer funds between accounts holding different currencies.",
+								"Efficient cross-border transactions.",
+								"No more costly currency conversion fees.",
+							]}
+						/>
+						<WCUCard
+							image={harmonyImg}
+							heading="Multi-Currency Harmony"
+							bodyPointsList={[
+								"Seamlessly transfer funds between accounts holding different currencies.",
+								"Efficient cross-border transactions.",
+								"No more costly currency conversion fees.",
+							]}
+						/>
+						<WCUCard
+							image={harmonyImg}
+							heading="Multi-Currency Harmony"
+							bodyPointsList={[
+								"Seamlessly transfer funds between accounts holding different currencies.",
+								"Efficient cross-border transactions.",
+								"No more costly currency conversion fees.",
+							]}
+						/>
 					</Grid>
 				</Grid>
 			</Container>
