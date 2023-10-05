@@ -24,6 +24,7 @@ function WCUCard({ image, heading, bodyPointsList }) {
 				container
 				alignItems="center"
 				justifyContent="space-between"
+				flexWrap="nowrap"
 			>
 				<Grid
 					className="card-image-container"
@@ -67,7 +68,7 @@ export default function WhyChooseUs() {
 	return (
 		<Box className="why-choose-us" marginTop={8}>
 			<Container maxWidth="lg">
-				<Grid className="section-container" container gap={7}>
+				<Grid className="section-container" container gap={10}>
 					<Grid className="header-container" item container gap={2}>
 						<Grid item width="100%">
 							<Typography
@@ -104,21 +105,21 @@ export default function WhyChooseUs() {
 							]}
 						/>
 						<WCUCard
-							image={harmonyImg}
-							heading="Multi-Currency Harmony"
+							image={explorerImg}
+							heading="Exotic Currency Explorer"
 							bodyPointsList={[
-								"Seamlessly transfer funds between accounts holding different currencies.",
-								"Efficient cross-border transactions.",
-								"No more costly currency conversion fees.",
+								"Transfer funds to and from exotic currencies effortlessly.",
+								"Discover and utilize a vast array of currencies",
+								"Easily to diversify your investments.",
 							]}
 						/>
 						<WCUCard
-							image={harmonyImg}
-							heading="Multi-Currency Harmony"
+							image={streamlinedImg}
+							heading="Streamlined User Experience"
 							bodyPointsList={[
-								"Seamlessly transfer funds between accounts holding different currencies.",
-								"Efficient cross-border transactions.",
-								"No more costly currency conversion fees.",
+								"Our intuitive and user-friendly interface makes multi-currency transfers a breeze.",
+								"Enjoy a smooth and hassle-free experience.",
+								"Use all state-of-the-art latest tools to transfer your money.",
 							]}
 						/>
 					</Grid>
