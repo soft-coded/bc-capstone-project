@@ -1,8 +1,8 @@
 import "./spinner.css";
 
-export default function Spinner({ scale }) {
+export default function Spinner({ style }) {
 	return (
-		<div className="lds-ring" style={{ transform: `scale(${scale})` }}>
+		<div className="lds-ring" style={style}>
 			<div></div>
 			<div></div>
 			<div></div>

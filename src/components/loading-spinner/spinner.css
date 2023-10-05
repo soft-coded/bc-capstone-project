@@ -3,6 +3,7 @@
 	position: relative;
 	width: 80px;
 	height: 80px;
+	filter: invert(1);
 }
 .lds-ring div {
 	box-sizing: border-box;
