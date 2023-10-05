@@ -9,7 +9,7 @@ import {
 	MenuItem,
 	FormControl,
 } from "@mui/material";
-
+import { Link } from "react-router-dom";
 function DepositForm() {
 	return (
 		<Box
@@ -170,9 +170,14 @@ export default function Deposit() {
 					</Typography>
 				</Grid>
 				<Grid item>
-					<Button variant="contained" size="large">
-						+ New account
-					</Button>
+					<Link
+						to="/dashboard/accounts/addaccount"
+						style={{ textDecoration: "none" }}
+					>
+						<Button variant="contained" size="large">
+							+ New account
+						</Button>
+					</Link>
 				</Grid>
 			</Grid>
 			<Grid item height="100%" width="100%">
