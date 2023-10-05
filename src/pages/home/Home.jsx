@@ -1,8 +1,10 @@
-import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
+import TollOutlinedIcon from "@mui/icons-material/TollOutlined";
 import { Typography, Grid, Box, Button } from "@mui/material";
+
+import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 import "./Home.css";
 import CashnCoins from "../../assets/home/CashnCoins.png";
-import TollOutlinedIcon from "@mui/icons-material/TollOutlined";
+import WhyChooseUs from "./WhyChooseUs";
 
 const BOX_DIMENSIONS = {
 	width: "100%",
@@ -68,13 +70,13 @@ export default function Home() {
 						alignSelf={{ xs: "flex-start", md: "flex-end" }}
 						sx={{
 							height: { xs: "200px", md: "250px" },
-							// alignSelf: ,
 						}}
 					>
 						<img src={CashnCoins} alt="Cash and coins" />
 					</Grid>
 				</Grid>
 			</Box>
+			<WhyChooseUs />
 		</WithNavAndFooter>
 	);
 }
