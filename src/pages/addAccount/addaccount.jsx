@@ -14,6 +14,7 @@ import {
 	Link,
 	Select,
 	MenuItem,
+	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -246,11 +247,24 @@ const AddAccount = () => {
 										</Button>
 									</Grid>
 								</Grid>
-								<Typography
-									variant="body2"
-									style={{ marginTop: "1rem", textAlign: "center" }}
-								>
-									<ArrowBackIcon /> Go back.
+								<Typography style={{ fontSize: "13px" }}>
+									<Link
+										href="/dashboard/accounts"
+										style={{ textDecoration: "none" }}
+									>
+										<Box
+											display="flex"
+											alignItems="center"
+											justifyContent="center"
+											padding="5px 50px"
+											marginTop="0.8rem"
+											textAlign="center"
+											background="#F5F5F5"
+										>
+											<ArrowBackIcon style={{ marginLeft: "5px" }} />
+											Go Back
+										</Box>
+									</Link>
 								</Typography>
 							</form>
 							<br />

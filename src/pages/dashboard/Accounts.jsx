@@ -1,5 +1,5 @@
 import { Grid, Typography, Box, Button } from "@mui/material";
-
+import { Link } from "react-router-dom";
 import editIcon from "../../assets/dashboard/edit.svg";
 import deleteIcon from "../../assets/dashboard/delete.svg";
 
@@ -90,9 +90,14 @@ export default function Accounts() {
 					</Typography>
 				</Grid>
 				<Grid item>
-					<Button variant="contained" size="large">
-						+ New account
-					</Button>
+					<Link
+						to="/dashboard/accounts/addaccount"
+						style={{ textDecoration: "none" }}
+					>
+						<Button variant="contained" size="large">
+							+ New account
+						</Button>
+					</Link>
 				</Grid>
 			</Grid>
 			<Grid item container display="flex" flexWrap="wrap" gap={4} width="100%">
