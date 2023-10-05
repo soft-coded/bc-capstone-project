@@ -5,6 +5,7 @@ import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFoo
 import "./Home.css";
 import CashnCoins from "../../assets/home/CashnCoins.png";
 import WhyChooseUs from "./WhyChooseUs";
+import Testimonials from "./Testimonials";
 
 const BOX_DIMENSIONS = {
 	width: "100%",
@@ -77,6 +78,7 @@ export default function Home() {
 				</Grid>
 			</Box>
 			<WhyChooseUs />
+			<Testimonials />
 		</WithNavAndFooter>
 	);
 }
