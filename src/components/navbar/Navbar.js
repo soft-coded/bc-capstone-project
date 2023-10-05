@@ -10,10 +10,17 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useTheme } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import logo from "../../assets/navbar/logo.svg";
 
-const pages = ["Home", "Converter", "About Us", "Contact Us"];
+const pages = [
+	{ label: "Home", to: "/" },
+	{ label: "Dashboard", to: "/dashboard/transactions" },
+	{ label: "Converter", to: "/" },
+	{ label: "About Us", to: "/aboutus" },
+	{ label: "Contact Us", to: "/aboutus" },
+];
 
 function ResponsiveAppBar() {
 	const theme = useTheme();
@@ -79,8 +86,10 @@ function ResponsiveAppBar() {
 							}}
 						>
 							{pages.map((page) => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center">{page}</Typography>
+								<MenuItem key={page.label} onClick={handleCloseNavMenu}>
+									<Link to={page.to}>
+										<Typography textAlign="center">{page.label}</Typography>
+									</Link>
 								</MenuItem>
 							))}
 						</Menu>
@@ -103,26 +112,32 @@ function ResponsiveAppBar() {
 						}}
 					>
 						{pages.map((page) => (
-							<Button
-								key={page}
-								onClick={handleCloseNavMenu}
-								sx={{ my: 2, display: "block" }}
-							>
-								{page}
-							</Button>
+							<Link to={page.to}>
+								<Button
+									key={page.label}
+									onClick={handleCloseNavMenu}
+									sx={{ my: 2, display: "block" }}
+								>
+									{page.label}
+								</Button>
+							</Link>
 						))}
 					</Box>
 
 					<Box
 						sx={{ display: { md: "flex", xs: "block" }, flexGrow: 0, gap: 1 }}
 					>
-						<Button
-							variant="outlined"
-							sx={{ display: { xs: "none", md: "block" } }}
-						>
-							Log in
-						</Button>
-						<Button variant="contained">Sign up</Button>
+						<Link to="/login">
+							<Button
+								variant="outlined"
+								sx={{ display: { xs: "none", md: "block" } }}
+							>
+								Log in
+							</Button>
+						</Link>
+						<Link to="/register">
+							<Button variant="contained">Sign up</Button>
+						</Link>
 					</Box>
 				</Toolbar>
 			</Container>
