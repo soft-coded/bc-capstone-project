@@ -69,7 +69,7 @@ const TransferForm = () => {
 								}}
 							>
 								<Paper
-									elevation={3}
+									elevation={4}
 									style={{
 										padding: "2.5rem",
 										background: "#C59EE6",
@@ -171,7 +171,7 @@ const TransferForm = () => {
 								}}
 							>
 								<Paper
-									elevation={3}
+									elevation={4}
 									style={{
 										padding: "2.5rem",
 										background: "#ED737D",
