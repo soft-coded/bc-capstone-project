@@ -56,6 +56,7 @@ const Convertor = () => {
 			axios("https://api.freecurrencyapi.com/v1/latest", {
 				params: {
 					apikey: "FU3euSfJ9SreMvXu3Dvm4RIwigCIuyMJGW6Nhj3h",
+					// altapikey: "fca_live_wD1VmOMxP501n32jPlf3KHbfgvX5jZ3feaTlrQ90", // For Backup
 					base_currency: codeFromCurrency,
 					currencies: codeToCurrency,
 				},
