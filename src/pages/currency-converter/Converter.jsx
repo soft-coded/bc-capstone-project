@@ -67,20 +67,20 @@ const Convertor = () => {
 		}
 	}, [firstAmount, fromCurrency, toCurrency]);
 
-	const boxStyles = {
-		background: "#824EAF",
+	const paperStyles = {
+		padding: "5rem",
+		background: "#BCA0D5",
+		color: "white",
 		marginTop: "2%",
 		textAlign: "center",
-		color: "white",
 		minHeight: "20rem",
-		padding: "4rem 2rem",
-		boxShadow: "1px 4px 4px rgba(0, 0, 0, 0.25)",
-		background: "#BCA0D5",
+		// boxShadow: "1px 4px 4px rgba(0, 0, 0, 0.25)",
 		borderRadius: "35px",
 		backgroundPosition: "center",
-		// position: "relative",
+		position: "relative",
+		marginRight: "2rem",
 		width: "100%",
-		height: "calc(100vh - 100px)",
+		height: "auto",
 	};
 
 	return (
@@ -88,7 +88,7 @@ const Convertor = () => {
 			<Box
 				className="rectangle"
 				sx={{
-					// flexGrow: 1,
+					flexGrow: 1,
 					display: "flex",
 					// alignItems: "center",
 					borderRadius: "35px 35px 35px 35px",
@@ -147,10 +147,7 @@ const Convertor = () => {
 						<Paper
 							elevation={3}
 							style={{
-								padding: "5rem",
-								background: "#BCA0D5",
-								color: "white",
-								borderRadius: "35px",
+								...paperStyles,
 							}}
 						>
 							<FormControl
@@ -158,7 +155,6 @@ const Convertor = () => {
 								fullWidth
 								required
 								sx={{
-									//   background: "white",
 									borderRadius: "60px",
 									mb: 2,
 								}}
@@ -171,9 +167,8 @@ const Convertor = () => {
 								fullWidth
 								required
 								sx={{
-									//   background: "white",
 									borderRadius: "60px",
-									mb: 2,
+									// mb: 1,
 								}}
 							>
 								<SelectCountry
@@ -188,9 +183,9 @@ const Convertor = () => {
 								fullWidth
 								required
 								sx={{
-									// background: "white",
 									borderRadius: "60px",
 									mb: 2,
+									marginTop: 2,
 								}}
 							>
 								<SelectCountry
@@ -199,13 +194,14 @@ const Convertor = () => {
 									label="To"
 								/>{" "}
 							</FormControl>
+
 							{firstAmount ? (
 								<Box sx={{ textAlign: "left", marginTop: "1rem" }}>
 									<Typography>
 										{firstAmount} {fromCurrency} =
 									</Typography>
 									<Typography
-										variant="h5"
+										variant="h6"
 										sx={{ marginTop: "5px", fontWeight: "bold" }}
 									>
 										{resultCurrency * firstAmount} {toCurrency}
@@ -214,95 +210,6 @@ const Convertor = () => {
 							) : (
 								""
 							)}
-							{/* <form>
-								<TextField
-									fullWidth
-									variant="outlined"
-									name="amount"
-									label="Amount"
-									type="number"
-									value={amount}
-									onChange={(e) => setAmount(e.target.value)}
-									required
-									sx={{ mb: 2, background: "white", borderRadius: "60px" }}
-								/>
-
-								<FormControl
-									variant="outlined"
-									fullWidth
-									required
-									sx={{
-										background: "white",
-										borderRadius: "60px",
-										mb: 2,
-									}}
-								>
-									<InputLabel>From Currency</InputLabel>
-									<Select
-										value={fromCurrency}
-										label="From Currency"
-										onChange={(e) => setFromCurrency(e.target.value)}
-									>
-										{currencies.map((currency) => (
-											<MenuItem key={currency} value={currency}>
-												{currency}
-											</MenuItem>
-										))}
-									</Select>
-								</FormControl>
-
-								<FormControl
-									variant="outlined"
-									fullWidth
-									required
-									sx={{
-										background: "white",
-										borderRadius: "60px",
-										mb: 2,
-									}}
-								>
-									<InputLabel>To Currency</InputLabel>
-									<Select
-										value={toCurrency}
-										fullWidth
-										label="To Currency"
-										onChange={(e) => setToCurrency(e.target.value)}
-									>
-										{currencies.map((currency) => (
-											<MenuItem key={currency} value={currency}>
-												{currency}
-											</MenuItem>
-										))}
-									</Select>
-								</FormControl>
-								<Line1> </Line1>
-								<div className="cnvrt-btn">
-									<Button
-										variant="contained"
-										onClick={convertCurrency}
-										justifyContent="center"
-										color="secondary"
-										fullWidth
-									>
-										<Typography variant="p" fontWeight={500}>
-											Convert
-										</Typography>
-									</Button>
-								</div>
-							</form>
-							{result !== null && (
-								<Typography
-									sx={{
-										fontWeight: 500,
-										mb: 2,
-										textAlign: "center",
-										marginTop: 1,
-										marginBottom: 0,
-									}}
-								>
-									Converted Amount : {result}
-								</Typography>
-							)} */}
 						</Paper>
 					</Grid>
 				</Grid>

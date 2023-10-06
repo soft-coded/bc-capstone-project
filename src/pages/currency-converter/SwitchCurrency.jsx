@@ -18,14 +18,12 @@ const SwitchCurrency = () => {
 				sx={{
 					borderRadius: 1,
 					height: "100%",
-					justifyContent: "center",
-					textAlign: "center",
-					alignItems: "center",
 				}}
 			>
 				<CompareArrowsIcon
 					sx={{
 						fontSize: 30,
+						transform: "rotate(90deg)",
 					}}
 				/>
 			</Button>

@@ -15,7 +15,7 @@ const InputAmount = () => {
 				fullWidth
 				sx={{ mb: 2, borderRadius: "60px", background: "white" }}
 				InputProps={{
-					type: "number",
+					// type: "number",
 					// startAdornment: <InputAdornment position="start">$</InputAdornment>,
 				}}
 			/>
