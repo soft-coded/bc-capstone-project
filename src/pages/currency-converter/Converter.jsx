@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 import {
 	Typography,
@@ -11,10 +11,17 @@ import {
 	InputLabel,
 	Select,
 	MenuItem,
+	Container,
 	FormHelperText,
 } from "@mui/material";
 import "./Converter.css";
 import { styled } from "@mui/material/styles";
+import axios from "axios";
+import InputAmount from "./InputAmount";
+import SelectCountry from "./SelectCountry";
+import SwitchCurrency from "./SwitchCurrency";
+import { CurrencyContext } from "../../components/converter-helpers/CurrencyContext";
+import useAxios from "../../components/converter-helpers/useAxios";
 
 const BOX_DIMENSIONS = {
 	width: "100%",
@@ -33,35 +40,49 @@ const Line1 = styled("div")({
 });
 
 const Convertor = () => {
-	const [amount, setAmount] = useState(1);
-	const [fromCurrency, setFromCurrency] = useState("USD");
-	const [toCurrency, setToCurrency] = useState("EUR");
-	const [result, setResult] = useState(null);
+	const {
+		fromCurrency,
+		setFromCurrency,
+		toCurrency,
+		setToCurrency,
+		firstAmount,
+	} = useContext(CurrencyContext);
+	const [resultCurrency, setResultCurrency] = useState(0);
+	const codeFromCurrency = fromCurrency.split(" ")[1];
+	const codeToCurrency = toCurrency.split(" ")[1];
 
-	const currencies = ["USD", "GBP", "INR", "EUR", "JPY"]; // Add more currencies as needed
-	const convertCurrency = () => {
-		// Use a currency conversion API here to get the conversion rate
-		// For simplicity, I'm assuming a fixed conversion rate.
-		const conversionRate = {
-			"USD-EUR": 0.85,
-			"USD-GBP": 0.75,
-			"USD-INR": 73.74,
-			"EUR-USD": 1.18,
-			"GBP-USD": 1.34,
-			"INR-USD": 0.014,
-			"EUR-GBP": 0.89,
-			"GBP-EUR": 1.12,
-			"INR-EUR": 0.011,
-			// Add more conversion rates here
-		};
-
-		const key = `${fromCurrency}-${toCurrency}`;
-		if (conversionRate[key]) {
-			setResult((amount * conversionRate[key]).toFixed(2));
-		} else {
-			setResult("Invalid conversion");
+	useEffect(() => {
+		if (firstAmount) {
+			axios("https://api.freecurrencyapi.com/v1/latest", {
+				params: {
+					apikey: "FU3euSfJ9SreMvXu3Dvm4RIwigCIuyMJGW6Nhj3h",
+					base_currency: codeFromCurrency,
+					currencies: codeToCurrency,
+				},
+			})
+				.then((response) =>
+					setResultCurrency(response.data.data[codeToCurrency]),
+				)
+				.catch((error) => console.log(error));
 		}
+	}, [firstAmount, fromCurrency, toCurrency]);
+
+	const boxStyles = {
+		background: "#824EAF",
+		marginTop: "2%",
+		textAlign: "center",
+		color: "white",
+		minHeight: "20rem",
+		padding: "4rem 2rem",
+		boxShadow: "1px 4px 4px rgba(0, 0, 0, 0.25)",
+		background: "#BCA0D5",
+		borderRadius: "35px",
+		backgroundPosition: "center",
+		// position: "relative",
+		width: "100%",
+		height: "calc(100vh - 100px)",
 	};
+
 	return (
 		<WithNavAndFooter>
 			<Box
@@ -132,7 +153,68 @@ const Convertor = () => {
 								borderRadius: "35px",
 							}}
 						>
-							<form>
+							<FormControl
+								variant="outlined"
+								fullWidth
+								required
+								sx={{
+									//   background: "white",
+									borderRadius: "60px",
+									mb: 2,
+								}}
+							>
+								<InputAmount />
+							</FormControl>
+
+							<FormControl
+								variant="outlined"
+								fullWidth
+								required
+								sx={{
+									//   background: "white",
+									borderRadius: "60px",
+									mb: 2,
+								}}
+							>
+								<SelectCountry
+									value={fromCurrency}
+									setValue={setFromCurrency}
+									label="From"
+								/>
+							</FormControl>
+							<SwitchCurrency />
+							<FormControl
+								variant="outlined"
+								fullWidth
+								required
+								sx={{
+									// background: "white",
+									borderRadius: "60px",
+									mb: 2,
+								}}
+							>
+								<SelectCountry
+									value={toCurrency}
+									setValue={setToCurrency}
+									label="To"
+								/>{" "}
+							</FormControl>
+							{firstAmount ? (
+								<Box sx={{ textAlign: "left", marginTop: "1rem" }}>
+									<Typography>
+										{firstAmount} {fromCurrency} =
+									</Typography>
+									<Typography
+										variant="h5"
+										sx={{ marginTop: "5px", fontWeight: "bold" }}
+									>
+										{resultCurrency * firstAmount} {toCurrency}
+									</Typography>
+								</Box>
+							) : (
+								""
+							)}
+							{/* <form>
 								<TextField
 									fullWidth
 									variant="outlined"
@@ -220,7 +302,7 @@ const Convertor = () => {
 								>
 									Converted Amount : {result}
 								</Typography>
-							)}
+							)} */}
 						</Paper>
 					</Grid>
 				</Grid>
