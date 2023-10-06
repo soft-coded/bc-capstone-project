@@ -1,10 +1,4 @@
-import {
-	Button,
-	Grid,
-	IconButton,
-	accordionClasses,
-	Accordion,
-} from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import { useContext, React, useState } from "react";
 import { CurrencyContext } from "../../components/converter-helpers/CurrencyContext";

@@ -1,19 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
-import {
-	Typography,
-	Grid,
-	Box,
-	Button,
-	Paper,
-	TextField,
-	FormControl,
-	InputLabel,
-	Select,
-	MenuItem,
-	Container,
-	FormHelperText,
-} from "@mui/material";
+import { Typography, Grid, Box, Paper, FormControl } from "@mui/material";
 import "./Converter.css";
 import { styled } from "@mui/material/styles";
 import axios from "axios";
@@ -22,12 +9,6 @@ import SelectCountry from "./SelectCountry";
 import SwitchCurrency from "./SwitchCurrency";
 import { CurrencyContext } from "../../components/converter-helpers/CurrencyContext";
 import useAxios from "../../components/converter-helpers/useAxios";
-
-const BOX_DIMENSIONS = {
-	width: "100%",
-	height: "calc(100vh - 100px)",
-	// display: "flex",
-};
 
 const Line1 = styled("div")({
 	border: `1px solid rgba(231, 231, 238, 1)`,
@@ -68,18 +49,32 @@ const Convertor = () => {
 		}
 	}, [firstAmount, fromCurrency, toCurrency]);
 
+	const BOX_DIMENSIONS = {
+		width: "100%",
+		height: "calc(100vh - 100px)",
+		flexGrow: 1,
+		display: "flex",
+		alignItems: "center",
+		borderRadius: "35px 35px 35px 35px",
+		boxShadow: "1px 4px 4px rgba(0, 0, 0, 0.25)",
+		backgroundPosition: "center",
+		// background: "#824EAF",
+		background: "linear-gradient(135deg, #63229B 0%, #D71C2B 100%)",
+		zIndex: 1,
+	};
+
 	const paperStyles = {
 		padding: "5rem",
-		background: "#BCA0D5",
+		background: "rgb(255, 255, 255, 0.5)",
 		color: "white",
 		marginTop: "2%",
 		textAlign: "center",
-		minHeight: "20rem",
-		// boxShadow: "1px 4px 4px rgba(0, 0, 0, 0.25)",
+		justifyContent: "center",
 		borderRadius: "35px",
 		backgroundPosition: "center",
 		position: "relative",
 		marginRight: "2rem",
+		marginLeft: "2rem",
 		width: "100%",
 		height: "auto",
 	};
@@ -89,14 +84,6 @@ const Convertor = () => {
 			<Box
 				className="rectangle"
 				sx={{
-					flexGrow: 1,
-					display: "flex",
-					// alignItems: "center",
-					borderRadius: "35px 35px 35px 35px",
-					boxShadow: "1px 4px 4px rgba(0, 0, 0, 0.25)",
-					backgroundPosition: "center",
-					background: "#824EAF",
-					zIndex: 1,
 					...BOX_DIMENSIONS,
 				}}
 			>
@@ -110,6 +97,8 @@ const Convertor = () => {
 							alignItems: "center",
 							justifyContent: "center",
 							marginTop: "3rem",
+							// marginRight: "2rem",
+							// marginLeft: "2rem",
 						}}
 					>
 						<div className="heading">
@@ -119,15 +108,19 @@ const Convertor = () => {
 								fontWeight={600}
 								lineHeight={1.1}
 								color="white"
+								marginRight="2rem"
+								marginLeft="2rem"
 							>
 								Convert Currency
 							</Typography>
 							<Typography
-								variant="h5"
-								fontWeight={400}
+								// variant="h5"
+								fontWeight={500}
 								color="primary.dark"
 								marginTop={1}
-								// fontSize={29}
+								fontSize={24}
+								marginRight="2rem"
+								marginLeft="2rem"
 							>
 								Forex conversion at your fingertips!
 							</Typography>
@@ -146,7 +139,7 @@ const Convertor = () => {
 						}}
 					>
 						<Paper
-							elevation={3}
+							elevation={4}
 							style={{
 								...paperStyles,
 							}}
@@ -158,6 +151,7 @@ const Convertor = () => {
 								sx={{
 									borderRadius: "60px",
 									mb: 2,
+									marginTop: 2,
 								}}
 							>
 								<InputAmount />
