@@ -23,6 +23,7 @@ function DepositForm() {
 				<Grid
 					container
 					display="flex"
+					flexDirection={{ md: "row", xs: "column" }}
 					flexWrap="nowrap"
 					alignItems="center"
 					gap={7}
@@ -34,7 +35,7 @@ function DepositForm() {
 						display="flex"
 						flexDirection="column"
 						gap={2}
-						width="50%"
+						width={{ md: "50%", xs: "100%" }}
 					>
 						<Grid item>
 							<FormControl fullWidth>
@@ -121,7 +122,7 @@ function DepositForm() {
 						container
 						display="flex"
 						flexDirection="column"
-						width="50%"
+						width={{ md: "50%", xs: "100%" }}
 						alignItems="center"
 						gap={2}
 					>
@@ -148,8 +149,8 @@ export default function Deposit() {
 	return (
 		<Grid
 			container
-			paddingLeft={6}
-			paddingRight={14}
+			paddingLeft={{ md: 6, xs: 2 }}
+			paddingRight={{ md: 14, xs: 2 }}
 			gap={3}
 			width="100%"
 			className="deposit-page"
@@ -159,13 +160,22 @@ export default function Deposit() {
 				container
 				display="flex"
 				alignItems="center"
-				justifyContent="space-between"
+				justifyContent={{ md: "space-between", xs: "center" }}
+				gap={2}
 			>
 				<Grid item>
-					<Typography variant="h3" fontWeight={600}>
+					<Typography
+						variant="h3"
+						fontWeight={600}
+						sx={{ textAlign: { xs: "center", md: "initial" } }}
+					>
 						Deposit
 					</Typography>
-					<Typography variant="h6" fontWeight={400}>
+					<Typography
+						variant="h6"
+						fontWeight={400}
+						sx={{ textAlign: { xs: "center", md: "initial" } }}
+					>
 						Add money to the accounts that you have added here.
 					</Typography>
 				</Grid>
