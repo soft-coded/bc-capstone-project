@@ -18,7 +18,6 @@ const links = [
 		label: "Transactions",
 		icon: transactionsIcon,
 		to: "/dashboard/transactions",
-		// to: "/dashboard",
 		height: "27px",
 	},
 	{
@@ -82,7 +81,6 @@ export default function DashboardSidebar() {
 				backgroundSize: "cover",
 				borderRadius: "0 60px 60px 0",
 				zIndex: 1,
-				marginBottom: 3,
 				...SIDEBAR_DIMENSIONS,
 			}}
 			className="dashboard-sidebar"

@@ -10,6 +10,7 @@ import {
 	FormControl,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+
 function DepositForm() {
 	return (
 		<Box
@@ -151,7 +152,6 @@ export default function Deposit() {
 			paddingRight={14}
 			gap={3}
 			width="100%"
-			marginBottom={3}
 			className="deposit-page"
 		>
 			<Grid

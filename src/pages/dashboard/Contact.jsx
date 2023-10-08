@@ -5,8 +5,8 @@ import {
 	Box,
 	TextField,
 	FormLabel,
-	Select,
-	MenuItem,
+	// Select,
+	// MenuItem,
 	FormControl,
 } from "@mui/material";
 
@@ -113,7 +113,6 @@ export default function Contact() {
 			paddingRight={14}
 			gap={3}
 			width="100%"
-			marginBottom={3}
 			className="contact-page"
 		>
 			<Grid

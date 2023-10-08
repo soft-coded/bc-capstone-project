@@ -71,7 +71,6 @@ export default function Accounts() {
 			paddingRight={14}
 			gap={3}
 			width="100%"
-			marginBottom={3}
 			className="accounts-page"
 		>
 			<Grid

@@ -156,14 +156,7 @@ function TransactionsTable() {
 
 export default function Transactions() {
 	return (
-		<Grid
-			container
-			paddingLeft={6}
-			paddingRight={14}
-			gap={3}
-			width="100%"
-			marginBottom={3}
-		>
+		<Grid container paddingLeft={6} paddingRight={14} gap={3} width="100%">
 			<Grid
 				item
 				container
