@@ -156,19 +156,34 @@ function TransactionsTable() {
 
 export default function Transactions() {
 	return (
-		<Grid container paddingLeft={6} paddingRight={14} gap={3} width="100%">
+		<Grid
+			container
+			paddingLeft={{ md: 6, xs: 2 }}
+			paddingRight={{ md: 14, xs: 2 }}
+			gap={3}
+			width="100%"
+		>
 			<Grid
 				item
 				container
 				display="flex"
 				alignItems="center"
-				justifyContent="space-between"
+				justifyContent={{ md: "space-between", xs: "center" }}
+				gap={2}
 			>
 				<Grid item>
-					<Typography variant="h3" fontWeight={600}>
+					<Typography
+						variant="h3"
+						fontWeight={600}
+						sx={{ textAlign: { xs: "center", md: "initial" } }}
+					>
 						Transactions
 					</Typography>
-					<Typography variant="h6" fontWeight={400}>
+					<Typography
+						variant="h6"
+						fontWeight={400}
+						sx={{ textAlign: { xs: "center", md: "initial" } }}
+					>
 						All transactions that you have made appear here.
 					</Typography>
 				</Grid>

@@ -101,14 +101,20 @@ export default function DashboardSidebar() {
 						<Typography
 							variant="h4"
 							fontWeight={600}
-							marginLeft={1.5}
-							marginBottom={0.5}
+							marginLeft={{ md: 1.5, xs: 0 }}
+							marginBottom={{ md: 0.5, xs: 0 }}
+							sx={{ textAlign: { md: "initial", xs: "center" } }}
 							color="#fff"
 						>
 							Dashboard
 						</Typography>
 					</Grid>
-					<Grid item container gap={0.75}>
+					<Grid
+						item
+						container
+						gap={0.75}
+						justifyContent={{ xs: "space-between", md: "initial" }}
+					>
 						{links.map((link, i) => (
 							<Grid item key={i}>
 								<SidebarLink {...link} />
