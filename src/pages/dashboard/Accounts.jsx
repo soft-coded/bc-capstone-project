@@ -12,6 +12,7 @@ function AccountsCard() {
 			borderRadius="30px"
 			display="flex"
 			flexDirection="column"
+			width={{ md: "unset", xs: "100%" }}
 			gap={1}
 		>
 			<Typography variant="h5" align="right">
@@ -67,8 +68,8 @@ export default function Accounts() {
 	return (
 		<Grid
 			container
-			paddingLeft={6}
-			paddingRight={14}
+			paddingLeft={{ md: 6, xs: 2 }}
+			paddingRight={{ md: 14, xs: 2 }}
 			gap={3}
 			width="100%"
 			className="accounts-page"
@@ -78,13 +79,22 @@ export default function Accounts() {
 				container
 				display="flex"
 				alignItems="center"
-				justifyContent="space-between"
+				justifyContent={{ md: "space-between", xs: "center" }}
+				gap={2}
 			>
 				<Grid item>
-					<Typography variant="h3" fontWeight={600}>
+					<Typography
+						variant="h3"
+						fontWeight={600}
+						sx={{ textAlign: { xs: "center", md: "initial" } }}
+					>
 						Accounts
 					</Typography>
-					<Typography variant="h6" fontWeight={400}>
+					<Typography
+						variant="h6"
+						fontWeight={400}
+						sx={{ textAlign: { xs: "center", md: "initial" } }}
+					>
 						All accounts that you have added appear here.
 					</Typography>
 				</Grid>
