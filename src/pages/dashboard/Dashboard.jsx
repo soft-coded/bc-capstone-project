@@ -35,7 +35,7 @@ export default function Dashboard() {
 
 	return (
 		<WithNavAndFooter useContainer={false}>
-			<Grid display="flex">
+			<Grid display="flex" flexDirection={{ xs: "column", md: "row" }}>
 				<DashboardSidebar />
 				<Subpage />
 			</Grid>

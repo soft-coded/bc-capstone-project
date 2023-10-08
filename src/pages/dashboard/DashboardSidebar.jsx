@@ -8,9 +8,9 @@ import depositIcon from "../../assets/dashboard/deposit.svg";
 import contactIcon from "../../assets/dashboard/contact.svg";
 
 export const SIDEBAR_DIMENSIONS = {
-	minWidth: "350px",
-	width: "350px",
-	height: "83vh",
+	minWidth: { md: "350px", xs: "unset" },
+	width: { md: "350px", xs: "unset" },
+	height: { md: "83vh", xs: "unset" },
 };
 
 const links = [
@@ -73,13 +73,14 @@ export default function DashboardSidebar() {
 			sx={{
 				display: "flex",
 				alignItems: "center",
-				position: "sticky",
+				position: { md: "sticky", xs: "initial" },
 				top: "80px",
 				background: `url(${sidebarBg})`,
 				backgroundRepeat: "no-repeat",
 				backgroundPosition: "center",
 				backgroundSize: "cover",
-				borderRadius: "0 60px 60px 0",
+				borderRadius: { md: "0 60px 60px 0", xs: "0px" },
+				marginBottom: { xs: 3, md: 0 },
 				zIndex: 1,
 				...SIDEBAR_DIMENSIONS,
 			}}
@@ -90,9 +91,9 @@ export default function DashboardSidebar() {
 					background: "rgba(165, 97, 214, 0.8)",
 					width: "100%",
 					paddingY: 3,
-					paddingX: 4,
-					borderRadius: "0 45px 45px 0",
-					backdropFilter: "blur(4px)",
+					paddingX: { md: 4, xs: 2 },
+					borderRadius: { md: "0 45px 45px 0", xs: "0px" },
+					backdropFilter: { md: "blur(4px)", xs: "blur(1px)" },
 				}}
 			>
 				<Grid container direction="column" gap={0.75}>
@@ -107,11 +108,13 @@ export default function DashboardSidebar() {
 							Dashboard
 						</Typography>
 					</Grid>
-					{links.map((link, i) => (
-						<Grid item key={i}>
-							<SidebarLink {...link} />
-						</Grid>
-					))}
+					<Grid item container gap={0.75}>
+						{links.map((link, i) => (
+							<Grid item key={i}>
+								<SidebarLink {...link} />
+							</Grid>
+						))}
+					</Grid>
 				</Grid>
 			</Box>
 		</Box>
