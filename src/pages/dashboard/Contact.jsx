@@ -109,8 +109,8 @@ export default function Contact() {
 	return (
 		<Grid
 			container
-			paddingLeft={6}
-			paddingRight={14}
+			paddingLeft={{ md: 6, xs: 2 }}
+			paddingRight={{ md: 14, xs: 2 }}
 			gap={3}
 			width="100%"
 			className="contact-page"
@@ -120,13 +120,22 @@ export default function Contact() {
 				container
 				display="flex"
 				alignItems="center"
-				justifyContent="space-between"
+				justifyContent={{ md: "space-between", xs: "center" }}
+				gap={2}
 			>
 				<Grid item>
-					<Typography variant="h3" fontWeight={600}>
+					<Typography
+						variant="h3"
+						fontWeight={600}
+						sx={{ textAlign: { xs: "center", md: "initial" } }}
+					>
 						Contact Us
 					</Typography>
-					<Typography variant="h6" fontWeight={400}>
+					<Typography
+						variant="h6"
+						fontWeight={400}
+						sx={{ textAlign: { xs: "center", md: "initial" } }}
+					>
 						For further questions, contact us using our contact form.
 					</Typography>
 				</Grid>
