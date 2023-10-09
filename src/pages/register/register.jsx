@@ -119,10 +119,6 @@ const RegistrationPage = () => {
 						password: "",
 						confirmPassword: "",
 					});
-					// update redux state
-					dispatch(authActions.signup({ userData: resp.data }));
-					// redirect to login page after a successful registration
-					navigate("/login");
 				})
 				.catch((error) => {
 					console.log(error);
