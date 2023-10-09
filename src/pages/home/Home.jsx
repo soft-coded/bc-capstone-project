@@ -6,7 +6,7 @@ import "./Home.css";
 import CashnCoins from "../../assets/home/CashnCoins.png";
 import WhyChooseUs from "./WhyChooseUs";
 import Testimonials from "./Testimonials";
-import Transfer from "../transfer/transfer";
+import Transfer from "./transfer";
 
 const BOX_DIMENSIONS = {
 	width: "100%",

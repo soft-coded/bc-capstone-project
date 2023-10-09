@@ -6,7 +6,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const Transfer = () => {
 	return (
-		<Box marginTop={7}>
+		<Box marginTop={10}>
 			<div className="box">
 				<div className="rectangle">
 					<Grid container>
