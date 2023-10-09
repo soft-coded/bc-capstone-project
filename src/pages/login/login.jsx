@@ -13,7 +13,7 @@ import {
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { login } from "../../api/auth";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/slices/auth-slice";
 
 const styles = {
@@ -32,6 +32,7 @@ const styles = {
 const LoginPage = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const authState = useSelector((state) => state.auth.authState);
 
 	const [formData, setFormData] = useState({
 		email: "",
@@ -69,21 +70,33 @@ const LoginPage = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (validateForm()) {
-			login(formData.email, formData.password)
-				.then((res) => {
-					toast.success("Logged in successfully!");
-					dispatch(authActions.login({ token: res.data.token }));
-					// navigate to homepage after a successful login
-					navigate("/");
-				})
-				.catch((err) => {
-					console.log(err);
-					toast.error(err.message || "Something went wrong");
-				});
-		} else {
-			console.log("Form has validation errors");
-		}
+		dispatch(authActions.setLoadingState());
+		if (!validateForm()) return;
+
+		login(formData.email, formData.password)
+			.then((res) => {
+				toast.success("Logged in successfully!");
+				console.log(res);
+				// send the data to redux for state management
+				dispatch(
+					authActions.login({
+						token: res.data.token,
+						userData: {
+							userId: res.data.userId,
+							email: res.data.email,
+							firstName: res.data.firstName,
+							lastName: res.data.lastName,
+						},
+					}),
+				);
+				// navigate to homepage after a successful login
+				navigate("/");
+			})
+			.catch((err) => {
+				console.log(err);
+				dispatch(authActions.setIdleState());
+				toast.error(err.message || "Something went wrong");
+			});
 	};
 
 	const handleChange = (e) => {
@@ -194,8 +207,9 @@ const LoginPage = () => {
 										color="primary"
 										fullWidth
 										style={{ marginTop: "1rem" }}
+										disabled={authState === "loading"}
 									>
-										Login
+										{authState === "loading" ? "Logging in..." : "Log in"}
 									</Button>
 								</Grid>
 							</Grid>

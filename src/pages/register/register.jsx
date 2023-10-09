@@ -104,34 +104,21 @@ const RegistrationPage = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(authActions.setLoadingState());
-		if (validateForm()) {
-			signup(formData)
-				.then((resp) => {
-					toast.success("User registered successfully!!");
+		if (!validateForm()) return;
 
-					// send the data to redux for state management
-					dispatch(
-						authActions.signup({
-							userData: {
-								userId: resp.data.userId,
-								email: resp.data.email,
-								firstName: resp.data.firstName,
-								lastName: resp.data.lastName,
-							},
-						}),
-					);
-
-					// redirect to login page for token generation
-					navigate("/login");
-				})
-				.catch((error) => {
-					console.log(error);
-					toast.error(error.message);
-					dispatch(authActions.setIdleState());
-				});
-		} else {
-			console.log("Form has validation errors");
-		}
+		signup(formData)
+			.then(() => {
+				toast.success("User registered successfully!");
+				// set the state to idle
+				dispatch(authActions.setIdleState());
+				// redirect to login page for token generation and full authentication
+				navigate("/login");
+			})
+			.catch((error) => {
+				console.log(error);
+				toast.error(error.message);
+				dispatch(authActions.setIdleState());
+			});
 	};
 
 	const handleChange = (e) => {
