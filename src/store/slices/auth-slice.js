@@ -11,6 +11,13 @@ const authSlice = createSlice({
 			- userId of the logged in user
 			- user's email
 			- user's name (first and last)
+			so it should look like this:
+			userData: {
+				id: "the user's id",
+				email: "the user's email",
+				firstName: "fname",
+				lastName: "lname"
+			}
 		*/
 		userData: null,
 		/* 
