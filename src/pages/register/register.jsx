@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Money from "../../assets/register/Money.png";
+import { signUp } from "../../api/user";
 
 import {
 	Container,
@@ -101,6 +102,15 @@ const RegistrationPage = () => {
 		if (validateForm()) {
 			// Form is valid, you can submit it here
 			console.log("Form submitted:", formData);
+			signUp(formData)
+				.then((resp) => {
+					console.log(resp);
+					console.log("success log");
+				})
+				.catch((error) => {
+					console.log(error);
+					console.log("Error Log");
+				});
 		} else {
 			console.log("Form has validation errors");
 		}
