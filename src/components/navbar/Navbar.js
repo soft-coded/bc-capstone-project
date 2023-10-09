@@ -23,10 +23,7 @@ const pages = [
 	{ label: "Charts", to: "/chart" },
 	{ label: "Converter", to: "/converter" },
 	{ label: "About Us", to: "/aboutus" },
-<<<<<<< HEAD
 	{ label: "Comparison Chart", to: "/chart" },
-=======
->>>>>>> 8af690331e31183383c0baa9558b3cd65e2b8ba2
 ];
 
 function ResponsiveAppBar() {
