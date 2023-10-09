@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Money from "../../assets/register/Money.png";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
 	Container,
 	Grid,
@@ -12,9 +12,10 @@ import {
 	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { signup } from "../../api/auth";
+import { authActions } from "../../store/slices/auth-slice";
 
 const styles = {
 	fullHeight: {
@@ -32,6 +33,8 @@ const styles = {
 };
 
 const RegistrationPage = () => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const authState = useSelector((state) => state.auth.authState);
 
 	const [formData, setFormData] = useState({
@@ -100,6 +103,7 @@ const RegistrationPage = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		dispatch(authActions.setLoadingState());
 		if (validateForm()) {
 			// Form is valid, you can submit it here
 			console.log("Form submitted:", formData);
@@ -115,11 +119,27 @@ const RegistrationPage = () => {
 						password: "",
 						confirmPassword: "",
 					});
+
+					// send the data to redux for state management
+					dispatch(
+						authActions.signup({
+							userData: {
+								userId: resp.data.userId,
+								email: resp.data.email,
+								firstName: resp.data.firstName,
+								lastName: resp.data.lastName,
+							},
+						}),
+					);
+
+					// redirect to login page for token generation
+					navigate("/login");
 				})
 				.catch((error) => {
 					console.log(error);
 					console.log("Error Log");
 					toast.error(error.message);
+					dispatch(authActions.setIdleState());
 				});
 		} else {
 			console.log("Form has validation errors");
