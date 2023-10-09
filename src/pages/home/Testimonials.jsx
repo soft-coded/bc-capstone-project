@@ -12,6 +12,8 @@ function TestimonialCard({ name, post, description }) {
 			sx={{
 				backgroundColor: theme.palette.secondary.light,
 				borderRadius: "30px",
+				transition: "transform 0.2s ease-out",
+				"&:hover": { transform: "scale(1.05)" },
 			}}
 			padding={3}
 			gap={2}
