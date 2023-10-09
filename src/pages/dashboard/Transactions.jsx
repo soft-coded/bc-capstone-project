@@ -9,6 +9,7 @@ import {
 	TableBody,
 	Button,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const dummyData = [
 	{
@@ -188,9 +189,11 @@ export default function Transactions() {
 					</Typography>
 				</Grid>
 				<Grid item>
-					<Button variant="contained" size="large">
-						+ New transaction
-					</Button>
+					<Link to="/transferform">
+						<Button variant="contained" size="large">
+							+ New transaction
+						</Button>
+					</Link>
 				</Grid>
 			</Grid>
 			<Grid item width="100%">

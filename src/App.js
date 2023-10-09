@@ -46,7 +46,7 @@ function App() {
 				<Route path="/dashboard/*" element={<Dashboard />} />
 				<Route path="/register" element={<RegistrationPage />} />
 				<Route path="/login" element={<LoginPage />} />
-				<Route path="dashboard/accounts/addaccount" element={<AddAccount />} />
+				<Route path="/addaccount" element={<AddAccount />} />
 				<Route path="/aboutus" element={<Aboutus />} />
 				<Route path="/transferform" element={<TransferForm />} />
 				<Route path="/converter" element={<Converter />} />

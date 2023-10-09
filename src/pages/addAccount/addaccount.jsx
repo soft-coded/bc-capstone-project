@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Money from "../../assets/register/Money.png";
+import { Link } from "react-router-dom";
 import ResponsiveAppBar from "../../components/navbar/Navbar";
 import {
 	Container,
@@ -11,7 +12,6 @@ import {
 	FormControl,
 	InputLabel,
 	FormHelperText,
-	Link,
 	Select,
 	MenuItem,
 	Box,
@@ -249,7 +249,7 @@ const AddAccount = () => {
 								</Grid>
 								<Typography style={{ fontSize: "13px" }}>
 									<Link
-										href="/dashboard/accounts"
+										to="/dashboard/accounts"
 										style={{ textDecoration: "none" }}
 									>
 										<Box
