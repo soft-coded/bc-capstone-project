@@ -9,7 +9,13 @@ const Transfer = () => {
 		<Box marginTop={10}>
 			<div className="box">
 				<div className="rectangle">
-					<Grid container>
+					<Grid
+						container
+						padding={4}
+						alignItems="center"
+						display="flex"
+						height="100%"
+					>
 						<Grid
 							item
 							xs={12}
@@ -18,10 +24,10 @@ const Transfer = () => {
 								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
-								marginTop: "7rem",
+								height: { md: "300px", xs: "250px" },
 							}}
 						>
-							<img src={exchange} alt="money" width="50%" height="auto" />
+							<img src={exchange} alt="money" />
 						</Grid>
 						<Grid
 							item
@@ -33,13 +39,12 @@ const Transfer = () => {
 								alignItems: "center",
 								justifyContent: "center",
 								textAlign: "center",
-								marginTop: "9rem",
 							}}
 						>
 							<Typography
+								variant="h2"
 								fontWeight={600}
 								color="white"
-								fontSize={50}
 								mb={0.5}
 								lineHeight={1.1}
 							>
