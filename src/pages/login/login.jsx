@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import wallet from "../../assets/login/wallet.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
 	Container,
 	Grid,
@@ -11,6 +11,10 @@ import {
 	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { login } from "../../api/auth";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/slices/auth-slice";
 
 const styles = {
 	fullHeight: {
@@ -26,6 +30,10 @@ const styles = {
 };
 
 const LoginPage = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const authState = useSelector((state) => state.auth.authState);
+
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
@@ -62,12 +70,33 @@ const LoginPage = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (validateForm()) {
-			// Form is valid, you can submit it here
-			console.log("Form submitted:", formData);
-		} else {
-			console.log("Form has validation errors");
-		}
+		dispatch(authActions.setLoadingState());
+		if (!validateForm()) return;
+
+		login(formData.email, formData.password)
+			.then((res) => {
+				toast.success("Logged in successfully!");
+				console.log(res);
+				// send the data to redux for state management
+				dispatch(
+					authActions.login({
+						token: res.data.token,
+						userData: {
+							userId: res.data.userId,
+							email: res.data.email,
+							firstName: res.data.firstName,
+							lastName: res.data.lastName,
+						},
+					}),
+				);
+				// navigate to homepage after a successful login
+				navigate("/");
+			})
+			.catch((err) => {
+				console.log(err);
+				dispatch(authActions.setIdleState());
+				toast.error(err.message || "Something went wrong");
+			});
 	};
 
 	const handleChange = (e) => {
@@ -85,12 +114,13 @@ const LoginPage = () => {
 				<Grid item xs={12} md={6}>
 					<Paper
 						elevation={3}
-						style={{
+						sx={{
 							...styles.fullHeight,
 							padding: "2rem",
 							background: "#A05CDB4D",
 							color: "#fff",
 							borderRadius: "0px",
+							boxShadow: "none",
 						}}
 					>
 						<img
@@ -111,10 +141,11 @@ const LoginPage = () => {
 				<Grid item xs={12} md={6}>
 					<Paper
 						elevation={3}
-						style={{
+						sx={{
 							...styles.fullHeight,
 							padding: "2rem",
 							borderRadius: "0px",
+							boxShadow: "none",
 						}}
 					>
 						<form
@@ -176,8 +207,9 @@ const LoginPage = () => {
 										color="primary"
 										fullWidth
 										style={{ marginTop: "1rem" }}
+										disabled={authState === "loading"}
 									>
-										Login
+										{authState === "loading" ? "Logging in..." : "Log in"}
 									</Button>
 								</Grid>
 							</Grid>

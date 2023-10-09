@@ -11,19 +11,28 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import logo from "../../assets/navbar/logo.svg";
+import { authActions } from "../../store/slices/auth-slice";
 
 const pages = [
 	{ label: "Home", to: "/" },
-	{ label: "Dashboard", to: "/dashboard/transactions" },
+	{ label: "Dashboard", to: "/dashboard/transactions", protected: true },
+	{ label: "Transfer", to: "/transferform", protected: true },
+	{ label: "Charts", to: "/chart" },
 	{ label: "Converter", to: "/converter" },
 	{ label: "About Us", to: "/aboutus" },
+<<<<<<< HEAD
 	{ label: "Comparison Chart", to: "/chart" },
+=======
+>>>>>>> 8af690331e31183383c0baa9558b3cd65e2b8ba2
 ];
 
 function ResponsiveAppBar() {
+	const dispatch = useDispatch();
 	const theme = useTheme();
+	const { isLoggedIn } = useSelector((state) => state.auth);
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
 
 	const handleOpenNavMenu = (event) => {
@@ -33,6 +42,10 @@ function ResponsiveAppBar() {
 	const handleCloseNavMenu = () => {
 		setAnchorElNav(null);
 	};
+
+	function handleLogout() {
+		dispatch(authActions.logout());
+	}
 
 	return (
 		<AppBar
@@ -126,17 +139,25 @@ function ResponsiveAppBar() {
 					<Box
 						sx={{ display: { md: "flex", xs: "block" }, flexGrow: 0, gap: 1 }}
 					>
-						<Link to="/login">
-							<Button
-								variant="outlined"
-								sx={{ display: { xs: "none", md: "block" } }}
-							>
-								Log in
+						{isLoggedIn ? (
+							<Button variant="outlined" onClick={handleLogout}>
+								Log out
 							</Button>
-						</Link>
-						<Link to="/register">
-							<Button variant="contained">Sign up</Button>
-						</Link>
+						) : (
+							<>
+								<Link to="/login">
+									<Button
+										variant="outlined"
+										sx={{ display: { xs: "none", md: "block" } }}
+									>
+										Log in
+									</Button>
+								</Link>
+								<Link to="/register">
+									<Button variant="contained">Sign up</Button>
+								</Link>
+							</>
+						)}
 					</Box>
 				</Toolbar>
 			</Container>

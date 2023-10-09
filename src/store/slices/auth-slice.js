@@ -31,14 +31,8 @@ const authSlice = createSlice({
 		token: null, // either null or the token string
 	},
 	reducers: {
-		signup(state, action) {
-			// need to log in after signing up
-			state.userData = action.payload.userData;
-			state.authState = "idle";
-		},
-
 		login(state, action) {
-			state.userData = action.payload.userData || state.userData;
+			state.userData = action.payload.userData;
 			state.token = action.payload.token;
 			state.isLoggedIn = true;
 			state.authState = "idle";

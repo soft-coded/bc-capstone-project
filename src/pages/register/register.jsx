@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Money from "../../assets/register/Money.png";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
 	Container,
 	Grid,
@@ -12,9 +12,10 @@ import {
 	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { signup } from "../../api/auth";
+import { authActions } from "../../store/slices/auth-slice";
 
 const styles = {
 	fullHeight: {
@@ -32,6 +33,8 @@ const styles = {
 };
 
 const RegistrationPage = () => {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const authState = useSelector((state) => state.auth.authState);
 
 	const [formData, setFormData] = useState({
@@ -100,30 +103,22 @@ const RegistrationPage = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (validateForm()) {
-			// Form is valid, you can submit it here
-			console.log("Form submitted:", formData);
-			signup(formData)
-				.then((resp) => {
-					console.log(resp);
-					console.log("success log");
-					toast.success("User registered successfully!!");
-					setFormData({
-						firstName: "",
-						lastName: "",
-						email: "",
-						password: "",
-						confirmPassword: "",
-					});
-				})
-				.catch((error) => {
-					console.log(error);
-					console.log("Error Log");
-					toast.error(error.message);
-				});
-		} else {
-			console.log("Form has validation errors");
-		}
+		dispatch(authActions.setLoadingState());
+		if (!validateForm()) return;
+
+		signup(formData)
+			.then(() => {
+				toast.success("User registered successfully!");
+				// set the state to idle
+				dispatch(authActions.setIdleState());
+				// redirect to login page for token generation and full authentication
+				navigate("/login");
+			})
+			.catch((error) => {
+				console.log(error);
+				toast.error(error.message);
+				dispatch(authActions.setIdleState());
+			});
 	};
 
 	const handleChange = (e) => {
