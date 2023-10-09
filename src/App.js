@@ -16,6 +16,8 @@ import TransferForm from "./pages/transferForm/transferForm";
 import { authActions } from "./store/slices/auth-slice";
 import Converter from "./pages/currency-converter/Converter";
 import FullscreenSpinner from "./components/fullscreen-spinner/FullscreenSpinner";
+import RealTableChart from "./pages/charts/RealTableChart";
+import CurrencyParentComponent from "./components/Charts/CurrencyParentComponent";
 function App() {
 	const dispatch = useDispatch();
 	const authState = useSelector((state) => state.auth.authState);
@@ -50,9 +52,13 @@ function App() {
 				<Route path="/aboutus" element={<Aboutus />} />
 				<Route path="/transferform" element={<TransferForm />} />
 				<Route path="/converter" element={<Converter />} />
-			</Routes>
+				<Route path="/chart" element={<RealTableChart>
+				<CurrencyParentComponent/>
+			</RealTableChart>} />
+		</Routes>
 		</>
 	);
 }
+
 
 export default App;
