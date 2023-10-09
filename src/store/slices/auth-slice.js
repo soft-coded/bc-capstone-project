@@ -13,7 +13,7 @@ const authSlice = createSlice({
 			- user's name (first and last)
 			so it should look like this:
 			userData: {
-				id: "the user's id",
+				userId: "the user's id",
 				email: "the user's email",
 				firstName: "fname",
 				lastName: "lname"
@@ -31,8 +31,14 @@ const authSlice = createSlice({
 		token: null, // either null or the token string
 	},
 	reducers: {
-		login(state, action) {
+		signup(state, action) {
+			// need to log in after signing up
 			state.userData = action.payload.userData;
+			state.authState = "idle";
+		},
+
+		login(state, action) {
+			state.userData = action.payload.userData || state.userData;
 			state.token = action.payload.token;
 			state.isLoggedIn = true;
 			state.authState = "idle";

@@ -120,11 +120,9 @@ const RegistrationPage = () => {
 						confirmPassword: "",
 					});
 					// update redux state
-					dispatch(authActions.login(formData));
-					// redirect to homepage after a successful registration
-					setTimeout(() => {
-						navigate("/");
-					}, 500);
+					dispatch(authActions.signup({ userData: resp.data }));
+					// redirect to login page after a successful registration
+					navigate("/login");
 				})
 				.catch((error) => {
 					console.log(error);
