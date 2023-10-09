@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import wallet from "../../assets/login/wallet.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
 	Container,
 	Grid,
@@ -11,6 +11,10 @@ import {
 	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { login } from "../../api/auth";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/slices/auth-slice";
 
 const styles = {
 	fullHeight: {
@@ -26,6 +30,9 @@ const styles = {
 };
 
 const LoginPage = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
@@ -63,8 +70,17 @@ const LoginPage = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (validateForm()) {
-			// Form is valid, you can submit it here
-			console.log("Form submitted:", formData);
+			login(formData.email, formData.password)
+				.then((res) => {
+					toast.success("Logged in successfully!");
+					dispatch(authActions.login({ token: res.data.token }));
+					// navigate to homepage after a successful login
+					navigate("/");
+				})
+				.catch((err) => {
+					console.log(err);
+					toast.error(err.message || "Something went wrong");
+				});
 		} else {
 			console.log("Form has validation errors");
 		}

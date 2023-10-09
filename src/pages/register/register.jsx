@@ -105,20 +105,9 @@ const RegistrationPage = () => {
 		e.preventDefault();
 		dispatch(authActions.setLoadingState());
 		if (validateForm()) {
-			// Form is valid, you can submit it here
-			console.log("Form submitted:", formData);
 			signup(formData)
 				.then((resp) => {
-					console.log(resp);
-					console.log("success log");
 					toast.success("User registered successfully!!");
-					setFormData({
-						firstName: "",
-						lastName: "",
-						email: "",
-						password: "",
-						confirmPassword: "",
-					});
 
 					// send the data to redux for state management
 					dispatch(
@@ -137,7 +126,6 @@ const RegistrationPage = () => {
 				})
 				.catch((error) => {
 					console.log(error);
-					console.log("Error Log");
 					toast.error(error.message);
 					dispatch(authActions.setIdleState());
 				});
