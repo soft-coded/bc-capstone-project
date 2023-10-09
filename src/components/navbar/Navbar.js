@@ -20,7 +20,6 @@ const pages = [
 	{ label: "Home", to: "/" },
 	{ label: "Dashboard", to: "/dashboard/transactions", protected: true },
 	{ label: "Transfer", to: "/transferform", protected: true },
-	{ label: "Charts", to: "/chart" },
 	{ label: "Converter", to: "/converter" },
 	{ label: "About Us", to: "/aboutus" },
 	{ label: "Comparison Chart", to: "/chart" },
