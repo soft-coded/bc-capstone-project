@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import wallet from "../../assets/login/wallet.png";
+import { Link } from "react-router-dom";
 import {
 	Container,
 	Grid,
@@ -7,7 +8,6 @@ import {
 	Typography,
 	TextField,
 	Button,
-	Link,
 	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -186,10 +186,10 @@ const LoginPage = () => {
 								style={{ marginTop: "1rem", textAlign: "center" }}
 							>
 								Don’t have an account? No problem!{" "}
-								<Link href="/register">Click here to create one.</Link>.
+								<Link to="/register">Click here to create one.</Link>
 							</Typography>
 							<Typography style={{ fontSize: "13px" }}>
-								<Link href="/register" style={{ textDecoration: "none" }}>
+								<Link to="/" style={{ textDecoration: "none" }}>
 									<Box
 										display="flex"
 										alignItems="center"
