@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Money from "../../assets/register/Money.png";
 import { signUp } from "../../api/user";
+import { toast } from "react-toastify";
 
 import {
 	Container,
@@ -106,6 +107,14 @@ const RegistrationPage = () => {
 				.then((resp) => {
 					console.log(resp);
 					console.log("success log");
+					toast.success("User Registered Successfully!!");
+					setFormData({
+						firstName: "",
+						lastName: "",
+						email: "",
+						password: "",
+						confirmPassword: "",
+					});
 				})
 				.catch((error) => {
 					console.log(error);

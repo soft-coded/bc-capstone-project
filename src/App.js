@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Box } from "@mui/material";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import "./App.css";
 import Profile from "./pages/profile/Profile";
@@ -42,23 +44,22 @@ function App() {
 			<Spinner style={{ transform: "translate(-50%, -50%)" }} />
 		</Box>
 	) : (
-		<Routes>
-			<Route path="/" element={<Home />} />
-			<Route path="/profile" element={<Profile />} />
-			<Route
-				path="/dashboard"
-				element={<Navigate to="/dashboard/transactions" replace />}
-			/>
-			<Route path="/dashboard/*" element={<Dashboard />} />
-			<Route path="/register" element={<RegistrationPage />} />
-			<Route path="/login" element={<LoginPage />} />
-			<Route path="dashboard/accounts/addaccount" element={<AddAccount />} />
-			<Route path="/aboutus" element={<Aboutus />} />
-			<Route path="/transfer" element={<Transfer />} />
-			<Route path="/transferform" element={<TransferForm />} />
-			<Route path="/converter" element={<Converter />} />
+		<><ToastContainer /><Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/profile" element={<Profile />} />
+				<Route
+					path="/dashboard"
+					element={<Navigate to="/dashboard/transactions" replace />} />
+				<Route path="/dashboard/*" element={<Dashboard />} />
+				<Route path="/register" element={<RegistrationPage />} />
+				<Route path="/login" element={<LoginPage />} />
+				<Route path="dashboard/accounts/addaccount" element={<AddAccount />} />
+				<Route path="/aboutus" element={<Aboutus />} />
+				<Route path="/transfer" element={<Transfer />} />
+				<Route path="/transferform" element={<TransferForm />} />
+				<Route path="/converter" element={<Converter />} />
 
-		</Routes>
+			</Routes></>
 	);
 }
 
