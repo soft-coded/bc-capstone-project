@@ -4,11 +4,11 @@ import "./transfer.css";
 import { Typography, Grid, Box, Button, Icon } from "@mui/material";
 import exchange from "../../assets/transfer/exchange.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 
 const Transfer = () => {
 	return (
-		<div>
-			<ResponsiveAppBar />
+		<WithNavAndFooter>
 			<Box>
 				<div className="box">
 					<div className="rectangle">
@@ -75,7 +75,7 @@ const Transfer = () => {
 					</div>
 				</div>
 			</Box>
-		</div>
+		</WithNavAndFooter>
 	);
 };
 

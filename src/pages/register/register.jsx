@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Money from "../../assets/register/Money.png";
 import { signUp } from "../../api/user";
 import { toast } from "react-toastify";
-
+import { Link } from "react-router-dom";
 import {
 	Container,
 	Grid,
@@ -13,7 +13,6 @@ import {
 	FormControl,
 	InputLabel,
 	FormHelperText,
-	Link,
 	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -281,11 +280,11 @@ const RegistrationPage = () => {
 								style={{ marginTop: "1rem", textAlign: "center" }}
 							>
 								Already have an account?{" "}
-								<Link href="/login">Click here to log in</Link>.
+								<Link to="/login">Click here to log in.</Link>
 							</Typography>
 						</form>
 						<Typography style={{ fontSize: "13px" }}>
-							<Link href="/" style={{ textDecoration: "none" }}>
+							<Link to="/" style={{ textDecoration: "none" }}>
 								<Box
 									display="flex"
 									alignItems="center"
