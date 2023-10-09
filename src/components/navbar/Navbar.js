@@ -19,7 +19,7 @@ const pages = [
 	{ label: "Dashboard", to: "/dashboard/transactions" },
 	{ label: "Converter", to: "/converter" },
 	{ label: "About Us", to: "/aboutus" },
-	{ label: "Contact Us", to: "/aboutus" },
+	{ label: "Comparison Chart", to: "/chart" },
 ];
 
 function ResponsiveAppBar() {

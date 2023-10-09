@@ -8,6 +8,8 @@ import {
 	SvgIcon,
 } from "@mui/material";
 import "./aboutus.css";
+//import Link from "@mui/material";
+import { Link } from "react-router-dom";
 
 const Coverheader = () => {
 	return (
@@ -23,9 +25,11 @@ const Coverheader = () => {
 								Welcome to Multicurrency converter - Your Ultimate Currency
 								Conversion Solution!
 							</p>
+							<Link to="/dashboard/contact">
 							<button type="submit" class="btn bg-white text-dark">
 								Contact Us
 							</button>
+							</Link>
 							<h6 className="find-us text-white">Find us on</h6>
 							<div className="d-flex justify-content-center">
 								<svg
