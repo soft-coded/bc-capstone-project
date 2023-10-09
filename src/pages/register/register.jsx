@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Money from "../../assets/register/Money.png";
 import { toast } from "react-toastify";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
 	Container,
 	Grid,
@@ -12,9 +12,8 @@ import {
 	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { authActions } from "../../store/slices/auth-slice";
 import { signup } from "../../api/auth";
 
 const styles = {
@@ -33,8 +32,6 @@ const styles = {
 };
 
 const RegistrationPage = () => {
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
 	const authState = useSelector((state) => state.auth.authState);
 
 	const [formData, setFormData] = useState({
@@ -103,7 +100,6 @@ const RegistrationPage = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(authActions.setLoadingState());
 		if (validateForm()) {
 			// Form is valid, you can submit it here
 			console.log("Form submitted:", formData);
@@ -124,7 +120,6 @@ const RegistrationPage = () => {
 					console.log(error);
 					console.log("Error Log");
 					toast.error(error.message);
-					dispatch(authActions.setIdleState());
 				});
 		} else {
 			console.log("Form has validation errors");
