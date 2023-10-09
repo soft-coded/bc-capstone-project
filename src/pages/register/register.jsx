@@ -164,10 +164,11 @@ const RegistrationPage = () => {
 				<Grid item xs={12} md={6}>
 					<Paper
 						elevation={3}
-						style={{
+						sx={{
 							...styles.fullHeight,
 							padding: "2rem",
 							borderRadius: "0px",
+							boxShadow: "none",
 						}}
 					>
 						<form onSubmit={handleSubmit}>
