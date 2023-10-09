@@ -54,10 +54,8 @@ function App() {
 			<Route path="/login" element={<LoginPage />} />
 			<Route path="dashboard/accounts/addaccount" element={<AddAccount />} />
 			<Route path="/aboutus" element={<Aboutus />} />
-			<Route path="/transfer" element={<Transfer />} />
 			<Route path="/transferform" element={<TransferForm />} />
 			<Route path="/converter" element={<Converter />} />
-
 		</Routes>
 	);
 }

@@ -6,6 +6,7 @@ import "./Home.css";
 import CashnCoins from "../../assets/home/CashnCoins.png";
 import WhyChooseUs from "./WhyChooseUs";
 import Testimonials from "./Testimonials";
+import Transfer from "../transfer/transfer";
 
 const BOX_DIMENSIONS = {
 	width: "100%",
@@ -78,6 +79,7 @@ export default function Home() {
 				</Grid>
 			</Box>
 			<WhyChooseUs />
+			<Transfer />
 			<Testimonials />
 		</WithNavAndFooter>
 	);
