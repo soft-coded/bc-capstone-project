@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
 	Grid,
 	Typography,
@@ -12,6 +13,26 @@ import {
 import { Link } from "react-router-dom";
 
 function DepositForm() {
+	const [formValues, setFormValues] = useState({
+		account: "",
+		amount: "",
+		currency: "",
+		remark: "",
+	});
+	const [formErrors, setFormErrors] = useState({
+		account: "",
+		amount: "",
+		currency: "",
+		remark: "",
+	});
+
+	function handleChange(e) {
+		setFormValues({
+			...formValues,
+			[e.target.name]: e.target.value,
+		});
+	}
+
 	return (
 		<Box
 			width="100%"
@@ -47,6 +68,7 @@ function DepositForm() {
 									id="account"
 									name="account"
 									sx={{ backgroundColor: "#fff" }}
+									required
 								>
 									<MenuItem>1234</MenuItem>
 									<MenuItem>5678</MenuItem>
@@ -58,7 +80,7 @@ function DepositForm() {
 						<Grid item>
 							<FormControl fullWidth>
 								<FormLabel htmlFor="amount" sx={{ marginLeft: 2 }}>
-									Amount
+									Amount (will be converted to your account's home currency)
 								</FormLabel>
 								<TextField
 									id="amount"
@@ -67,6 +89,7 @@ function DepositForm() {
 									name="amount"
 									// value={formData.password}
 									// onChange={handleChange}
+									required
 								/>
 								{/* <div style={{ color: "red" }}>{formErrors.password}</div> */}
 							</FormControl>
@@ -74,7 +97,7 @@ function DepositForm() {
 						<Grid item>
 							<FormControl fullWidth>
 								<FormLabel htmlFor="currency" sx={{ marginLeft: 2 }}>
-									Currency
+									Currency (to be used for conversion)
 								</FormLabel>
 								<Select
 									fullWidth
