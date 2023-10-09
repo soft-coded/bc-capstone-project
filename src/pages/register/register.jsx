@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Money from "../../assets/register/Money.png";
-import { signUp } from "../../api/user";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
 	Container,
 	Grid,
@@ -10,12 +9,13 @@ import {
 	Typography,
 	TextField,
 	Button,
-	FormControl,
-	InputLabel,
-	FormHelperText,
 	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useDispatch, useSelector } from "react-redux";
+
+import { authActions } from "../../store/slices/auth-slice";
+import { signup } from "../../api/auth";
 
 const styles = {
 	fullHeight: {
@@ -33,6 +33,10 @@ const styles = {
 };
 
 const RegistrationPage = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const authState = useSelector((state) => state.auth.authState);
+
 	const [formData, setFormData] = useState({
 		firstName: "",
 		lastName: "",
@@ -99,14 +103,15 @@ const RegistrationPage = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		dispatch(authActions.setLoadingState());
 		if (validateForm()) {
 			// Form is valid, you can submit it here
 			console.log("Form submitted:", formData);
-			signUp(formData)
+			signup(formData)
 				.then((resp) => {
 					console.log(resp);
 					console.log("success log");
-					toast.success("User Registered Successfully!!");
+					toast.success("User registered successfully!!");
 					setFormData({
 						firstName: "",
 						lastName: "",
@@ -114,10 +119,18 @@ const RegistrationPage = () => {
 						password: "",
 						confirmPassword: "",
 					});
+					// update redux state
+					dispatch(authActions.login(formData));
+					// redirect to homepage after a successful registration
+					setTimeout(() => {
+						navigate("/");
+					}, 500);
 				})
 				.catch((error) => {
 					console.log(error);
 					console.log("Error Log");
+					toast.error(error.message);
+					dispatch(authActions.setIdleState());
 				});
 		} else {
 			console.log("Form has validation errors");
@@ -270,8 +283,9 @@ const RegistrationPage = () => {
 										color="primary"
 										fullWidth
 										style={{ marginTop: "1rem" }}
+										disabled={authState === "loading"}
 									>
-										Register
+										{authState !== "loading" ? "Register" : "Registering..."}
 									</Button>
 								</Grid>
 							</Grid>

@@ -67,6 +67,14 @@ const authSlice = createSlice({
 			state.isLoggedIn = true;
 			state.authState = "idle";
 		},
+
+		setLoadingState(state) {
+			state.authState = "loading";
+		},
+
+		setIdleState(state) {
+			state.authState = "idle";
+		},
 	},
 });
 
