@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { Box } from "@mui/material";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -14,9 +13,9 @@ import RegistrationPage from "./pages/register/register";
 import LoginPage from "./pages/login/login";
 import Aboutus from "./pages/aboutus/aboutus";
 import TransferForm from "./pages/transferForm/transferForm";
-import Spinner from "./components/loading-spinner/Spinner";
 import { authActions } from "./store/slices/auth-slice";
 import Converter from "./pages/currency-converter/Converter";
+import FullscreenSpinner from "./components/fullscreen-spinner/FullscreenSpinner";
 function App() {
 	const dispatch = useDispatch();
 	const authState = useSelector((state) => state.auth.authState);
@@ -33,15 +32,7 @@ function App() {
 	}, [pathname]);
 
 	return authState === "fetching" ? (
-		<Box
-			height="100vh"
-			width="100vw"
-			display="flex"
-			alignItems="center"
-			justifyContent="center"
-		>
-			<Spinner style={{ transform: "translate(-50%, -50%)" }} />
-		</Box>
+		<FullscreenSpinner />
 	) : (
 		<>
 			<ToastContainer />
