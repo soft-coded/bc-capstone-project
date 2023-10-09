@@ -75,8 +75,10 @@ const Convertor = () => {
 		position: "relative",
 		marginRight: "2rem",
 		marginLeft: "2rem",
+		marginBottom: "2rem",
 		width: "100%",
-		height: "auto",
+		maxHeight: "85%",
+		display: "inline-block",
 	};
 
 	return (
@@ -151,7 +153,7 @@ const Convertor = () => {
 								sx={{
 									borderRadius: "60px",
 									mb: 2,
-									marginTop: 2,
+									marginTop: 0,
 								}}
 							>
 								<InputAmount />
