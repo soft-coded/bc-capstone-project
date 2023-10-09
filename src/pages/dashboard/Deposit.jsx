@@ -180,10 +180,7 @@ export default function Deposit() {
 					</Typography>
 				</Grid>
 				<Grid item>
-					<Link
-						to="/dashboard/accounts/addaccount"
-						style={{ textDecoration: "none" }}
-					>
+					<Link to="/addaccount" style={{ textDecoration: "none" }}>
 						<Button variant="contained" size="large">
 							+ New account
 						</Button>
