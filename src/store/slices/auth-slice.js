@@ -6,7 +6,13 @@ const authSlice = createSlice({
 	name: "auth",
 	initialState: {
 		isLoggedIn: false,
-		userId: null, // either null or a string that is the logged in user's userId
+		/* 
+			userData should either be null or should be an object containing:
+			- userId of the logged in user
+			- user's email
+			- user's name (first and last)
+		*/
+		userData: null,
 		/* 
       authState should only ever have 3 string values:
       - "fetching" | "loading" | "idle"
@@ -19,7 +25,7 @@ const authSlice = createSlice({
 	},
 	reducers: {
 		login(state, action) {
-			state.userId = action.payload.userId;
+			state.userData = action.payload.userData;
 			state.token = action.payload.token;
 			state.isLoggedIn = true;
 			state.authState = "idle";
@@ -30,7 +36,7 @@ const authSlice = createSlice({
 
 		logout(state) {
 			state.isLoggedIn = false;
-			state.userId = null;
+			state.userData = null;
 			state.token = null;
 			state.authState = "idle";
 
@@ -49,7 +55,7 @@ const authSlice = createSlice({
 			}
 			// else, set all the data properly
 			const parsedData = JSON.parse(authData);
-			state.userId = parsedData.userId;
+			state.userData = parsedData.userData;
 			state.token = parsedData.token;
 			state.isLoggedIn = true;
 			state.authState = "idle";
