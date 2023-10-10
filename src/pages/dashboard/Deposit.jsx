@@ -10,15 +10,17 @@ import {
 	MenuItem,
 	FormControl,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
-import { getAllUserAccounts } from "../../api/account";
+import { depositInAccount, getAllUserAccounts } from "../../api/account";
 
 function DepositForm() {
 	const [accounts, setAccounts] = useState(null);
 	const userId = useSelector((state) => state.auth.userData.userId);
 	const token = useSelector((state) => state.auth.token);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		getAllUserAccounts(userId, token)
@@ -72,7 +74,23 @@ function DepositForm() {
 	}
 
 	function handleSubmit(multiplier) {
+		// if form has errors, return
 		if (validateForm()) return;
+
+		depositInAccount(formValues.account, formValues.amount * multiplier, token)
+			.then(() => {
+				toast.success(
+					"Amount " +
+						(multiplier > 0 ? "deposited" : "withdrawn") +
+						" successfully!",
+				);
+				// navigate to account page on success
+				navigate("/dashboard/accounts");
+			})
+			.catch((err) => {
+				console.log(err);
+				toast.error(err.message || "Something went wrong");
+			});
 	}
 
 	return (
