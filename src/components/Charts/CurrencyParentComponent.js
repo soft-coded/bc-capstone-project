@@ -27,15 +27,14 @@ export default function CurrencyParentComponent() {
 
   const handleConvertClick = () => {
     if (firstAmount) {
-      axios("https://api.freecurrencyapi.com/v1/latest", {
+      axios("http://localhost:8080/api/v1/user/latest", {
         params: {
-          apikey: "fca_live_49jfgbN2zuQFEuPN1zO2POWSlUPvm7dgOj175GRN",
           base_currency: codeFromCurrency,
           currencies: codeToCurrency,
         },
       })
         .then((response) => {
-          const newResultCurrency = response.data.data[codeToCurrency];
+                    const newResultCurrency = response.data.data[codeToCurrency];
 
           // Prepare chart data for the current conversion with a timestamp
           const currentChartData = {
