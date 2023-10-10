@@ -15,39 +15,37 @@ import {
 import sendSvg from "../../assets/transferForm/send.svg";
 
 const TransferForm = () => {
-	const [senderFormData, setSenderFormData] = useState({
-		amount: "",
-		senderAccount: "",
+	const [formData, setFormData] = useState({
+		senderAmount: "",
+		senderAccountNumber: "",
 		senderCurrency: "",
-	});
-
-	const [receiverFormData, setReceiverFormData] = useState({
-		convertedAmount: "",
-		receiverAccount: "",
+		receiverAmount: "",
+		receiverAccountNumber: "",
 		receiverCurrency: "",
 	});
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Implement your form submission logic here
-		console.log("Sender Form Data:", senderFormData);
-		console.log("Receiver Form Data:", receiverFormData);
 	};
 
-	const handleSenderFormChange = (e) => {
+	const handleFormChange = (e) => {
 		const { name, value } = e.target;
-		setSenderFormData({
-			...senderFormData,
-			[name]: value,
-		});
-	};
-
-	const handleReceiverFormChange = (e) => {
-		const { name, value } = e.target;
-		setReceiverFormData({
-			...receiverFormData,
-			[name]: value,
-		});
+		if (
+			name === "senderAmount" &&
+			formData.receiverCurrency !== "" &&
+			formData.senderCurrency !== ""
+		) {
+			setFormData({
+				...formData,
+				[name]: value,
+				receiverAmount: parseFloat(value) * 80,
+			});
+		} else {
+			setFormData({
+				...formData,
+				[name]: value,
+			});
+		}
 	};
 
 	return (
@@ -83,7 +81,13 @@ const TransferForm = () => {
 						Send money to any account without worrying about currencies.
 					</Typography>
 				</Box>
-				<Grid container gap={3} alignItems="center" justifyContent="center">
+				<Grid
+					container
+					gap={3}
+					alignItems="center"
+					justifyContent="center"
+					flexWrap={{ xs: "wrap", md: "nowrap" }}
+				>
 					<Grid
 						item
 						sx={{
@@ -91,6 +95,7 @@ const TransferForm = () => {
 							alignItems: "center",
 							justifyContent: "center",
 						}}
+						md={5}
 					>
 						<Paper
 							elevation={4}
@@ -108,17 +113,17 @@ const TransferForm = () => {
 							>
 								Sender
 							</Typography>
-							<form onSubmit={handleSubmit}>
+							<form>
 								<TextField
-									name="amount"
+									name="senderAmount"
 									label="Amount"
 									variant="outlined"
 									fullWidth
 									type="number"
 									InputProps={{ inputProps: { min: 0 } }}
 									required
-									onChange={handleSenderFormChange}
-									value={senderFormData.amount}
+									onChange={handleFormChange}
+									value={formData.senderAmount}
 									sx={{
 										background: "white",
 										borderRadius: "60px",
@@ -137,13 +142,14 @@ const TransferForm = () => {
 								>
 									<InputLabel>Account</InputLabel>
 									<Select
-										name="senderAccount"
+										name="senderAccountNumber"
 										label="Account (Select type)"
-										onChange={handleSenderFormChange}
-										value={senderFormData.senderAccount}
+										onChange={handleFormChange}
+										value={formData.senderAccountNumber}
 									>
-										<MenuItem value="option1">Option 1</MenuItem>
-										<MenuItem value="option2">Option 2</MenuItem>
+										<MenuItem value="acc1">Account 1</MenuItem>
+										<MenuItem value="acc2">Account 2</MenuItem>
+										<MenuItem value="acc3">Account 3</MenuItem>
 									</Select>
 								</FormControl>
 								<FormControl
@@ -160,11 +166,12 @@ const TransferForm = () => {
 									<Select
 										name="senderCurrency"
 										label="Currency (Base currency select type)"
-										onChange={handleSenderFormChange}
-										value={senderFormData.senderCurrency}
+										onChange={handleFormChange}
+										value={formData.senderCurrency}
 									>
-										<MenuItem value="currency1">Currency 1</MenuItem>
-										<MenuItem value="currency2">Currency 2</MenuItem>
+										<MenuItem value="INR">Indian Rupee</MenuItem>
+										<MenuItem value="USD">US Dollar</MenuItem>
+										<MenuItem value="EUR">Euro</MenuItem>
 									</Select>
 								</FormControl>
 							</form>
@@ -178,9 +185,12 @@ const TransferForm = () => {
 							justifyContent: "center",
 							flexDirection: "column",
 							":hover": { transform: "scale(1.15)" },
+							":active": { transform: "scale(1.05)" },
 							transition: "transform 0.2s ease-out",
 							cursor: "pointer",
 						}}
+						md={2}
+						onClick={handleSubmit}
 					>
 						<Box
 							sx={{
@@ -206,6 +216,7 @@ const TransferForm = () => {
 							alignItems: "center",
 							justifyContent: "center",
 						}}
+						md={5}
 					>
 						<Paper
 							elevation={4}
@@ -223,17 +234,17 @@ const TransferForm = () => {
 							>
 								Receiver
 							</Typography>
-							<form onSubmit={handleSubmit}>
+							<form>
 								<TextField
-									name="convertedAmount"
+									name="receiverAmount"
 									label="Converted Amount"
 									variant="outlined"
 									fullWidth
 									type="number"
 									InputProps={{ inputProps: { min: 0 } }}
 									required
-									onChange={handleReceiverFormChange}
-									value={receiverFormData.convertedAmount}
+									onChange={handleFormChange}
+									value={formData.receiverAmount}
 									sx={{
 										background: "white",
 										borderRadius: "60px",
@@ -241,27 +252,22 @@ const TransferForm = () => {
 									}}
 									disabled
 								/>
-								<FormControl
+								<TextField
+									name="receiverAccountNumber"
+									label="Account"
 									variant="outlined"
 									fullWidth
+									type="number"
+									InputProps={{ inputProps: { min: 0 } }}
 									required
+									onChange={handleFormChange}
+									value={formData.receiverAccountNumber}
 									sx={{
 										background: "white",
 										borderRadius: "60px",
 										mb: 2,
 									}}
-								>
-									<InputLabel>Account (Select type)</InputLabel>
-									<Select
-										name="receiverAccount"
-										label="Account (Select type)"
-										onChange={handleReceiverFormChange}
-										value={receiverFormData.receiverAccount}
-									>
-										<MenuItem value="option1">Option 1</MenuItem>
-										<MenuItem value="option2">Option 2</MenuItem>
-									</Select>
-								</FormControl>
+								/>
 								<FormControl
 									variant="outlined"
 									fullWidth
@@ -276,11 +282,12 @@ const TransferForm = () => {
 									<Select
 										name="receiverCurrency"
 										label="Currency (Base currency select type)"
-										onChange={handleReceiverFormChange}
-										value={receiverFormData.receiverCurrency}
+										onChange={handleFormChange}
+										value={formData.receiverCurrency}
 									>
-										<MenuItem value="currency1">Currency 1</MenuItem>
-										<MenuItem value="currency2">Currency 2</MenuItem>
+										<MenuItem value="INR">Indian Rupee</MenuItem>
+										<MenuItem value="USD">US Dollar</MenuItem>
+										<MenuItem value="EUR">Euro</MenuItem>
 									</Select>
 								</FormControl>
 							</form>
