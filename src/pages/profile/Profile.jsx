@@ -1,17 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { Avatar, Button, TextField, Typography, Grid } from "@mui/material";
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
-import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../api/auth";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../store/slices/auth-slice";
+import { useSelector } from "react-redux";
+import { getUserByEmail, getUserById, updateUser } from "../../api/auth";
 
 const EditProfile = () => {
-	const authState = useSelector((state) => state.auth.authState);
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const userId = useSelector((state) => state.auth.userData.userId);
+	const token = useSelector((state) => state.auth.token);
+
+	// Set values for profile values
+	useEffect(() => {
+		getUserById(userId, token)
+			.then((res) =>
+				setProfileData({
+					firstName: res.data.firstName,
+					lastName: res.data.lastName,
+					email: res.data.email,
+					password: res.data.password,
+					profilePicture: "",
+				}),
+			)
+			.catch((err) => {
+				console.log(err);
+				toast.error(err.message || "Something went wrong");
+			});
+	}, [userId, token]);
 
 	// State to store user profile data
 	const [profileData, setProfileData] = useState({
@@ -19,8 +34,10 @@ const EditProfile = () => {
 		lastName: "",
 		email: "",
 		password: "",
-		profilePicture: "", // You can set the initial image URL here
+		profilePicture: "", // Set the initial image URL here
 	});
+
+	// To store user profile errors
 	const [profileErrors, setProfileErrors] = useState({
 		firstName: "",
 		lastName: "",
@@ -29,12 +46,15 @@ const EditProfile = () => {
 		profilePicture: "",
 	});
 
+	// Form Validation
 	const validateForm = () => {
 		let isValid = true;
 		const newErrors = { ...profileErrors };
 
 		// Validation logic for Email
-		if (!profileData.email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+		if (
+			!profileData.email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)
+		) {
 			newErrors.email = "Invalid Email";
 			isValid = false;
 		} else {
@@ -62,17 +82,29 @@ const EditProfile = () => {
 
 	const handleFileUpload = (e) => {
 		// Handle file upload and set the profile picture
-		// You can use FileReader to preview the image if needed
+		// FileReader to preview the image if needed
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// Submit the updated profile data to the server or update context
-		// You can perform API requests here to save the changes
-		
+		if (!validateForm()) return;
+
+		// API requests to save the changes
+		const details = {
+			userId,
+			email: profileData.email,
+			firstName: profileData.firstName,
+			lastName: profileData.lastName,
+			password: profileData.password,
+		};
+		updateUser(details, userId, token)
+			.then(() => {
+				toast.success("User details updated!");
+			})
+			.catch((err) => toast.error(err.message || "Something went wrong"));
+
 		console.log("Profile data submitted:", profileData);
 	};
-	// document.body.style = "background: rgb(238, 228, 247);";
 
 	return (
 		<WithNavAndFooter>
@@ -114,6 +146,7 @@ const EditProfile = () => {
 								onChange={handleInputChange}
 								required
 							/>
+							<div style={{ color: "red" }}>{profileErrors.firstName}</div>
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<TextField
