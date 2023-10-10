@@ -21,3 +21,29 @@ export async function signup(userData) {
 // 		console.log("Error updating user");
 // 	}
 // };
+export async function getUserByEmail(email, token) {
+	return axiosClient.get(USER_SUBPATH + "/" + email, {
+		headers: { Authorization: "Bearer " + token },
+	});
+}
+export async function getUserById(id, token) {
+	return axiosClient.get(USER_SUBPATH + "/" + id, {
+		headers: { Authorization: "Bearer " + token },
+	});
+}
+
+export async function updateUser(userDetails, id, token) {
+	return axiosClient.put(
+		USER_SUBPATH + "/" + id,
+		{ id, ...userDetails },
+		{ headers: { Authorization: "Bearer " + token } },
+	);
+}
+
+// export async function updateUser(userDetails, token) {
+// 	return axiosClient.put(
+// 		USER_SUBPATH + "/update",
+// 		{ ...userDetails },
+// 		{ headers: { Authorization: "Bearer " + token } },
+// 	);
+// }
