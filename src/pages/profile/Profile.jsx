@@ -2,17 +2,56 @@ import React, { useState } from "react";
 import "./Profile.css";
 import { Avatar, Button, TextField, Typography, Grid } from "@mui/material";
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../api/auth";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/slices/auth-slice";
 
 const EditProfile = () => {
+	const authState = useSelector((state) => state.auth.authState);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
 	// State to store user profile data
 	const [profileData, setProfileData] = useState({
-		firstName: "John",
-		lastName: "Doe",
-		email: "johndoe@example.com",
+		firstName: "",
+		lastName: "",
+		email: "",
 		password: "",
 		profilePicture: "", // You can set the initial image URL here
 	});
+	const [profileErrors, setProfileErrors] = useState({
+		firstName: "",
+		lastName: "",
+		email: "",
+		password: "",
+		profilePicture: "",
+	});
 
+	const validateForm = () => {
+		let isValid = true;
+		const newErrors = { ...profileErrors };
+
+		// Validation logic for Email
+		if (!profileData.email.match(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)) {
+			newErrors.email = "Invalid Email";
+			isValid = false;
+		} else {
+			newErrors.email = "";
+		}
+
+		// Validation logic for Password
+		if (profileData.password.length < 6) {
+			newErrors.password = "Password must be at least 6 characters long";
+			isValid = false;
+		} else {
+			newErrors.password = "";
+		}
+
+		setProfileErrors(newErrors);
+		return isValid;
+	};
 	const handleInputChange = (e) => {
 		const { name, value } = e.target;
 		setProfileData({
@@ -30,6 +69,7 @@ const EditProfile = () => {
 		e.preventDefault();
 		// Submit the updated profile data to the server or update context
 		// You can perform API requests here to save the changes
+		
 		console.log("Profile data submitted:", profileData);
 	};
 	// document.body.style = "background: rgb(238, 228, 247);";
