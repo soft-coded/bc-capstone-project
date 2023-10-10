@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
 	Grid,
 	Typography,
@@ -11,19 +11,30 @@ import {
 	FormControl,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { getAllUserAccounts } from "../../api/account";
 
 function DepositForm() {
+	const [accounts, setAccounts] = useState(null);
+	const userId = useSelector((state) => state.auth.userData.userId);
+	const token = useSelector((state) => state.auth.token);
+
+	useEffect(() => {
+		getAllUserAccounts(userId, token)
+			.then((res) => setAccounts(res.data))
+			.catch((err) => console.log(err));
+	}, [userId, token]);
+
 	const [formValues, setFormValues] = useState({
 		account: "",
 		amount: "",
 		currency: "",
-		remark: "",
 	});
 	const [formErrors, setFormErrors] = useState({
 		account: "",
 		amount: "",
 		currency: "",
-		remark: "",
 	});
 
 	function handleChange(e) {
@@ -33,6 +44,37 @@ function DepositForm() {
 		});
 	}
 
+	function validateForm() {
+		let hasError = false;
+		let errors = {
+			amount: "",
+			account: "",
+			currency: "",
+		};
+
+		if (formValues.account === "") {
+			hasError = true;
+			errors.account = "Select an account";
+		}
+
+		if (formValues.amount === "" || parseFloat(formValues.amount) < 0) {
+			hasError = true;
+			errors.amount = "Enter a valid amount";
+		}
+
+		if (formValues.currency === "") {
+			hasError = true;
+			errors.currency = "Select a valid currency";
+		}
+
+		setFormErrors(errors);
+		return hasError;
+	}
+
+	function handleSubmit(multiplier) {
+		if (validateForm()) return;
+	}
+
 	return (
 		<Box
 			width="100%"
@@ -40,7 +82,7 @@ function DepositForm() {
 			padding={3}
 			borderRadius="30px"
 		>
-			<form style={{ width: "100%" }}>
+			<form style={{ width: "100%" }} onSubmit={(e) => e.preventDefault()}>
 				<Grid
 					container
 					display="flex"
@@ -68,30 +110,38 @@ function DepositForm() {
 									id="account"
 									name="account"
 									sx={{ backgroundColor: "#fff" }}
+									value={formValues.account}
+									onChange={handleChange}
 									required
 								>
-									<MenuItem>1234</MenuItem>
-									<MenuItem>5678</MenuItem>
-									<MenuItem>9012</MenuItem>
+									{accounts?.map((acc) => (
+										<MenuItem key={acc.accountId} value={acc.accountId}>
+											{acc.accountNumber}
+										</MenuItem>
+									))}
 								</Select>
-								{/* <div style={{ color: "red" }}>{formErrors.email}</div> */}
+								<Typography color="secondary" variant="caption">
+									{formErrors.account}
+								</Typography>
 							</FormControl>
 						</Grid>
 						<Grid item>
 							<FormControl fullWidth>
 								<FormLabel htmlFor="amount" sx={{ marginLeft: 2 }}>
-									Amount (will be converted to your account's home currency)
+									Amount
 								</FormLabel>
 								<TextField
 									id="amount"
 									placeholder="100000"
 									variant="outlined"
 									name="amount"
-									// value={formData.password}
-									// onChange={handleChange}
+									value={formValues.amount}
+									onChange={handleChange}
 									required
 								/>
-								{/* <div style={{ color: "red" }}>{formErrors.password}</div> */}
+								<Typography color="secondary" variant="caption">
+									{formErrors.amount}
+								</Typography>
 							</FormControl>
 						</Grid>
 						<Grid item>
@@ -103,13 +153,17 @@ function DepositForm() {
 									fullWidth
 									id="currency"
 									name="currency"
+									value={formValues.currency}
+									onChange={handleChange}
 									sx={{ backgroundColor: "#fff" }}
 								>
-									<MenuItem>INR</MenuItem>
-									<MenuItem>EUR</MenuItem>
-									<MenuItem>USD</MenuItem>
+									<MenuItem value="INR ">INR</MenuItem>
+									<MenuItem value="EUR">EUR</MenuItem>
+									<MenuItem value="USD">USD</MenuItem>
 								</Select>
-								{/* <div style={{ color: "red" }}>{formErrors.email}</div> */}
+								<Typography color="secondary" variant="caption">
+									{formErrors.currency}
+								</Typography>
 							</FormControl>
 						</Grid>
 						<Grid item>
@@ -122,23 +176,9 @@ function DepositForm() {
 									placeholder="Anything you want to add"
 									variant="outlined"
 									name="amount"
-									// value={formData.password}
-									// onChange={handleChange}
 								/>
-								{/* <div style={{ color: "red" }}>{formErrors.password}</div> */}
 							</FormControl>
 						</Grid>
-						{/* <Grid item>
-						<Button
-							type="submit"
-							variant="contained"
-							color="primary"
-							fullWidth
-							style={{ marginTop: "1rem" }}
-						>
-							Sign In
-						</Button>
-					</Grid> */}
 					</Grid>
 					<Grid
 						item
@@ -149,7 +189,12 @@ function DepositForm() {
 						alignItems="center"
 						gap={2}
 					>
-						<Button variant="contained" size="large" sx={{ width: "75%" }}>
+						<Button
+							variant="contained"
+							size="large"
+							sx={{ width: "75%" }}
+							onClick={() => handleSubmit(1)}
+						>
 							Deposit
 						</Button>
 						<Typography variant="h6">or</Typography>
@@ -158,6 +203,7 @@ function DepositForm() {
 							color="secondary"
 							size="large"
 							sx={{ width: "75%" }}
+							onClick={() => handleSubmit(-1)}
 						>
 							Withdraw
 						</Button>

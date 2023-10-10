@@ -12,6 +12,14 @@ export async function getAllUserAccounts(userId, token) {
 	});
 }
 
+export async function depositInAccount(accountId, amount, token) {
+	return axiosClient.post(
+		ACCOUNT_SUBPATH + "/deposit/" + accountId,
+		{ balance: amount },
+		{ headers: { Authorization: "Bearer " + token } },
+	);
+}
+
 // export const updateUserProfile = (id, updatedUser) => ({
 // 	type: 'UPDATE_USER_PROFILE',
 // 	payload: { id, updatedUser },
