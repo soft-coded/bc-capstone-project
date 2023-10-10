@@ -1,12 +1,13 @@
 import TollOutlinedIcon from "@mui/icons-material/TollOutlined";
 import { Typography, Grid, Box, Button } from "@mui/material";
-
+import { Link } from "react-router-dom";
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 import "./Home.css";
 import CashnCoins from "../../assets/home/CashnCoins.png";
 import WhyChooseUs from "./WhyChooseUs";
 import Testimonials from "./Testimonials";
 import Transfer from "./transfer";
+import React, { useRef } from "react";
 
 const BOX_DIMENSIONS = {
 	width: "100%",
@@ -14,6 +15,18 @@ const BOX_DIMENSIONS = {
 };
 
 export default function Home() {
+	const whyChooseUsRef = useRef(null);
+	const testimonialsRef = useRef(null);
+	const scrollToWhyChooseUs = () => {
+		if (whyChooseUsRef.current) {
+			whyChooseUsRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	};
+	const scrollToTestimonials = () => {
+		if (testimonialsRef.current) {
+			testimonialsRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	};
 	return (
 		<WithNavAndFooter>
 			<Box
@@ -56,11 +69,13 @@ export default function Home() {
 						>
 							One stop shop for all your forex troubles
 						</Typography>
+
 						<Button
 							size="large"
 							variant="contained"
 							startIcon={<TollOutlinedIcon />}
 							sx={{ marginTop: 3, marginBottom: { xs: 10 } }}
+							onClick={scrollToWhyChooseUs}
 						>
 							<Typography variant="h5" fontWeight={500}>
 								Let's start
@@ -78,9 +93,18 @@ export default function Home() {
 					</Grid>
 				</Grid>
 			</Box>
-			<WhyChooseUs />
-			<Transfer />
-			<Testimonials />
+			<div ref={whyChooseUsRef}>
+				{" "}
+				{/* Add a ref to the "WhyChooseUs" section */}
+				<WhyChooseUs />
+			</div>
+
+			<Transfer scrollToTestimonials={scrollToTestimonials} />
+			<div ref={testimonialsRef}>
+				{" "}
+				{/* Add a ref to the "Testimonials" section */}
+				<Testimonials />
+			</div>
 		</WithNavAndFooter>
 	);
 }

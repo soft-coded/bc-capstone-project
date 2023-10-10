@@ -75,7 +75,7 @@ const Convertor = () => {
 		marginRight: "2rem",
 		marginLeft: "2rem",
 		// marginTop: "2rem",
-		// marginBottom: "2rem",
+		marginBottom: "2rem",
 		width: "100%",
 		maxHeight: "85%",
 		display: "inline-block",

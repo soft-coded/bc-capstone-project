@@ -4,7 +4,7 @@ import { Typography, Grid, Box, Button } from "@mui/material";
 import exchange from "../../assets/transfer/exchange.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-const Transfer = () => {
+const Transfer = ({ scrollToTestimonials }) => {
 	return (
 		<Box marginTop={10}>
 			<div className="box">
@@ -63,6 +63,7 @@ const Transfer = () => {
 									display: "flex",
 									alignItems: "center", // Center the text and icon vertically
 								}}
+								onClick={scrollToTestimonials}
 							>
 								Continue
 								<KeyboardArrowDownIcon /> {/* Add the downward arrow icon */}
