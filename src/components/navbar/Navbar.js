@@ -18,6 +18,7 @@ import { authActions } from "../../store/slices/auth-slice";
 
 const pages = [
 	{ label: "Home", to: "/" },
+	{ label: "Profile", to: "/profile", protected: true },
 	{ label: "Dashboard", to: "/dashboard/transactions", protected: true },
 	{ label: "Transfer", to: "/transferform", protected: true },
 	{ label: "Converter", to: "/converter" },
@@ -94,13 +95,15 @@ function ResponsiveAppBar() {
 								display: { xs: "block", md: "none" },
 							}}
 						>
-							{pages.map((page) => (
-								<MenuItem key={page.label} onClick={handleCloseNavMenu}>
-									<Link to={page.to}>
-										<Typography textAlign="center">{page.label}</Typography>
-									</Link>
-								</MenuItem>
-							))}
+							{pages.map((page) =>
+								!isLoggedIn && page.protected ? null : (
+									<MenuItem key={page.label} onClick={handleCloseNavMenu}>
+										<Link to={page.to}>
+											<Typography textAlign="center">{page.label}</Typography>
+										</Link>
+									</MenuItem>
+								),
+							)}
 						</Menu>
 					</Box>
 					<Box
@@ -120,16 +123,18 @@ function ResponsiveAppBar() {
 							marginLeft: 1,
 						}}
 					>
-						{pages.map((page) => (
-							<Link to={page.to} key={page.label}>
-								<Button
-									onClick={handleCloseNavMenu}
-									sx={{ my: 2, display: "block" }}
-								>
-									{page.label}
-								</Button>
-							</Link>
-						))}
+						{pages.map((page) =>
+							!isLoggedIn && page.protected ? null : (
+								<Link to={page.to} key={page.label}>
+									<Button
+										onClick={handleCloseNavMenu}
+										sx={{ my: 2, display: "block" }}
+									>
+										{page.label}
+									</Button>
+								</Link>
+							),
+						)}
 					</Box>
 
 					<Box
