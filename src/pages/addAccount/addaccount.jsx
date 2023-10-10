@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Money from "../../assets/register/Money.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ResponsiveAppBar from "../../components/navbar/Navbar";
 import {
 	Container,
@@ -20,7 +20,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import { addAccount } from "../../api/account";
+import { addAccount, getAccountById, updateAccount } from "../../api/account";
+import Spinner from "../../components/loading-spinner/Spinner";
 
 const styles = {
 	fullHeight: {
@@ -37,10 +38,30 @@ const styles = {
 	},
 };
 
-const AddAccount = () => {
+const AddAccount = ({ editMode }) => {
 	const userId = useSelector((state) => state.auth.userData.userId);
 	const token = useSelector((state) => state.auth.token);
 	const navigate = useNavigate();
+	const { id: accountId } = useParams();
+	const [fetchingData, setFetchingData] = useState(editMode ? true : false);
+
+	// fetch the data to be edited
+	useEffect(() => {
+		if (!editMode) return;
+
+		getAccountById(accountId, token)
+			.then((res) => {
+				setFormData({
+					accountHolderName: res.data.holderName,
+					accountNo: res.data.accountNumber,
+					balance: res.data.balance,
+					accountType: res.data.type,
+					currency: res.data.currency,
+				});
+			})
+			.catch((err) => toast.error(err.message || "Something went wrong"))
+			.finally(() => setFetchingData(false));
+	}, [editMode, accountId, token]);
 
 	const [formData, setFormData] = useState({
 		accountHolderName: "",
@@ -109,23 +130,30 @@ const AddAccount = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!validateForm()) return;
+		const details = {
+			accountNumber: formData.accountNo,
+			holderName: formData.accountHolderName,
+			type: formData.accountType,
+			userId,
+			balance: formData.balance,
+			currency: formData.currency,
+		};
 
-		addAccount(
-			{
-				accountNumber: formData.accountNo,
-				holderName: formData.accountHolderName,
-				type: formData.accountType,
-				userId,
-				balance: formData.balance,
-				currency: formData.currency,
-			},
-			token,
-		)
-			.then(() => {
-				toast.success("Account added successfully!");
-				navigate("/dashboard/accounts");
-			})
-			.catch((err) => toast.error(err.message || "Something went wrong"));
+		if (editMode) {
+			updateAccount({ ...details, accountId }, token)
+				.then(() => {
+					toast.success("Account details updated!");
+					navigate("/dashboard/accounts");
+				})
+				.catch((err) => toast.error(err.message || "Something went wrong"));
+		} else {
+			addAccount(details, token)
+				.then(() => {
+					toast.success("Account added successfully!");
+					navigate("/dashboard/accounts");
+				})
+				.catch((err) => toast.error(err.message || "Something went wrong"));
+		}
 	};
 
 	const handleChange = (e) => {
@@ -170,162 +198,177 @@ const AddAccount = () => {
 					</Grid>
 
 					{/* Right Column - Registration Form */}
-					<Grid item xs={12} md={6}>
-						<Paper
-							elevation={0}
-							style={{ ...styles.fullHeight, padding: "2rem" }}
+					{editMode && fetchingData ? (
+						<Grid
+							item
+							md={6}
+							xs={12}
+							display="flex"
+							alignItems="center"
+							justifyContent="center"
 						>
-							<form onSubmit={handleSubmit}>
-								<Typography
-									variant="h6"
-									gutterBottom
-									style={{
-										...styles.heading,
-										marginTop: "4rem",
-										textAlign: "center",
-									}}
-								>
-									Add an account
-								</Typography>
-								<Typography
-									variant="body2"
-									color="textSecondary"
-									gutterBottom
-									style={{ ...styles.subheading, textAlign: "center" }}
-								>
-									Fill in the details of the account below.
-								</Typography>
-								<Grid container spacing={2.5}>
-									<Grid item xs={12}>
-										<TextField
-											fullWidth
-											label="Account Holder Name"
-											variant="outlined"
-											name="accountHolderName"
-											value={formData.accountHolderName}
-											onChange={handleChange}
-											required
-											style={{ borderRadius: "60px" }}
-										/>
-										<div style={{ color: "red" }}>
-											{formErrors.accountHolderName}
-										</div>
-									</Grid>
-
-									<Grid item xs={12}>
-										<TextField
-											fullWidth
-											label="Account No"
-											variant="outlined"
-											name="accountNo"
-											value={formData.accountNo}
-											onChange={handleChange}
-											required
-										/>
-										<div style={{ color: "red" }}>{formErrors.accountNo}</div>
-									</Grid>
-
-									<Grid item xs={12}>
-										<TextField
-											fullWidth
-											label="Balance"
-											variant="outlined"
-											name="balance"
-											type="number"
-											value={formData.balance}
-											onChange={handleChange}
-											required
-										/>
-										<div style={{ color: "red" }}>{formErrors.balance}</div>
-									</Grid>
-
-									<Grid item xs={12}>
-										<FormControl
-											fullWidth
-											variant="outlined"
-											required
-											style={{ borderRadius: "60px" }}
-										>
-											<InputLabel htmlFor="currency">Currency</InputLabel>
-											<Select
-												label="Currency"
-												name="currency"
-												value={formData.currency}
-												onChange={handleChange}
-											>
-												<MenuItem value="INR">Indian Rupee</MenuItem>
-												<MenuItem value="USD">US Dollar</MenuItem>
-												<MenuItem value="EUR">Euro</MenuItem>
-											</Select>
-											<FormHelperText style={{ color: "red" }}>
-												{formErrors.accountType}
-											</FormHelperText>
-										</FormControl>
-									</Grid>
-
-									<Grid item xs={12}>
-										<FormControl
-											fullWidth
-											variant="outlined"
-											required
-											style={{ borderRadius: "60px" }}
-										>
-											<InputLabel htmlFor="accountType">
-												Account Type
-											</InputLabel>
-											<Select
-												label="Account Type"
-												name="accountType"
-												value={formData.accountType}
-												onChange={handleChange}
-											>
-												<MenuItem value="savings">Savings</MenuItem>
-												<MenuItem value="current">Current</MenuItem>
-												<MenuItem value="checking">Checking</MenuItem>
-												<MenuItem value="investment">Investment</MenuItem>
-											</Select>
-											<FormHelperText style={{ color: "red" }}>
-												{formErrors.accountType}
-											</FormHelperText>
-										</FormControl>
-									</Grid>
-
-									<Grid item xs={12}>
-										<Button
-											type="submit"
-											variant="contained"
-											color="primary"
-											fullWidth
-											style={{ marginTop: "1rem" }}
-										>
-											Add Account
-										</Button>
-									</Grid>
-								</Grid>
-								<Typography style={{ fontSize: "13px" }}>
-									<Link
-										to="/dashboard/accounts"
-										style={{ textDecoration: "none" }}
+							<Spinner style={{ filter: "invert(1)" }} />
+						</Grid>
+					) : (
+						<Grid item xs={12} md={6}>
+							<Paper
+								elevation={0}
+								style={{ ...styles.fullHeight, padding: "2rem" }}
+							>
+								<form onSubmit={handleSubmit}>
+									<Typography
+										variant="h6"
+										gutterBottom
+										style={{
+											...styles.heading,
+											marginTop: "4rem",
+											textAlign: "center",
+										}}
 									>
-										<Box
-											display="flex"
-											alignItems="center"
-											justifyContent="center"
-											padding="5px 50px"
-											marginTop="0.8rem"
-											textAlign="center"
-											background="#F5F5F5"
+										{editMode ? "Edit account details" : "Add an account"}
+									</Typography>
+									<Typography
+										variant="body2"
+										color="textSecondary"
+										gutterBottom
+										style={{ ...styles.subheading, textAlign: "center" }}
+									>
+										{editMode
+											? "Edit the account details below."
+											: "Fill in the details of the account below."}
+									</Typography>
+									<Grid container spacing={2.5}>
+										<Grid item xs={12}>
+											<TextField
+												fullWidth
+												label="Account Holder Name"
+												variant="outlined"
+												name="accountHolderName"
+												value={formData.accountHolderName}
+												onChange={handleChange}
+												required
+												style={{ borderRadius: "60px" }}
+											/>
+											<div style={{ color: "red" }}>
+												{formErrors.accountHolderName}
+											</div>
+										</Grid>
+
+										<Grid item xs={12}>
+											<TextField
+												fullWidth
+												label="Account No"
+												variant="outlined"
+												name="accountNo"
+												value={formData.accountNo}
+												onChange={handleChange}
+												required
+											/>
+											<div style={{ color: "red" }}>{formErrors.accountNo}</div>
+										</Grid>
+
+										<Grid item xs={12}>
+											<TextField
+												fullWidth
+												label="Balance"
+												variant="outlined"
+												name="balance"
+												type="number"
+												value={formData.balance}
+												onChange={handleChange}
+												required
+											/>
+											<div style={{ color: "red" }}>{formErrors.balance}</div>
+										</Grid>
+
+										<Grid item xs={12}>
+											<FormControl
+												fullWidth
+												variant="outlined"
+												required
+												style={{ borderRadius: "60px" }}
+											>
+												<InputLabel htmlFor="currency">Currency</InputLabel>
+												<Select
+													label="Currency"
+													name="currency"
+													value={formData.currency}
+													onChange={handleChange}
+												>
+													<MenuItem value="INR">Indian Rupee</MenuItem>
+													<MenuItem value="USD">US Dollar</MenuItem>
+													<MenuItem value="EUR">Euro</MenuItem>
+												</Select>
+												<FormHelperText style={{ color: "red" }}>
+													{formErrors.accountType}
+												</FormHelperText>
+											</FormControl>
+										</Grid>
+
+										<Grid item xs={12}>
+											<FormControl
+												fullWidth
+												variant="outlined"
+												required
+												style={{ borderRadius: "60px" }}
+											>
+												<InputLabel htmlFor="accountType">
+													Account Type
+												</InputLabel>
+												<Select
+													label="Account Type"
+													name="accountType"
+													value={formData.accountType}
+													onChange={handleChange}
+												>
+													<MenuItem value="savings">Savings</MenuItem>
+													<MenuItem value="current">Current</MenuItem>
+													<MenuItem value="checking">Checking</MenuItem>
+													<MenuItem value="investment">Investment</MenuItem>
+												</Select>
+												<FormHelperText style={{ color: "red" }}>
+													{formErrors.accountType}
+												</FormHelperText>
+											</FormControl>
+										</Grid>
+
+										<Grid item xs={12}>
+											<Button
+												type="submit"
+												variant="contained"
+												color="primary"
+												fullWidth
+												style={{ marginTop: "1rem" }}
+											>
+												{editMode ? "Update account" : "Add Account"}
+											</Button>
+										</Grid>
+									</Grid>
+									<Typography style={{ fontSize: "13px" }}>
+										<Link
+											to="/dashboard/accounts"
+											style={{ textDecoration: "none" }}
 										>
-											<ArrowBackIcon style={{ marginLeft: "5px" }} />
-											Go Back
-										</Box>
-									</Link>
-								</Typography>
-							</form>
-							<br />
-							<br />
-						</Paper>
-					</Grid>
+											<Box
+												display="flex"
+												alignItems="center"
+												justifyContent="center"
+												padding="5px 50px"
+												marginTop="0.8rem"
+												textAlign="center"
+												background="#F5F5F5"
+											>
+												<ArrowBackIcon style={{ marginLeft: "5px" }} />
+												Go Back
+											</Box>
+										</Link>
+									</Typography>
+								</form>
+								<br />
+								<br />
+							</Paper>
+						</Grid>
+					)}
 				</Grid>
 			</Container>
 		</Box>

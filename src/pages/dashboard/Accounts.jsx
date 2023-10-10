@@ -49,21 +49,23 @@ function AccountsCard(accountData) {
 				alignItems="center"
 			>
 				<Grid item display="flex">
-					<Box
-						width="50px"
-						height="50px"
-						sx={{
-							backgroundColor: "#A45DC7",
-							opacity: 0.85,
-							":hover": { cursor: "pointer", opacity: 1 },
-						}}
-						borderRadius={60}
-						display="flex"
-						alignItems="center"
-						justifyContent="center"
-					>
-						<img src={editIcon} alt="Edit account" />
-					</Box>
+					<Link to={"/editaccount/" + accountData.accountId}>
+						<Box
+							width="50px"
+							height="50px"
+							sx={{
+								backgroundColor: "#A45DC7",
+								opacity: 0.85,
+								":hover": { cursor: "pointer", opacity: 1 },
+							}}
+							borderRadius={60}
+							display="flex"
+							alignItems="center"
+							justifyContent="center"
+						>
+							<img src={editIcon} alt="Edit account" />
+						</Box>
+					</Link>
 					<Box
 						width="50px"
 						height="50px"

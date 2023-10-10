@@ -86,6 +86,14 @@ function App() {
 						</PrivateRoute>
 					}
 				/>
+				<Route
+					path="/editaccount/:id"
+					element={
+						<PrivateRoute>
+							<AddAccount editMode />
+						</PrivateRoute>
+					}
+				/>
 				<Route path="/aboutus" element={<Aboutus />} />
 				<Route
 					path="/transferform"

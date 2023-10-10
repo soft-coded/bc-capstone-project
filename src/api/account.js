@@ -8,6 +8,20 @@ export async function addAccount(accountDetails, token) {
 	);
 }
 
+export async function updateAccount(accountDetails, token) {
+	return axiosClient.put(
+		ACCOUNT_SUBPATH + "/update",
+		{ ...accountDetails },
+		{ headers: { Authorization: "Bearer " + token } },
+	);
+}
+
+export async function getAccountById(accountId, token) {
+	return axiosClient.get(ACCOUNT_SUBPATH + "/" + accountId, {
+		headers: { Authorization: "Bearer " + token },
+	});
+}
+
 export async function getAllUserAccounts(userId, token) {
 	return axiosClient.get(ACCOUNT_SUBPATH + "/of-user/" + userId, {
 		headers: {
