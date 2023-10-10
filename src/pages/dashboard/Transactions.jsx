@@ -8,61 +8,17 @@ import {
 	TableCell,
 	TableBody,
 	Button,
+	Box,
 } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const dummyData = [
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-	{
-		sender: { amount: 50, currency: "INR", accountNumber: 324324 },
-		receiver: { amount: 20, currency: "USD", accountNumber: 9587598 },
-	},
-];
+import { getAllUserTransfers } from "../../api/transfer";
+import Spinner from "../../components/loading-spinner/Spinner";
 
-function TransactionsTable() {
+function TransactionsTable({ transactions }) {
 	return (
 		<TableContainer className="table-container">
 			<Table>
@@ -118,33 +74,39 @@ function TransactionsTable() {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{dummyData.map((data, i) => (
+					{transactions.map((transaction, i) => (
 						<TableRow key={i} className="table-row table-body-row">
 							<TableCell className="table-cell">
 								<Typography variant="body1">{i + 1}</Typography>
 							</TableCell>
 							<TableCell className="table-cell sender">
-								<Typography variant="body1">{data.sender.amount}</Typography>
-							</TableCell>
-							<TableCell className="table-cell sender">
-								<Typography variant="body1">{data.sender.currency}</Typography>
-							</TableCell>
-							<TableCell className="table-cell sender">
 								<Typography variant="body1">
-									{data.sender.accountNumber}
+									{transaction.senderAmount}
 								</Typography>
 							</TableCell>
-							<TableCell className="table-cell receiver">
-								<Typography variant="body1">{data.receiver.amount}</Typography>
-							</TableCell>
-							<TableCell className="table-cell receiver">
+							<TableCell className="table-cell sender">
 								<Typography variant="body1">
-									{data.receiver.currency}
+									{transaction.senderCurrency}
+								</Typography>
+							</TableCell>
+							<TableCell className="table-cell sender">
+								<Typography variant="body1">
+									{transaction.senderAccountNumber}
 								</Typography>
 							</TableCell>
 							<TableCell className="table-cell receiver">
 								<Typography variant="body1">
-									{data.receiver.accountNumber}
+									{transaction.receiverAmount}
+								</Typography>
+							</TableCell>
+							<TableCell className="table-cell receiver">
+								<Typography variant="body1">
+									{transaction.receiverCurrency}
+								</Typography>
+							</TableCell>
+							<TableCell className="table-cell receiver">
+								<Typography variant="body1">
+									{transaction.receiverAccountNumber}
 								</Typography>
 							</TableCell>
 						</TableRow>
@@ -156,6 +118,18 @@ function TransactionsTable() {
 }
 
 export default function Transactions() {
+	const [transfers, setTransfers] = useState(null);
+	const userId = useSelector((state) => state.auth.userData.userId);
+	const token = useSelector((state) => state.auth.token);
+
+	useEffect(() => {
+		getAllUserTransfers(userId, token)
+			.then((res) => setTransfers(res.data))
+			.catch((err) => {
+				toast.error(err.message || "Something went wrong");
+			});
+	}, [userId, token]);
+
 	return (
 		<Grid
 			container
@@ -196,8 +170,31 @@ export default function Transactions() {
 					</Link>
 				</Grid>
 			</Grid>
-			<Grid item width="100%">
-				<TransactionsTable />
+			<Grid item width="100%" minHeight="70%">
+				{transfers == null ? (
+					<Box
+						display="flex"
+						height="100%"
+						width="100%"
+						alignItems="center"
+						justifyContent="center"
+					>
+						<Spinner style={{ filter: "invert(1)" }} />
+					</Box>
+				) : transfers.length === 0 ? (
+					<Box
+						display="flex"
+						height="100%"
+						width="100%"
+						justifyContent="center"
+					>
+						<Typography variant="h6" align="center" color="secondary">
+							You have not made any transactions.
+						</Typography>
+					</Box>
+				) : (
+					<TransactionsTable transactions={transfers} />
+				)}
 			</Grid>
 		</Grid>
 	);
