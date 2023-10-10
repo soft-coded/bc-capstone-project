@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 import {
 	Typography,
@@ -17,11 +17,19 @@ import sendSvg from "../../assets/transferForm/send.svg";
 import { newTransfer } from "../../api/transfer";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { getAllUserAccounts } from "../../api/account";
 
 const TransferForm = () => {
 	const userId = useSelector((state) => state.auth.userData.userId);
 	const token = useSelector((state) => state.auth.token);
+	const [accounts, setAccounts] = useState([]);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		getAllUserAccounts(userId, token)
+			.then((res) => setAccounts(res.data))
+			.catch((err) => toast.error(err.message));
+	}, [userId, token]);
 
 	const [formData, setFormData] = useState({
 		senderAmount: "",
@@ -69,7 +77,7 @@ const TransferForm = () => {
 			setFormData({
 				...formData,
 				[name]: value,
-				receiverAmount: parseFloat(formData.senderAmount) * 81.23,
+				receiverAmount: parseFloat(formData.senderAmount) * 81,
 			});
 		} else {
 			setFormData({
@@ -178,9 +186,14 @@ const TransferForm = () => {
 										onChange={handleFormChange}
 										value={formData.senderAccountNumber}
 									>
-										<MenuItem value="acc1">Account 1</MenuItem>
-										<MenuItem value="acc2">Account 2</MenuItem>
-										<MenuItem value="acc3">Account 3</MenuItem>
+										{accounts?.map((acc) => (
+											<MenuItem
+												key={acc.accountNumber}
+												value={acc.accountNumber}
+											>
+												{acc.accountNumber}
+											</MenuItem>
+										))}
 									</Select>
 								</FormControl>
 								<FormControl
