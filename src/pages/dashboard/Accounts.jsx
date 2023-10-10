@@ -9,7 +9,7 @@ import Spinner from "../../components/loading-spinner/Spinner";
 import { getAllUserAccounts } from "../../api/account";
 import { useSelector } from "react-redux";
 
-function AccountsCard() {
+function AccountsCard(accountData) {
 	return (
 		<Grid
 			item
@@ -18,17 +18,19 @@ function AccountsCard() {
 			borderRadius="30px"
 			display="flex"
 			flexDirection="column"
-			width={{ md: "unset", xs: "100%" }}
+			minWidth={{ md: "unset", xs: "100%" }}
 			gap={1}
+			alignSelf="flex-start"
 		>
 			<Typography variant="h5" align="right">
-				ACCOUNT HOLDER NAME
+				{accountData.holderName}
 			</Typography>
 			<Typography variant="h4" align="right" fontWeight={500}>
-				1234 5678 9012 3456
+				{accountData.accountNumber}
 			</Typography>
 			<Grid
 				container
+				gap={7}
 				display="flex"
 				justifyContent="space-between"
 				alignItems="center"
@@ -59,10 +61,10 @@ function AccountsCard() {
 				</Grid>
 				<Grid item>
 					<Typography variant="h6" align="right">
-						999 INR
+						{accountData.balance} {accountData.currency}
 					</Typography>
 					<Typography variant="body2" align="right">
-						SAVINGS
+						{accountData.type.toUpperCase()}
 					</Typography>
 				</Grid>
 			</Grid>
@@ -156,18 +158,7 @@ export default function Accounts() {
 						</Typography>
 					</Box>
 				) : (
-					<>
-						<AccountsCard />
-						<AccountsCard />
-						<AccountsCard />
-						<AccountsCard />
-						<AccountsCard />
-						<AccountsCard />
-						<AccountsCard />
-						<AccountsCard />
-						<AccountsCard />
-						<AccountsCard />
-					</>
+					accounts.map((acc) => <AccountsCard {...acc} key={acc.accountId} />)
 				)}
 			</Grid>
 		</Grid>
