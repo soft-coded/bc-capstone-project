@@ -18,12 +18,12 @@ function AccountsCard(accountData) {
 			borderRadius="30px"
 			display="flex"
 			flexDirection="column"
-			minWidth={{ md: "unset", xs: "100%" }}
+			minWidth={{ md: "48%", xs: "100%" }}
 			gap={1}
 			alignSelf="flex-start"
 		>
 			<Typography variant="h5" align="right">
-				{accountData.holderName}
+				{accountData.holderName.toUpperCase()}
 			</Typography>
 			<Typography variant="h4" align="right" fontWeight={500}>
 				{accountData.accountNumber}

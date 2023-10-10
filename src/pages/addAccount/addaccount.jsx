@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Money from "../../assets/register/Money.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ResponsiveAppBar from "../../components/navbar/Navbar";
 import {
 	Container,
@@ -17,6 +17,10 @@ import {
 	Box,
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
+import { addAccount } from "../../api/account";
 
 const styles = {
 	fullHeight: {
@@ -34,11 +38,16 @@ const styles = {
 };
 
 const AddAccount = () => {
+	const userId = useSelector((state) => state.auth.userData.userId);
+	const token = useSelector((state) => state.auth.token);
+	const navigate = useNavigate();
+
 	const [formData, setFormData] = useState({
 		accountHolderName: "",
 		accountNo: "",
 		balance: "",
 		accountType: "",
+		currency: "",
 	});
 
 	const [formErrors, setFormErrors] = useState({
@@ -46,6 +55,7 @@ const AddAccount = () => {
 		accountNo: "",
 		balance: "",
 		accountType: "",
+		currency: "",
 	});
 
 	const validateForm = () => {
@@ -62,15 +72,15 @@ const AddAccount = () => {
 
 		// Validation logic for Account No
 		if (formData.accountNo.trim() === "") {
-			newErrors.accountNo = "Account No is required";
+			newErrors.accountNo = "Account no is required";
 			isValid = false;
 		} else {
 			newErrors.accountNo = "";
 		}
 
 		// Validation logic for Balance
-		if (isNaN(formData.balance) || formData.balance <= 0) {
-			newErrors.balance = "Balance must be a positive number";
+		if (isNaN(formData.balance) || formData.balance < 0) {
+			newErrors.balance = "Invalid balance";
 			isValid = false;
 		} else {
 			newErrors.balance = "";
@@ -84,18 +94,38 @@ const AddAccount = () => {
 			newErrors.accountType = "";
 		}
 
+		// Validation logic for currency
+		if (formData.currency.trim() === "") {
+			newErrors.currency = "Currency is required";
+			isValid = false;
+		} else {
+			newErrors.currency = "";
+		}
+
 		setFormErrors(newErrors);
 		return isValid;
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (validateForm()) {
-			// Form is valid, you can submit it here
-			console.log("Form submitted:", formData);
-		} else {
-			console.log("Form has validation errors");
-		}
+		if (!validateForm()) return;
+
+		addAccount(
+			{
+				accountNumber: formData.accountNo,
+				holderName: formData.accountHolderName,
+				type: formData.accountType,
+				userId,
+				balance: formData.balance,
+				currency: formData.currency,
+			},
+			token,
+		)
+			.then(() => {
+				toast.success("Account added successfully!");
+				navigate("/dashboard/accounts");
+			})
+			.catch((err) => toast.error(err.message || "Something went wrong"));
 	};
 
 	const handleChange = (e) => {
@@ -121,7 +151,10 @@ const AddAccount = () => {
 								color: "#fff",
 								marginTop: "7rem",
 								height: "70%",
-								borderRadius: "0px 60px 60px 0px",
+								borderRadius: "60px",
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
 							}}
 						>
 							<img
@@ -131,8 +164,6 @@ const AddAccount = () => {
 									maxWidth: "70%",
 									height: "auto",
 									width: "auto",
-									marginTop: "1rem",
-									marginLeft: "3rem",
 								}}
 							/>
 						</Paper>
@@ -215,6 +246,30 @@ const AddAccount = () => {
 											required
 											style={{ borderRadius: "60px" }}
 										>
+											<InputLabel htmlFor="currency">Currency</InputLabel>
+											<Select
+												label="Currency"
+												name="currency"
+												value={formData.currency}
+												onChange={handleChange}
+											>
+												<MenuItem value="INR">Indian Rupee</MenuItem>
+												<MenuItem value="USD">US Dollar</MenuItem>
+												<MenuItem value="EUR">Euro</MenuItem>
+											</Select>
+											<FormHelperText style={{ color: "red" }}>
+												{formErrors.accountType}
+											</FormHelperText>
+										</FormControl>
+									</Grid>
+
+									<Grid item xs={12}>
+										<FormControl
+											fullWidth
+											variant="outlined"
+											required
+											style={{ borderRadius: "60px" }}
+										>
 											<InputLabel htmlFor="accountType">
 												Account Type
 											</InputLabel>
@@ -224,10 +279,10 @@ const AddAccount = () => {
 												value={formData.accountType}
 												onChange={handleChange}
 											>
-												<MenuItem value="">Select Account Type</MenuItem>
-												<MenuItem value="Savings">Savings</MenuItem>
-												<MenuItem value="Checking">Checking</MenuItem>
-												<MenuItem value="Investment">Investment</MenuItem>
+												<MenuItem value="savings">Savings</MenuItem>
+												<MenuItem value="current">Current</MenuItem>
+												<MenuItem value="checking">Checking</MenuItem>
+												<MenuItem value="investment">Investment</MenuItem>
 											</Select>
 											<FormHelperText style={{ color: "red" }}>
 												{formErrors.accountType}
