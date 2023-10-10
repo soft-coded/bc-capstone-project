@@ -6,8 +6,8 @@ export async function getAllUserTransfers(userId, token) {
 	});
 }
 
-export async function newTransfer(transferData) {
-	return axiosClient.post(TRANSFER_SUBPATH + "/new", {
-		...transferData,
+export async function newTransfer(transferData, token) {
+	return axiosClient.post(TRANSFER_SUBPATH + "/new", transferData, {
+		headers: { Authorization: "Bearer " + token },
 	});
 }

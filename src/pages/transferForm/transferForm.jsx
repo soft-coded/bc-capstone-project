@@ -11,10 +11,18 @@ import {
 	InputLabel,
 	Select,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 import sendSvg from "../../assets/transferForm/send.svg";
+import { newTransfer } from "../../api/transfer";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const TransferForm = () => {
+	const userId = useSelector((state) => state.auth.userData.userId);
+	const token = useSelector((state) => state.auth.token);
+	const navigate = useNavigate();
+
 	const [formData, setFormData] = useState({
 		senderAmount: "",
 		senderAccountNumber: "",
@@ -26,10 +34,20 @@ const TransferForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		newTransfer({ ...formData, userId }, token)
+			.then(() => {
+				toast.success("Transfer successful!");
+				navigate("/dashboard/transactions");
+			})
+			.catch((err) => {
+				console.log(err);
+				toast.error(err.message || "Something went wrong");
+			});
 	};
 
 	const handleFormChange = (e) => {
 		const { name, value } = e.target;
+
 		if (
 			name === "senderAmount" &&
 			formData.receiverCurrency !== "" &&
@@ -38,7 +56,20 @@ const TransferForm = () => {
 			setFormData({
 				...formData,
 				[name]: value,
-				receiverAmount: parseFloat(value) * 80,
+				receiverAmount: parseFloat(value) * 81.23,
+			});
+		} else if (
+			(name === "receiverCurrency" &&
+				formData.senderAmount !== "" &&
+				formData.senderCurrency !== "") ||
+			(name === "senderCurrency" &&
+				formData.receiverCurrency !== "" &&
+				formData.senderAmount !== "")
+		) {
+			setFormData({
+				...formData,
+				[name]: value,
+				receiverAmount: parseFloat(formData.senderAmount) * 81.23,
 			});
 		} else {
 			setFormData({
