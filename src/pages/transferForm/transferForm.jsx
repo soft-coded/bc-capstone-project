@@ -51,7 +51,7 @@ const TransferForm = () => {
 	};
 
 	return (
-		<div>
+		<Box>
 			<ResponsiveAppBar />
 			<Box>
 				<div className="box1">
@@ -263,7 +263,7 @@ const TransferForm = () => {
 					</div>
 				</div>
 			</Box>
-		</div>
+		</Box>
 	);
 };
 

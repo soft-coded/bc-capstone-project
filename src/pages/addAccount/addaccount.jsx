@@ -107,7 +107,7 @@ const AddAccount = () => {
 	};
 
 	return (
-		<div>
+		<Box>
 			<ResponsiveAppBar></ResponsiveAppBar>
 			<Container maxWidth="lg">
 				<Grid container spacing={0}>
@@ -273,7 +273,7 @@ const AddAccount = () => {
 					</Grid>
 				</Grid>
 			</Container>
-		</div>
+		</Box>
 	);
 };
 
