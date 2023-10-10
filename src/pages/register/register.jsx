@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { signup } from "../../api/auth";
 import { authActions } from "../../store/slices/auth-slice";
+import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
 
 const styles = {
 	fullHeight: {
@@ -130,180 +131,182 @@ const RegistrationPage = () => {
 	};
 
 	return (
-		<Container maxWidth="lg">
-			<Grid container spacing={0}>
-				{/* Left Column */}
-				<Grid item xs={12} md={6}>
-					<Paper
-						elevation={3}
-						style={{
-							...styles.fullHeight,
-							padding: "2rem",
-							background: "#A05CDB4D",
-							color: "#fff",
-							borderRadius: "0px",
-						}}
-					>
-						<img
-							src={Money}
-							alt="Money"
+		<WithNavAndFooter>
+			<Container maxWidth="lg">
+				<Grid container spacing={0}>
+					{/* Left Column */}
+					<Grid item xs={12} md={6}>
+						<Paper
+							elevation={3}
 							style={{
-								maxWidth: "90%",
-								height: "auto",
-								width: "auto",
-								marginTop: "1rem",
+								...styles.fullHeight,
+								padding: "2rem",
+								background: "#A05CDB4D",
+								color: "#fff",
+								borderRadius: "0px",
 							}}
-						/>
-					</Paper>
-				</Grid>
-
-				{/* Right Column - Registration Form */}
-				<Grid item xs={12} md={6}>
-					<Paper
-						elevation={3}
-						sx={{
-							...styles.fullHeight,
-							padding: "2rem",
-							borderRadius: "0px",
-							boxShadow: "none",
-						}}
-					>
-						<form onSubmit={handleSubmit}>
-							<Typography
-								variant="h6"
-								gutterBottom
+						>
+							<img
+								src={Money}
+								alt="Money"
 								style={{
-									...styles.heading,
+									maxWidth: "90%",
+									height: "auto",
+									width: "auto",
 									marginTop: "1rem",
-									textAlign: "center",
 								}}
-							>
-								Create a CurrencyHub account
-							</Typography>
-							<Typography
-								variant="body2"
-								color="textSecondary"
-								gutterBottom
-								style={{ ...styles.subheading, textAlign: "center" }}
-							>
-								An account lets you access all of CurrencyHub.
-							</Typography>
-							<Grid container spacing={2.5}>
-								<Grid item xs={12} sm={6}>
-									<TextField
-										fullWidth
-										label="First Name"
-										variant="outlined"
-										name="firstName"
-										value={formData.firstName}
-										onChange={handleChange}
-										required
-										style={{ borderRadius: "60px" }}
-									/>
-									<div style={{ color: "red" }}>{formErrors.firstName}</div>
-								</Grid>
+							/>
+						</Paper>
+					</Grid>
 
-								<Grid item xs={12} sm={6}>
-									<TextField
-										fullWidth
-										label="Last Name"
-										variant="outlined"
-										name="lastName"
-										value={formData.lastName}
-										onChange={handleChange}
-										required
-									/>
-									<div style={{ color: "red" }}>{formErrors.lastName}</div>
-								</Grid>
-
-								<Grid item xs={12}>
-									<TextField
-										fullWidth
-										label="Email"
-										variant="outlined"
-										name="email"
-										type="email"
-										value={formData.email}
-										onChange={handleChange}
-										required
-									/>
-									<div style={{ color: "red" }}>{formErrors.email}</div>
-								</Grid>
-
-								<Grid item xs={12}>
-									<TextField
-										fullWidth
-										label="Password"
-										variant="outlined"
-										name="password"
-										type="password"
-										value={formData.password}
-										onChange={handleChange}
-										required
-									/>
-									<div style={{ color: "red" }}>{formErrors.password}</div>
-								</Grid>
-
-								<Grid item xs={12}>
-									<TextField
-										fullWidth
-										label="Confirm Password"
-										variant="outlined"
-										name="confirmPassword"
-										type="password"
-										value={formData.confirmPassword}
-										onChange={handleChange}
-										required
-									/>
-									<div style={{ color: "red" }}>
-										{formErrors.confirmPassword}
-									</div>
-								</Grid>
-
-								<Grid item xs={12}>
-									<Button
-										type="submit"
-										variant="contained"
-										color="primary"
-										fullWidth
-										style={{ marginTop: "1rem" }}
-										disabled={authState === "loading"}
-									>
-										{authState !== "loading" ? "Register" : "Registering..."}
-									</Button>
-								</Grid>
-							</Grid>
-
-							<Typography
-								variant="body2"
-								style={{ marginTop: "1rem", textAlign: "center" }}
-							>
-								Already have an account?{" "}
-								<Link to="/login">Click here to log in.</Link>
-							</Typography>
-						</form>
-						<Typography style={{ fontSize: "13px" }}>
-							<Link to="/" style={{ textDecoration: "none" }}>
-								<Box
-									display="flex"
-									alignItems="center"
-									justifyContent="center"
-									padding="5px 50px"
-									marginTop="0.8rem"
-									textAlign="center"
-									background="#F5F5F5"
+					{/* Right Column - Registration Form */}
+					<Grid item xs={12} md={6}>
+						<Paper
+							elevation={3}
+							sx={{
+								...styles.fullHeight,
+								padding: "2rem",
+								borderRadius: "0px",
+								boxShadow: "none",
+							}}
+						>
+							<form onSubmit={handleSubmit}>
+								<Typography
+									variant="h6"
+									gutterBottom
+									style={{
+										...styles.heading,
+										marginTop: "1rem",
+										textAlign: "center",
+									}}
 								>
-									<ArrowBackIcon style={{ marginLeft: "5px" }} />
-									Go Back
-								</Box>
-							</Link>
-						</Typography>
-						<br />
-						<br />
-					</Paper>
+									Create a CurrencyHub account
+								</Typography>
+								<Typography
+									variant="body2"
+									color="textSecondary"
+									gutterBottom
+									style={{ ...styles.subheading, textAlign: "center" }}
+								>
+									An account lets you access all of CurrencyHub.
+								</Typography>
+								<Grid container spacing={2.5}>
+									<Grid item xs={12} sm={6}>
+										<TextField
+											fullWidth
+											label="First Name"
+											variant="outlined"
+											name="firstName"
+											value={formData.firstName}
+											onChange={handleChange}
+											required
+											style={{ borderRadius: "60px" }}
+										/>
+										<div style={{ color: "red" }}>{formErrors.firstName}</div>
+									</Grid>
+
+									<Grid item xs={12} sm={6}>
+										<TextField
+											fullWidth
+											label="Last Name"
+											variant="outlined"
+											name="lastName"
+											value={formData.lastName}
+											onChange={handleChange}
+											required
+										/>
+										<div style={{ color: "red" }}>{formErrors.lastName}</div>
+									</Grid>
+
+									<Grid item xs={12}>
+										<TextField
+											fullWidth
+											label="Email"
+											variant="outlined"
+											name="email"
+											type="email"
+											value={formData.email}
+											onChange={handleChange}
+											required
+										/>
+										<div style={{ color: "red" }}>{formErrors.email}</div>
+									</Grid>
+
+									<Grid item xs={12}>
+										<TextField
+											fullWidth
+											label="Password"
+											variant="outlined"
+											name="password"
+											type="password"
+											value={formData.password}
+											onChange={handleChange}
+											required
+										/>
+										<div style={{ color: "red" }}>{formErrors.password}</div>
+									</Grid>
+
+									<Grid item xs={12}>
+										<TextField
+											fullWidth
+											label="Confirm Password"
+											variant="outlined"
+											name="confirmPassword"
+											type="password"
+											value={formData.confirmPassword}
+											onChange={handleChange}
+											required
+										/>
+										<div style={{ color: "red" }}>
+											{formErrors.confirmPassword}
+										</div>
+									</Grid>
+
+									<Grid item xs={12}>
+										<Button
+											type="submit"
+											variant="contained"
+											color="primary"
+											fullWidth
+											style={{ marginTop: "1rem" }}
+											disabled={authState === "loading"}
+										>
+											{authState !== "loading" ? "Register" : "Registering..."}
+										</Button>
+									</Grid>
+								</Grid>
+
+								<Typography
+									variant="body2"
+									style={{ marginTop: "1rem", textAlign: "center" }}
+								>
+									Already have an account?{" "}
+									<Link to="/login">Click here to log in.</Link>
+								</Typography>
+							</form>
+							<Typography style={{ fontSize: "13px" }}>
+								<Link to="/" style={{ textDecoration: "none" }}>
+									<Box
+										display="flex"
+										alignItems="center"
+										justifyContent="center"
+										padding="5px 50px"
+										marginTop="0.8rem"
+										textAlign="center"
+										background="#F5F5F5"
+									>
+										<ArrowBackIcon style={{ marginLeft: "5px" }} />
+										Go Back
+									</Box>
+								</Link>
+							</Typography>
+							<br />
+							<br />
+						</Paper>
+					</Grid>
 				</Grid>
-			</Grid>
-		</Container>
+			</Container>
+		</WithNavAndFooter>
 	);
 };
 
