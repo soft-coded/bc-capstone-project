@@ -18,6 +18,7 @@ import Converter from "./pages/currency-converter/Converter";
 import FullscreenSpinner from "./components/fullscreen-spinner/FullscreenSpinner";
 import RealTableChart from "./pages/charts/RealTableChart";
 import CurrencyParentComponent from "./components/Charts/CurrencyParentComponent";
+import PrivateRoute from "./components/private-route/PrivateRoute";
 
 function App() {
 	const dispatch = useDispatch();
@@ -41,17 +42,59 @@ function App() {
 			<ToastContainer />
 			<Routes>
 				<Route path="/" element={<Home />} />
-				<Route path="/profile" element={<Profile />} />
+				<Route
+					path="/profile"
+					element={
+						<PrivateRoute>
+							<Profile />
+						</PrivateRoute>
+					}
+				/>
 				<Route
 					path="/dashboard"
 					element={<Navigate to="/dashboard/transactions" replace />}
 				/>
-				<Route path="/dashboard/*" element={<Dashboard />} />
-				<Route path="/register" element={<RegistrationPage />} />
-				<Route path="/login" element={<LoginPage />} />
-				<Route path="/addaccount" element={<AddAccount />} />
+				<Route
+					path="/dashboard/*"
+					element={
+						<PrivateRoute>
+							<Dashboard />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path="/register"
+					element={
+						<PrivateRoute invert>
+							<RegistrationPage />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path="/login"
+					element={
+						<PrivateRoute invert>
+							<LoginPage />
+						</PrivateRoute>
+					}
+				/>
+				<Route
+					path="/addaccount"
+					element={
+						<PrivateRoute>
+							<AddAccount />
+						</PrivateRoute>
+					}
+				/>
 				<Route path="/aboutus" element={<Aboutus />} />
-				<Route path="/transferform" element={<TransferForm />} />
+				<Route
+					path="/transferform"
+					element={
+						<PrivateRoute>
+							<TransferForm />
+						</PrivateRoute>
+					}
+				/>
 				<Route path="/converter" element={<Converter />} />
 				<Route
 					path="/chart"
