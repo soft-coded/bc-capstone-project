@@ -1,19 +1,16 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
 import { Avatar, Button, TextField, Typography, Grid } from "@mui/material";
 import WithNavAndFooter from "../../components/with-nav-and-footer/WithNavAndFooter";
-import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../api/auth";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../store/slices/auth-slice";
+import { useSelector } from "react-redux";
 import { getUserByEmail, getUserById, updateUser } from "../../api/auth";
 
 const EditProfile = () => {
-	// const email1 = useSelector((state) => state.auth.userData.email1);
 	const userId = useSelector((state) => state.auth.userData.userId);
 	const token = useSelector((state) => state.auth.token);
 
+	// Set values for profile values
 	useEffect(() => {
 		getUserById(userId, token)
 			.then((res) =>
@@ -39,6 +36,8 @@ const EditProfile = () => {
 		password: "",
 		profilePicture: "", // Set the initial image URL here
 	});
+
+	// To store user profile errors
 	const [profileErrors, setProfileErrors] = useState({
 		firstName: "",
 		lastName: "",
@@ -47,6 +46,7 @@ const EditProfile = () => {
 		profilePicture: "",
 	});
 
+	// Form Validation
 	const validateForm = () => {
 		let isValid = true;
 		const newErrors = { ...profileErrors };
@@ -82,13 +82,14 @@ const EditProfile = () => {
 
 	const handleFileUpload = (e) => {
 		// Handle file upload and set the profile picture
-		// You can use FileReader to preview the image if needed
+		// FileReader to preview the image if needed
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!validateForm()) return;
-		// You can perform API requests here to save the changes
+
+		// API requests to save the changes
 		const details = {
 			userId,
 			email: profileData.email,
@@ -99,13 +100,11 @@ const EditProfile = () => {
 		updateUser(details, userId, token)
 			.then(() => {
 				toast.success("User details updated!");
-				// navigate("/dashboard/accounts");
 			})
 			.catch((err) => toast.error(err.message || "Something went wrong"));
 
 		console.log("Profile data submitted:", profileData);
 	};
-	// document.body.style = "background: rgb(238, 228, 247);";
 
 	return (
 		<WithNavAndFooter>
