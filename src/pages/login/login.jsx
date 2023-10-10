@@ -161,7 +161,7 @@ const LoginPage = () => {
 									textAlign: "center",
 								}}
 							>
-								Sign in to &lt;website name&gt;
+								Sign in to CurrencyHub;
 							</Typography>
 							<Typography
 								variant="body2"
@@ -169,7 +169,7 @@ const LoginPage = () => {
 								gutterBottom
 								style={{ ...styles.subheading, textAlign: "center" }}
 							>
-								Log in to &lt;website name&gt; to access all features.
+								Log in to CurrencyHub to access all features.
 							</Typography>
 							<Grid container spacing={2.5}>
 								<Grid item xs={12}>

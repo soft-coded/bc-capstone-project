@@ -178,7 +178,7 @@ const RegistrationPage = () => {
 									textAlign: "center",
 								}}
 							>
-								Create a &lt;website name&gt; account
+								Create a CurrencyHub account
 							</Typography>
 							<Typography
 								variant="body2"
@@ -186,7 +186,7 @@ const RegistrationPage = () => {
 								gutterBottom
 								style={{ ...styles.subheading, textAlign: "center" }}
 							>
-								An account lets you access all of &lt;website name&gt;.
+								An account lets you access all of CurrencyHub.
 							</Typography>
 							<Grid container spacing={2.5}>
 								<Grid item xs={12} sm={6}>
