@@ -1,15 +1,28 @@
-import { useEffect, useState } from "react";
-import { Grid, Typography, Box, Button } from "@mui/material";
+import { useCallback, useEffect, useState } from "react";
+import { Grid, Typography, Box, Button, Modal } from "@mui/material";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import editIcon from "../../assets/dashboard/edit.svg";
 import deleteIcon from "../../assets/dashboard/delete.svg";
 import Spinner from "../../components/loading-spinner/Spinner";
-import { getAllUserAccounts } from "../../api/account";
+import { deleteAccount, getAllUserAccounts } from "../../api/account";
 import { useSelector } from "react-redux";
 
 function AccountsCard(accountData) {
+	const [openDeleteModal, setOpenDeleteModal] = useState(false);
+	const token = useSelector((state) => state.auth.token);
+
+	function handleDelete() {
+		deleteAccount(accountData.accountId, token)
+			.then(() => {
+				toast.success("Account deleted");
+				setOpenDeleteModal(false);
+				accountData.fetchAccounts();
+			})
+			.catch((err) => toast.error(err.message || "Something went wrong"));
+	}
+
 	return (
 		<Grid
 			item
@@ -39,7 +52,11 @@ function AccountsCard(accountData) {
 					<Box
 						width="50px"
 						height="50px"
-						sx={{ backgroundColor: "#A45DC7" }}
+						sx={{
+							backgroundColor: "#A45DC7",
+							opacity: 0.85,
+							":hover": { cursor: "pointer", opacity: 1 },
+						}}
 						borderRadius={60}
 						display="flex"
 						alignItems="center"
@@ -50,11 +67,16 @@ function AccountsCard(accountData) {
 					<Box
 						width="50px"
 						height="50px"
-						sx={{ backgroundColor: "#ED737D" }}
+						sx={{
+							backgroundColor: "#ED737D",
+							opacity: 0.85,
+							":hover": { cursor: "pointer", opacity: 1 },
+						}}
 						borderRadius={60}
 						display="flex"
 						alignItems="center"
 						justifyContent="center"
+						onClick={() => setOpenDeleteModal(true)}
 					>
 						<img src={deleteIcon} alt="Delete account" />
 					</Box>
@@ -68,6 +90,47 @@ function AccountsCard(accountData) {
 					</Typography>
 				</Grid>
 			</Grid>
+			{/* Delete modal */}
+			<Modal open={openDeleteModal} onClose={setOpenDeleteModal}>
+				<Box
+					sx={{
+						background: "#fff",
+						position: "absolute",
+						top: "50%",
+						left: "50%",
+						transform: "translate(-50%, -50%)",
+						width: 400,
+						border: "none",
+						boxShadow: 24,
+						p: 4,
+						borderRadius: "30px",
+						outline: "none",
+						display: "flex",
+						flexDirection: "column",
+						gap: 2,
+					}}
+				>
+					<Typography variant="h4" color="secondary" fontWeight={500}>
+						Delete account
+					</Typography>
+					<Typography>Are you sure you want to delete this account?</Typography>
+					<Box display="flex" gap={1}>
+						<Button
+							variant="contained"
+							color="secondary"
+							onClick={handleDelete}
+						>
+							Delete
+						</Button>
+						<Button
+							variant="outlined"
+							onClick={() => setOpenDeleteModal(false)}
+						>
+							Cancel
+						</Button>
+					</Box>
+				</Box>
+			</Modal>
 		</Grid>
 	);
 }
@@ -77,7 +140,7 @@ export default function Accounts() {
 	const userId = useSelector((state) => state.auth.userData.userId);
 	const token = useSelector((state) => state.auth.token);
 
-	useEffect(() => {
+	const fetchAccounts = useCallback(() => {
 		getAllUserAccounts(userId, token)
 			.then((res) => setAccounts(res.data))
 			.catch((err) => {
@@ -85,6 +148,10 @@ export default function Accounts() {
 				toast.error(err.message || "Something went wrong");
 			});
 	}, [userId, token]);
+
+	useEffect(() => {
+		fetchAccounts();
+	}, [fetchAccounts]);
 
 	return (
 		<Grid
@@ -158,7 +225,13 @@ export default function Accounts() {
 						</Typography>
 					</Box>
 				) : (
-					accounts.map((acc) => <AccountsCard {...acc} key={acc.accountId} />)
+					accounts.map((acc) => (
+						<AccountsCard
+							{...acc}
+							key={acc.accountId}
+							fetchAccounts={fetchAccounts}
+						/>
+					))
 				)}
 			</Grid>
 		</Grid>

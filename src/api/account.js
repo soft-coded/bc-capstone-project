@@ -16,6 +16,14 @@ export async function getAllUserAccounts(userId, token) {
 	});
 }
 
+export async function deleteAccount(accountId, token) {
+	return axiosClient.delete(ACCOUNT_SUBPATH + "/" + accountId, {
+		headers: {
+			Authorization: "Bearer " + token,
+		},
+	});
+}
+
 export async function depositInAccount(accountId, amount, token) {
 	return axiosClient.post(
 		ACCOUNT_SUBPATH + "/deposit/" + accountId,
