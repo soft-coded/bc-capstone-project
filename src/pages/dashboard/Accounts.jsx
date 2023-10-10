@@ -1,7 +1,13 @@
+import { useEffect, useState } from "react";
 import { Grid, Typography, Box, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import editIcon from "../../assets/dashboard/edit.svg";
 import deleteIcon from "../../assets/dashboard/delete.svg";
+import Spinner from "../../components/loading-spinner/Spinner";
+import { getAllUserAccounts } from "../../api/account";
+import { useSelector } from "react-redux";
 
 function AccountsCard() {
 	return (
@@ -65,6 +71,19 @@ function AccountsCard() {
 }
 
 export default function Accounts() {
+	const [accounts, setAccounts] = useState(null);
+	const userId = useSelector((state) => state.auth.userData.userId);
+	const token = useSelector((state) => state.auth.token);
+
+	useEffect(() => {
+		getAllUserAccounts(userId, token)
+			.then((res) => setAccounts(res.data))
+			.catch((err) => {
+				console.log(err);
+				toast.error(err.message || "Something went wrong");
+			});
+	}, [userId, token]);
+
 	return (
 		<Grid
 			container
@@ -106,17 +125,50 @@ export default function Accounts() {
 					</Link>
 				</Grid>
 			</Grid>
-			<Grid item container display="flex" flexWrap="wrap" gap={4} width="100%">
-				<AccountsCard />
-				<AccountsCard />
-				<AccountsCard />
-				<AccountsCard />
-				<AccountsCard />
-				<AccountsCard />
-				<AccountsCard />
-				<AccountsCard />
-				<AccountsCard />
-				<AccountsCard />
+			<Grid
+				item
+				container
+				display="flex"
+				flexWrap="wrap"
+				gap={4}
+				width="100%"
+				minHeight="70%"
+			>
+				{accounts == null ? (
+					<Box
+						display="flex"
+						height="100%"
+						width="100%"
+						alignItems="center"
+						justifyContent="center"
+					>
+						<Spinner style={{ filter: "invert(1)" }} />
+					</Box>
+				) : accounts.length === 0 ? (
+					<Box
+						display="flex"
+						height="100%"
+						width="100%"
+						justifyContent="center"
+					>
+						<Typography variant="h6" align="center" color="secondary">
+							You have not added any accounts.
+						</Typography>
+					</Box>
+				) : (
+					<>
+						<AccountsCard />
+						<AccountsCard />
+						<AccountsCard />
+						<AccountsCard />
+						<AccountsCard />
+						<AccountsCard />
+						<AccountsCard />
+						<AccountsCard />
+						<AccountsCard />
+						<AccountsCard />
+					</>
+				)}
 			</Grid>
 		</Grid>
 	);
