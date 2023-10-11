@@ -10,6 +10,7 @@ import {
 	FormControl,
 } from "@mui/material";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 function ContactForm() {
 	const [contactData, setContactData] = useState({
@@ -61,6 +62,9 @@ function ContactForm() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (!validateForm()) return;
+
+		toast.success("Query registered!");
+		setContactData({ name: "", email: "", description: "" });
 	};
 
 	return (
