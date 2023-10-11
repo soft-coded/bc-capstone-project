@@ -163,7 +163,7 @@ const LoginPage = () => {
 										textAlign: "center",
 									}}
 								>
-									Sign in to CurrencyHub;
+									Sign in to CurrencyHub
 								</Typography>
 								<Typography
 									variant="body2"
