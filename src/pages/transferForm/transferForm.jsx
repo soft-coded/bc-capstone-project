@@ -20,17 +20,10 @@ import { toast } from "react-toastify";
 import { getAllUserAccounts } from "../../api/account";
 
 const TransferForm = () => {
+	const navigate = useNavigate();
 	const userId = useSelector((state) => state.auth.userData.userId);
 	const token = useSelector((state) => state.auth.token);
 	const [accounts, setAccounts] = useState([]);
-	const navigate = useNavigate();
-
-	useEffect(() => {
-		getAllUserAccounts(userId, token)
-			.then((res) => setAccounts(res.data))
-			.catch((err) => toast.error(err.message));
-	}, [userId, token]);
-
 	const [formData, setFormData] = useState({
 		senderAmount: "",
 		senderAccountNumber: "",
@@ -39,9 +32,25 @@ const TransferForm = () => {
 		receiverAccountNumber: "",
 		receiverCurrency: "",
 	});
+	const [formErrors, setFormErrors] = useState({
+		senderAmount: "",
+		senderAccountNumber: "",
+		senderCurrency: "",
+		receiverAmount: "",
+		receiverAccountNumber: "",
+		receiverCurrency: "",
+	});
+
+	useEffect(() => {
+		getAllUserAccounts(userId, token)
+			.then((res) => setAccounts(res.data))
+			.catch((err) => toast.error(err.message));
+	}, [userId, token]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (!validateForm()) return;
+
 		newTransfer({ ...formData, userId }, token)
 			.then(() => {
 				toast.success("Transfer successful!");
@@ -64,7 +73,7 @@ const TransferForm = () => {
 			setFormData({
 				...formData,
 				[name]: value,
-				receiverAmount: parseFloat(value) * 81.23,
+				receiverAmount: parseFloat(value) * 83,
 			});
 		} else if (
 			(name === "receiverCurrency" &&
@@ -77,7 +86,7 @@ const TransferForm = () => {
 			setFormData({
 				...formData,
 				[name]: value,
-				receiverAmount: parseFloat(formData.senderAmount) * 81,
+				receiverAmount: parseFloat(formData.senderAmount) * 83,
 			});
 		} else {
 			setFormData({
@@ -86,6 +95,48 @@ const TransferForm = () => {
 			});
 		}
 	};
+
+	function validateForm() {
+		let isValid = true;
+		let errors = {
+			senderAmount: "",
+			senderAccountNumber: "",
+			senderCurrency: "",
+			receiverAccountNumber: "",
+			receiverCurrency: "",
+		};
+
+		if (
+			formData.senderAmount.trim() === "" ||
+			parseFloat(formData.senderAmount.trim()) <= 0
+		) {
+			isValid = false;
+			errors.senderAmount = "Invalid amount entered";
+		}
+
+		if (formData.senderAccountNumber.trim() === "") {
+			isValid = false;
+			errors.senderAccountNumber = "Select an account";
+		}
+
+		if (formData.senderCurrency.trim() === "") {
+			isValid = false;
+			errors.senderCurrency = "Select a currency";
+		}
+
+		if (formData.receiverAccountNumber.trim() === "") {
+			isValid = false;
+			errors.receiverAccountNumber = "Account number is required";
+		}
+
+		if (formData.receiverCurrency.trim() === "") {
+			isValid = false;
+			errors.receiverCurrency = "Select a currency";
+		}
+
+		setFormErrors(errors);
+		return isValid;
+	}
 
 	return (
 		<WithNavAndFooter>
@@ -143,6 +194,7 @@ const TransferForm = () => {
 								background: "#C59EE6",
 								color: "#333", // Text color
 								borderRadius: "60px",
+								width: "100%",
 							}}
 						>
 							<Typography
@@ -169,6 +221,11 @@ const TransferForm = () => {
 										mb: 2,
 									}}
 								/>
+								{formErrors.senderAmount !== "" && (
+									<Typography mb={2} ml={2} color="secondary" fontWeight={500}>
+										{formErrors.senderAmount}
+									</Typography>
+								)}
 								<FormControl
 									variant="outlined"
 									fullWidth
@@ -196,6 +253,11 @@ const TransferForm = () => {
 										))}
 									</Select>
 								</FormControl>
+								{formErrors.senderAccountNumber !== "" && (
+									<Typography mb={2} ml={2} color="secondary" fontWeight={500}>
+										{formErrors.senderAccountNumber}
+									</Typography>
+								)}
 								<FormControl
 									variant="outlined"
 									fullWidth
@@ -218,6 +280,11 @@ const TransferForm = () => {
 										<MenuItem value="EUR">Euro</MenuItem>
 									</Select>
 								</FormControl>
+								{formErrors.senderCurrency !== "" && (
+									<Typography mb={2} ml={2} color="secondary" fontWeight={500}>
+										{formErrors.senderCurrency}
+									</Typography>
+								)}
 							</form>
 						</Paper>
 					</Grid>
@@ -269,6 +336,7 @@ const TransferForm = () => {
 								background: "#ED737D",
 								color: "#333",
 								borderRadius: "60px",
+								width: "100%",
 							}}
 						>
 							<Typography
@@ -312,6 +380,11 @@ const TransferForm = () => {
 										mb: 2,
 									}}
 								/>
+								{formErrors.receiverAccountNumber !== "" && (
+									<Typography mb={2} ml={2} color="secondary" fontWeight={500}>
+										{formErrors.receiverAccountNumber}
+									</Typography>
+								)}
 								<FormControl
 									variant="outlined"
 									fullWidth
@@ -334,6 +407,11 @@ const TransferForm = () => {
 										<MenuItem value="EUR">Euro</MenuItem>
 									</Select>
 								</FormControl>
+								{formErrors.receiverCurrency !== "" && (
+									<Typography mb={2} ml={2} color="secondary" fontWeight={500}>
+										{formErrors.receiverCurrency}
+									</Typography>
+								)}
 							</form>
 						</Paper>
 					</Grid>
