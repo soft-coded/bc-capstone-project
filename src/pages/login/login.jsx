@@ -126,7 +126,6 @@ const LoginPage = () => {
 				{/* Right Column - Login Form */}
 				<Grid item xs={12} md={6}>
 					<Paper
-						elevation={3}
 						sx={{
 							...styles.fullHeight,
 							padding: "2rem",
@@ -153,7 +152,7 @@ const LoginPage = () => {
 								variant="body1"
 								color="textSecondary"
 								gutterBottom
-								mb={2}
+								mb={3}
 								style={{ ...styles.subheading, textAlign: "center" }}
 							>
 								Create a <i>CurrencyHub</i> account to access all features.
