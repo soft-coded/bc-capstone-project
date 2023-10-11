@@ -10,6 +10,8 @@ import SwitchCurrency from "./SwitchCurrency";
 import { CurrencyContext } from "../../components/converter-helpers/CurrencyContext";
 import useAxios from "../../components/converter-helpers/useAxios";
 
+
+// For the separator
 const Line1 = styled("div")({
 	border: `1px solid rgba(231, 231, 238, 1)`,
 	width: `100%`,
@@ -20,7 +22,10 @@ const Line1 = styled("div")({
 	align: "center",
 });
 
+
+// Main Converter Function
 const Convertor = () => {
+	// Definitions
 	const {
 		fromCurrency,
 		setFromCurrency,
@@ -32,6 +37,7 @@ const Convertor = () => {
 	const codeFromCurrency = fromCurrency.split(" ")[1];
 	const codeToCurrency = toCurrency.split(" ")[1];
 
+	// Initialize
 	useEffect(() => {
 		if (firstAmount) {
 			axios("https://api.freecurrencyapi.com/v1/latest", {
@@ -49,6 +55,7 @@ const Convertor = () => {
 		}
 	}, [firstAmount, fromCurrency, toCurrency]);
 
+	// Styles for box
 	const BOX_DIMENSIONS = {
 		width: "100%",
 		height: "calc(100vh - 100px)",
@@ -63,8 +70,12 @@ const Convertor = () => {
 		zIndex: 1,
 	};
 
+	// Styles for Paper
 	const paperStyles = {
-		padding: "5rem",
+		paddingTop: "4rem",
+		paddingRight: "4rem",
+		paddingLeft: "4rem",
+		paddingBottom: "1.5rem",
 		background: "rgb(255, 255, 255, 0.5)",
 		color: "white",
 		textAlign: "center",
@@ -74,13 +85,16 @@ const Convertor = () => {
 		position: "relative",
 		marginRight: "2rem",
 		marginLeft: "2rem",
-		// marginTop: "2rem",
+		marginTop: "2rem",
 		marginBottom: "2rem",
-		width: "100%",
-		maxHeight: "85%",
+		width: "90%",
+		// maxHeight: "75%",
 		display: "inline-block",
+		overflow:"hidden",
+		flexGrow: 1,
 	};
 
+	// Rendering
 	return (
 		<WithNavAndFooter>
 			<Box
@@ -89,7 +103,7 @@ const Convertor = () => {
 					...BOX_DIMENSIONS,
 				}}
 			>
-				<Grid container>
+				<Grid container wrap="nowrap" >
 					<Grid
 						item
 						xs={12}
@@ -137,7 +151,7 @@ const Convertor = () => {
 							display: "flex",
 							alignItems: "center",
 							justifyContent: "center",
-							marginTop: "3rem",
+							// marginTop: "3rem",
 						}}
 					>
 						<Paper
